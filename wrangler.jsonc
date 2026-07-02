@@ -1,0 +1,59 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "main": ".open-next/worker.js",
+  "name": "axto-us",
+  "compatibility_date": "2025-06-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "services": [
+    {
+      // Self-reference service binding, required by OpenNext for ISR/caching.
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "axto-us"
+    }
+  ],
+  // --- D1 Database ---
+  // Create with: wrangler d1 create axto_db
+  // Then paste the returned database_id below (and as a GitHub Actions secret D1_DATABASE_ID if you template it).
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "axto_db",
+      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+    }
+  ],
+  // --- R2 Buckets ---
+  // Create with: wrangler r2 bucket create axto-assets
+  //              wrangler r2 bucket create axto-us-opennext-cache
+  "r2_buckets": [
+    {
+      "binding": "ASSETS_BUCKET",
+      "bucket_name": "axto-assets"
+    },
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "axto-us-opennext-cache"
+    }
+  ],
+  // --- KV Namespace (sessions cache, rate limiting) ---
+  // Create with: wrangler kv namespace create AXTO_KV
+  "kv_namespaces": [
+    {
+      "binding": "AXTO_KV",
+      "id": "REPLACE_WITH_KV_NAMESPACE_ID"
+    }
+  ],
+  "images": {
+    "binding": "IMAGES"
+  },
+  "vars": {
+    "APP_URL": "https://axto.us",
+    "DEFAULT_LOCALE": "id"
+  }
+  // Secrets (never put these here) — set via: wrangler secret put <NAME>
+  // JWT_SECRET, RESEND_API_KEY, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET,
+  // MIDTRANS_SERVER_KEY, MIDTRANS_CLIENT_KEY, NOWPAYMENTS_API_KEY, NOWPAYMENTS_IPN_SECRET
+}
