@@ -9,8 +9,6 @@ declare global {
     APP_URL: string;
     DEFAULT_LOCALE: string;
 
-    JWT_SECRET: string;
-
     RESEND_API_KEY?: string;
     RESEND_FROM_EMAIL?: string;
 
