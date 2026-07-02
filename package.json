@@ -14,8 +14,8 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate:local": "wrangler d1 migrations apply axto_db --local",
     "db:migrate:remote": "wrangler d1 migrations apply axto_db --remote",
-    "db:seed:local": "wrangler d1 execute axto_db --local --file=./migrations/seed.sql",
-    "db:seed:remote": "wrangler d1 execute axto_db --remote --file=./migrations/seed.sql",
+    "db:seed:local": "wrangler d1 execute axto_db --local --file=./seed/seed.sql",
+    "db:seed:remote": "wrangler d1 execute axto_db --remote --file=./seed/seed.sql",
     "generate:seed": "tsx scripts/generate-seed.ts"
   },
   "dependencies": {

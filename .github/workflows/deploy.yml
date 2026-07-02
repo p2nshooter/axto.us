@@ -38,6 +38,16 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      # Runs as a plain SQL execute (not a tracked migration) so every deploy
+      # re-applies it — new categories/stories in seed/seed.sql go live on the
+      # next push instead of only ever running once. INSERT OR IGNORE makes
+      # re-running safe.
+      - name: Seed content data
+        run: npx wrangler d1 execute axto_db --remote --file=./seed/seed.sql
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
       - name: Deploy to Cloudflare Workers
         run: npx opennextjs-cloudflare deploy
         env:

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useTranslation } from '@/lib/i18n/LocaleProvider';
 import { BookCover } from '@/components/ui/BookCover';
 import { HeartIcon } from '@/components/ui/Icons';
+import { AGE_BANDS } from '@/content/categories';
 
 type Category = { id: string; slug: string; icon: string; nameEn: string; nameId: string };
 type Book = {
@@ -16,6 +17,8 @@ type Book = {
   coverEmoji: string;
   coverPalette: string;
   isPremium: boolean;
+  ageMin: number;
+  ageMax: number;
 };
 
 export function LibraryClient({
@@ -31,6 +34,7 @@ export function LibraryClient({
 }) {
   const { t, locale } = useTranslation();
   const [active, setActive] = useState('all');
+  const [activeAge, setActiveAge] = useState('all');
   const [query, setQuery] = useState('');
   const [favorites, setFavorites] = useState(new Set(favoriteIds));
 
@@ -43,12 +47,16 @@ export function LibraryClient({
       const cat = categories.find((c) => c.slug === active);
       if (cat) list = list.filter((b) => b.categoryId === cat.id);
     }
+    if (activeAge !== 'all') {
+      const band = AGE_BANDS.find((a) => a.slug === activeAge);
+      if (band) list = list.filter((b) => b.ageMin <= band.max && b.ageMax >= band.min);
+    }
     if (query.trim()) {
       const q = query.trim().toLowerCase();
       list = list.filter((b) => title(b).toLowerCase().includes(q));
     }
     return list;
-  }, [active, query, books, categories, locale]);
+  }, [active, activeAge, query, books, categories, locale]);
 
   async function toggleFavorite(bookId: string) {
     setFavorites((prev) => {
@@ -73,6 +81,28 @@ export function LibraryClient({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
+      </div>
+
+      <div className="mb-3 flex flex-wrap gap-2">
+        <button
+          onClick={() => setActiveAge('all')}
+          className={`rounded-full px-4 py-1.5 text-sm font-medium ${
+            activeAge === 'all' ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-white text-slate-600 dark:bg-slate-800 dark:text-slate-300'
+          }`}
+        >
+          {locale === 'id' ? 'Semua Usia' : 'All Ages'}
+        </button>
+        {AGE_BANDS.map((band) => (
+          <button
+            key={band.slug}
+            onClick={() => setActiveAge(band.slug)}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${
+              activeAge === band.slug ? 'bg-slate-800 text-white dark:bg-slate-200 dark:text-slate-900' : 'bg-white text-slate-600 dark:bg-slate-800 dark:text-slate-300'
+            }`}
+          >
+            {band.icon} {locale === 'id' ? band.nameId : band.nameEn}
+          </button>
+        ))}
       </div>
 
       <div className="mb-6 flex flex-wrap gap-2">

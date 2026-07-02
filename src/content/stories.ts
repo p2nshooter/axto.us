@@ -908,5 +908,459 @@ export const STORIES: Story[] = [
         correctIndex: 1
       }
     ]
+  },
+  {
+    slug: 'counting-stars-with-mira',
+    titleEn: 'Counting Stars with Mira',
+    titleId: 'Menghitung Bintang Bersama Mira',
+    descriptionEn: 'Mira and her grandfather count stars one by one and discover that numbers can be magical.',
+    descriptionId: 'Mira dan kakeknya menghitung bintang satu per satu dan menemukan bahwa angka bisa terasa ajaib.',
+    categorySlug: 'numbers',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '⭐',
+    coverPalette: 'cosmic',
+    ageMin: 3,
+    ageMax: 6,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'mira-1',
+        textEn: 'Every clear night, Mira climbed onto the roof with Grandpa to look at the sky.',
+        textId: 'Setiap malam cerah, Mira naik ke atap bersama Kakek untuk memandangi langit.'
+      },
+      {
+        illustrationSeed: 'mira-2',
+        textEn: '"Let\'s count the stars," said Grandpa. "One star, two stars, three stars!"',
+        textId: '"Ayo kita hitung bintangnya," kata Kakek. "Satu bintang, dua bintang, tiga bintang!"'
+      },
+      {
+        illustrationSeed: 'mira-3',
+        textEn: 'Mira giggled and pointed at four twinkling stars shaped like a kite, then five more near the moon.',
+        textId: 'Mira tertawa dan menunjuk empat bintang berkelip berbentuk layang-layang, lalu lima lagi dekat bulan.'
+      },
+      {
+        illustrationSeed: 'mira-4',
+        textEn: 'By the time they reached ten, Mira could count all on her own, without any help at all.',
+        textId: 'Saat mereka sampai hitungan sepuluh, Mira sudah bisa menghitung sendiri tanpa bantuan.'
+      },
+      {
+        illustrationSeed: 'mira-5',
+        textEn: '"Numbers help us see how big the world is," said Grandpa, "from one tiny star to a thousand."',
+        textId: '"Angka membantu kita melihat seberapa besar dunia ini," kata Kakek, "dari satu bintang kecil sampai seribu."'
+      },
+      {
+        illustrationSeed: 'mira-6',
+        textEn: 'From that night on, Mira counted everything she loved — her toys, her books, and her stars.',
+        textId: 'Sejak malam itu, Mira menghitung semua yang ia sukai — mainannya, bukunya, dan bintang-bintangnya.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Who did Mira count stars with?',
+        questionId: 'Bersama siapa Mira menghitung bintang?',
+        optionsEn: ['Her teacher', 'Grandpa', 'Her dog', 'A neighbor'],
+        optionsId: ['Gurunya', 'Kakek', 'Anjingnya', 'Tetangga'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How many stars could Mira count by the end?',
+        questionId: 'Sampai angka berapa Mira bisa menghitung di akhir cerita?',
+        optionsEn: ['Five', 'Ten', 'Twenty', 'One hundred'],
+        optionsId: ['Lima', 'Sepuluh', 'Dua puluh', 'Seratus'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did Mira start counting after that night?',
+        questionId: 'Apa yang mulai dihitung Mira setelah malam itu?',
+        optionsEn: ['Only stars', 'Everything she loved', 'Nothing', 'Only numbers on a clock'],
+        optionsId: ['Hanya bintang', 'Semua yang ia sukai', 'Tidak ada', 'Hanya angka di jam'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'two-best-friends-and-one-umbrella',
+    titleEn: 'Two Best Friends and One Umbrella',
+    titleId: 'Dua Sahabat dan Satu Payung',
+    descriptionEn: 'When sudden rain catches two friends with only one umbrella, they learn that sharing makes any storm smaller.',
+    descriptionId: 'Saat hujan tiba-tiba turun dan hanya ada satu payung, dua sahabat belajar bahwa berbagi membuat badai apa pun terasa lebih kecil.',
+    categorySlug: 'friendship',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '☂️',
+    coverPalette: 'ocean',
+    ageMin: 3,
+    ageMax: 7,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'friends-1',
+        textEn: 'Dara and Beni walked home from school together every single day, rain or shine.',
+        textId: 'Dara dan Beni selalu berjalan pulang sekolah bersama setiap hari, hujan atau cerah.'
+      },
+      {
+        illustrationSeed: 'friends-2',
+        textEn: 'One afternoon, dark clouds rolled in fast, and only Dara remembered to bring an umbrella.',
+        textId: 'Suatu sore, awan gelap datang dengan cepat, dan hanya Dara yang ingat membawa payung.'
+      },
+      {
+        illustrationSeed: 'friends-3',
+        textEn: '"You take it," said Dara. "No, you take it," said Beni. Neither wanted the other to get wet.',
+        textId: '"Kamu pakai saja," kata Dara. "Tidak, kamu saja," kata Beni. Tak ada yang mau temannya basah.'
+      },
+      {
+        illustrationSeed: 'friends-4',
+        textEn: 'Then Dara had an idea. "Let\'s hold it together, in the middle, so we both stay dry!"',
+        textId: 'Lalu Dara punya ide. "Ayo kita pegang bersama, di tengah, supaya kita berdua tetap kering!"'
+      },
+      {
+        illustrationSeed: 'friends-5',
+        textEn: 'They laughed as they splashed through puddles, shoulder to shoulder under the small umbrella.',
+        textId: 'Mereka tertawa sambil menerjang genangan air, berdampingan di bawah payung kecil itu.'
+      },
+      {
+        illustrationSeed: 'friends-6',
+        textEn: 'They reached home a little damp at the edges, but happier than any dry walk alone.',
+        textId: 'Mereka sampai rumah dengan sedikit basah di ujung baju, tapi lebih bahagia daripada jalan sendirian dalam keadaan kering.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Who remembered to bring an umbrella?',
+        questionId: 'Siapa yang ingat membawa payung?',
+        optionsEn: ['Beni', 'Dara', 'Their teacher', 'No one'],
+        optionsId: ['Beni', 'Dara', 'Gurunya', 'Tidak ada'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How did they solve the umbrella problem?',
+        questionId: 'Bagaimana mereka menyelesaikan masalah payung itu?',
+        optionsEn: ['They ran home separately', 'They held it together', 'They waited for the rain to stop', 'They called a taxi'],
+        optionsId: ['Mereka lari pulang sendiri-sendiri', 'Mereka memegangnya bersama', 'Mereka menunggu hujan reda', 'Mereka memanggil taksi'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What is the lesson of this story?',
+        questionId: 'Apa pelajaran dari cerita ini?',
+        optionsEn: [
+          'Always walk home alone',
+          'Sharing makes hard moments easier together',
+          'Umbrellas are not useful',
+          'Rain should be avoided at all costs'
+        ],
+        optionsId: [
+          'Selalu jalan pulang sendirian',
+          'Berbagi membuat saat sulit terasa lebih ringan bersama',
+          'Payung tidak berguna',
+          'Hujan harus dihindari dengan segala cara'
+        ],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'captain-kindness-saves-the-day',
+    titleEn: 'Captain Kindness Saves the Day',
+    titleId: 'Captain Kindness Menyelamatkan Hari',
+    descriptionEn: 'A boy discovers that his cardboard cape and a kind heart make him a real kind of hero.',
+    descriptionId: 'Seorang anak menyadari bahwa jubah kardusnya dan hati yang baik menjadikannya pahlawan sungguhan.',
+    categorySlug: 'superheroes',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🦸',
+    coverPalette: 'dusk',
+    ageMin: 4,
+    ageMax: 8,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'hero-1',
+        textEn: 'Eli wore a cardboard cape everywhere he went, pretending to be a mighty superhero.',
+        textId: 'Eli memakai jubah kardus ke mana pun ia pergi, berpura-pura menjadi pahlawan super yang hebat.'
+      },
+      {
+        illustrationSeed: 'hero-2',
+        textEn: 'He practiced flying poses and superhero landings, but he had never actually saved anyone.',
+        textId: 'Ia berlatih pose terbang dan gaya mendarat pahlawan, tapi belum pernah benar-benar menolong siapa pun.'
+      },
+      {
+        illustrationSeed: 'hero-3',
+        textEn: 'At the park, he saw a little girl crying because her balloon had floated into a tall tree.',
+        textId: 'Di taman, ia melihat seorang gadis kecil menangis karena balonnya tersangkut di pohon tinggi.'
+      },
+      {
+        illustrationSeed: 'hero-4',
+        textEn: '"Don\'t worry! Captain Kindness is here!" Eli called out, and he found a long stick to help.',
+        textId: '"Jangan khawatir! Captain Kindness datang!" seru Eli, dan ia mencari tongkat panjang untuk membantu.'
+      },
+      {
+        illustrationSeed: 'hero-5',
+        textEn: 'With a gentle poke, the balloon floated back down, and the little girl smiled brightly.',
+        textId: 'Dengan colekan lembut, balon itu melayang turun kembali, dan gadis kecil itu tersenyum cerah.'
+      },
+      {
+        illustrationSeed: 'hero-6',
+        textEn: 'Eli realized his real superpower was not flying — it was noticing when someone needed help.',
+        textId: 'Eli menyadari kekuatan sejatinya bukanlah terbang — melainkan peka saat ada yang membutuhkan bantuan.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What did Eli wear as his superhero costume?',
+        questionId: 'Apa yang dipakai Eli sebagai kostum pahlawannya?',
+        optionsEn: ['A cardboard cape', 'A real cape', 'A crown', 'Wings'],
+        optionsId: ['Jubah kardus', 'Jubah sungguhan', 'Mahkota', 'Sayap'],
+        correctIndex: 0
+      },
+      {
+        questionEn: 'How did Eli help the little girl?',
+        questionId: 'Bagaimana Eli membantu gadis kecil itu?',
+        optionsEn: ['He flew up to get the balloon', 'He used a long stick', 'He called her parents', 'He gave her a new balloon'],
+        optionsId: ['Ia terbang mengambil balon', 'Ia menggunakan tongkat panjang', 'Ia memanggil orang tuanya', 'Ia memberi balon baru'],
+        correctIndex: 1
+      },
+      {
+        questionEn: "What did Eli learn was his real superpower?",
+        questionId: 'Apa yang Eli sadari sebagai kekuatan sejatinya?',
+        optionsEn: ['Flying', 'Noticing when someone needs help', 'Being invisible', 'Super strength'],
+        optionsId: ['Terbang', 'Peka saat ada yang butuh bantuan', 'Menghilang', 'Kekuatan super'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'trucky-the-brave-fire-truck',
+    titleEn: 'Trucky the Brave Fire Truck',
+    titleId: 'Trucky, Mobil Pemadam yang Berani',
+    descriptionEn: 'A young fire truck who feels too small learns that courage, not size, is what makes a rescue vehicle brave.',
+    descriptionId: 'Sebuah mobil pemadam kebakaran kecil yang merasa terlalu mungil belajar bahwa keberanian, bukan ukuran, yang membuatnya hebat.',
+    categorySlug: 'vehicles',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🚒',
+    coverPalette: 'candy',
+    ageMin: 3,
+    ageMax: 7,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'truck-1',
+        textEn: 'At Maple Street Fire Station, the newest fire truck was small and shiny red. His name was Trucky.',
+        textId: 'Di Stasiun Pemadam Jalan Maple, mobil pemadam terbaru berukuran kecil dan merah mengkilap. Namanya Trucky.'
+      },
+      {
+        illustrationSeed: 'truck-2',
+        textEn: 'The big trucks could carry tall ladders and huge hoses. Trucky worried he was too small to help.',
+        textId: 'Truk-truk besar bisa membawa tangga tinggi dan selang raksasa. Trucky khawatir ia terlalu kecil untuk membantu.'
+      },
+      {
+        illustrationSeed: 'truck-3',
+        textEn: 'One day, an alarm rang for a kitten stuck in a narrow drainpipe that no big truck could reach.',
+        textId: 'Suatu hari, alarm berbunyi untuk seekor kucing kecil yang terjebak di pipa saluran sempit yang tak terjangkau truk besar.'
+      },
+      {
+        illustrationSeed: 'truck-4',
+        textEn: '"This is a job for someone small and brave," said the fire chief, looking right at Trucky.',
+        textId: '"Ini tugas untuk yang kecil dan berani," kata kepala pemadam, menatap langsung ke Trucky.'
+      },
+      {
+        illustrationSeed: 'truck-5',
+        textEn: 'Trucky squeezed carefully through the narrow lane, and his crew gently rescued the frightened kitten.',
+        textId: 'Trucky menyelinap hati-hati melewati gang sempit, dan krunya menyelamatkan kucing ketakutan itu dengan lembut.'
+      },
+      {
+        illustrationSeed: 'truck-6',
+        textEn: 'That day, Trucky learned that every size has its own superpower — his was fitting where big trucks could not.',
+        textId: 'Hari itu, Trucky belajar bahwa setiap ukuran punya kekuatannya sendiri — miliknya adalah bisa masuk ke tempat yang tak terjangkau truk besar.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: "What was Trucky worried about?",
+        questionId: 'Apa yang dikhawatirkan Trucky?',
+        optionsEn: ['Being too loud', 'Being too small to help', 'Being too fast', 'Being too red'],
+        optionsId: ['Terlalu berisik', 'Terlalu kecil untuk membantu', 'Terlalu cepat', 'Terlalu merah'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'Who needed rescuing in the drainpipe?',
+        questionId: 'Siapa yang perlu diselamatkan di pipa saluran?',
+        optionsEn: ['A kitten', 'A puppy', 'A bird', 'A ball'],
+        optionsId: ['Seekor kucing', 'Seekor anjing', 'Seekor burung', 'Sebuah bola'],
+        correctIndex: 0
+      },
+      {
+        questionEn: 'What did Trucky learn about his size?',
+        questionId: 'Apa yang dipelajari Trucky tentang ukurannya?',
+        optionsEn: [
+          'Small size has its own superpower',
+          'He should become bigger',
+          'Size does not matter at all',
+          'Only big trucks can help'
+        ],
+        optionsId: [
+          'Ukuran kecil punya kekuatannya sendiri',
+          'Ia harus menjadi lebih besar',
+          'Ukuran sama sekali tidak penting',
+          'Hanya truk besar yang bisa membantu'
+        ],
+        correctIndex: 0
+      }
+    ]
+  },
+  {
+    slug: 'the-drum-that-traveled-the-world',
+    titleEn: 'The Drum That Traveled the World',
+    titleId: 'Gendang yang Berkeliling Dunia',
+    descriptionEn: "A magical drum passes from child to child around the world, teaching that music speaks every language.",
+    descriptionId: 'Sebuah gendang ajaib berpindah dari satu anak ke anak lain di seluruh dunia, mengajarkan bahwa musik bisa dimengerti semua orang.',
+    categorySlug: 'world-cultures',
+    authorSlug: 'siti-aminah',
+    coverEmoji: '🥁',
+    coverPalette: 'meadow',
+    ageMin: 4,
+    ageMax: 9,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'drum-1',
+        textEn: 'In a village by the mountains, a boy named Bayu carved a small wooden drum from a fallen branch.',
+        textId: 'Di sebuah desa dekat pegunungan, seorang anak bernama Bayu mengukir gendang kecil dari kayu dahan yang jatuh.'
+      },
+      {
+        illustrationSeed: 'drum-2',
+        textEn: 'He played a joyful beat, and the sound traveled on the wind, over oceans, to a girl in West Africa.',
+        textId: 'Ia memainkan irama gembira, dan suaranya terbawa angin, melintasi lautan, hingga ke seorang gadis di Afrika Barat.'
+      },
+      {
+        illustrationSeed: 'drum-3',
+        textEn: 'She answered with her own rhythm on a talking drum, and children in Brazil began to dance to it.',
+        textId: 'Ia membalas dengan iramanya sendiri di gendang berbicara, dan anak-anak di Brasil mulai menari mengikutinya.'
+      },
+      {
+        illustrationSeed: 'drum-4',
+        textEn: 'From Brazil, the beat reached Japan, where a boy added the tap of his taiko drum to the song.',
+        textId: 'Dari Brasil, irama itu sampai ke Jepang, tempat seorang anak menambahkan ketukan taiko-nya ke lagu tersebut.'
+      },
+      {
+        illustrationSeed: 'drum-5',
+        textEn: 'One by one, children from every corner of the world joined in, each adding their own special rhythm.',
+        textId: 'Satu per satu, anak-anak dari setiap penjuru dunia ikut bergabung, masing-masing menambahkan irama khas mereka.'
+      },
+      {
+        illustrationSeed: 'drum-6',
+        textEn: 'Though none of them spoke the same words, together they made one beautiful song everyone understood.',
+        textId: 'Meski tak satu pun berbicara bahasa yang sama, bersama-sama mereka menciptakan satu lagu indah yang dimengerti semua orang.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What did Bayu make the drum from?',
+        questionId: 'Dari apa Bayu membuat gendangnya?',
+        optionsEn: ['Metal', 'A fallen branch', 'Plastic', 'Stone'],
+        optionsId: ['Logam', 'Dahan yang jatuh', 'Plastik', 'Batu'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'Which country did the rhythm travel to first?',
+        questionId: 'Ke negara mana irama itu pertama kali sampai?',
+        optionsEn: ['Japan', 'West Africa', 'Brazil', 'Indonesia'],
+        optionsId: ['Jepang', 'Afrika Barat', 'Brasil', 'Indonesia'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What is the message of the story?',
+        questionId: 'Apa pesan dari cerita ini?',
+        optionsEn: [
+          'Only one country can make music',
+          'Music can be understood across every language',
+          'Drums are difficult to play',
+          'Children should not share instruments'
+        ],
+        optionsId: [
+          'Hanya satu negara yang bisa membuat musik',
+          'Musik bisa dimengerti melintasi semua bahasa',
+          'Gendang sulit dimainkan',
+          'Anak-anak tidak boleh berbagi alat musik'
+        ],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'the-sneezing-elephant',
+    titleEn: 'The Sneezing Elephant',
+    titleId: 'Gajah yang Bersin',
+    descriptionEn: 'A silly, giant sneeze causes a chain of giggles across the savanna in this gentle story about laughing together.',
+    descriptionId: 'Sebuah bersin raksasa yang konyol memicu deretan tawa di seluruh savana dalam cerita hangat tentang tertawa bersama.',
+    categorySlug: 'humor',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🐘',
+    coverPalette: 'sunrise',
+    ageMin: 2,
+    ageMax: 6,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'elephant-1',
+        textEn: 'Ellie the elephant felt a tickle in her big trunk. "Ah... ah... AH-CHOO!"',
+        textId: 'Ellie si gajah merasa geli di belalainya yang besar. "Hah... hah... HATCHIII!"'
+      },
+      {
+        illustrationSeed: 'elephant-2',
+        textEn: 'The sneeze was SO big that it blew all the leaves off the nearest tree in one gust!',
+        textId: 'Bersinnya begitu besar sehingga menerbangkan semua daun dari pohon terdekat dalam sekali hembusan!'
+      },
+      {
+        illustrationSeed: 'elephant-3',
+        textEn: 'A monkey fell off his branch laughing, which made a giraffe laugh so hard she got hiccups.',
+        textId: 'Seekor monyet jatuh dari dahannya karena tertawa, membuat seekor jerapah tertawa begitu keras sampai cegukan.'
+      },
+      {
+        illustrationSeed: 'elephant-4',
+        textEn: 'The giraffe\'s "HIC! HIC!" made a family of zebras giggle so much they rolled in the dust.',
+        textId: '"HIK! HIK!" jerapah itu membuat sekeluarga zebra tertawa terpingkal-pingkal hingga berguling di tanah.'
+      },
+      {
+        illustrationSeed: 'elephant-5',
+        textEn: 'Soon the whole savanna was laughing together, though none of them quite remembered why anymore!',
+        textId: 'Tak lama, seluruh savana tertawa bersama, meski tak satu pun lagi ingat kenapa mereka mulai tertawa!'
+      },
+      {
+        illustrationSeed: 'elephant-6',
+        textEn: '"Bless you, Ellie," they all said at last, still smiling. One little sneeze had made everyone\'s day brighter.',
+        textId: '"Semoga sehat, Ellie," kata mereka semua akhirnya, masih tersenyum. Satu bersin kecil membuat hari semua orang lebih cerah.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: "What happened when Ellie sneezed?",
+        questionId: 'Apa yang terjadi saat Ellie bersin?',
+        optionsEn: ['Nothing happened', 'It blew leaves off a tree', 'It started raining', 'All the animals ran away'],
+        optionsId: ['Tidak ada yang terjadi', 'Menerbangkan daun dari pohon', 'Mulai hujan', 'Semua hewan lari'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What happened to the giraffe?',
+        questionId: 'Apa yang terjadi pada jerapah?',
+        optionsEn: ['She got hiccups from laughing', 'She fell asleep', 'She sneezed too', 'She got scared'],
+        optionsId: ['Ia cegukan karena tertawa', 'Ia tertidur', 'Ia juga bersin', 'Ia ketakutan'],
+        correctIndex: 0
+      },
+      {
+        questionEn: 'What is this story mainly about?',
+        questionId: 'Cerita ini terutama tentang apa?',
+        optionsEn: [
+          'A scary storm',
+          'A funny chain reaction of laughter',
+          'A dangerous adventure',
+          'A sad goodbye'
+        ],
+        optionsId: [
+          'Badai yang menakutkan',
+          'Reaksi berantai tawa yang lucu',
+          'Petualangan berbahaya',
+          'Perpisahan yang sedih'
+        ],
+        correctIndex: 1
+      }
+    ]
   }
 ];
