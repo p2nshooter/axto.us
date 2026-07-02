@@ -25,17 +25,12 @@
       "database_id": "eea18df3-0e83-4db5-abea-4c13a2dcc6c8"
     }
   ],
-  // --- R2 Buckets ---
+  // --- R2 Bucket (book covers, illustrations, uploaded assets) ---
   // Create with: wrangler r2 bucket create axto-assets
-  //              wrangler r2 bucket create axto-us-opennext-cache
   "r2_buckets": [
     {
       "binding": "ASSETS_BUCKET",
       "bucket_name": "axto-assets"
-    },
-    {
-      "binding": "NEXT_INC_CACHE_R2_BUCKET",
-      "bucket_name": "axto-us-opennext-cache"
     }
   ],
   // --- KV Namespace (sessions cache, rate limiting) ---
@@ -49,14 +44,10 @@
   "images": {
     "binding": "IMAGES"
   },
-  // Binds axto.us straight to this Worker — Cloudflare creates/updates the
-  // DNS record for you on deploy since the zone is already on Cloudflare.
-  // Requires the CLOUDFLARE_API_TOKEN to include Zone:DNS edit + Zone:Zone
-  // read for the axto.us zone (in addition to Account:Workers Scripts edit).
-  "routes": [
-    { "pattern": "axto.us", "custom_domain": true },
-    { "pattern": "www.axto.us", "custom_domain": true }
-  ],
+  // NOTE: axto.us is attached as a custom domain from the Cloudflare dashboard
+  // (Workers & Pages → axto-us → Settings → Domains & Routes → Add → Custom
+  // domain), which needs no API-token changes and auto-creates the DNS record.
+  // Binding it here instead would require Zone:DNS Edit on the API token.
   "vars": {
     "APP_URL": "https://axto.us",
     "DEFAULT_LOCALE": "id"
