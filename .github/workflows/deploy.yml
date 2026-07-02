@@ -58,7 +58,6 @@ jobs:
               printf '%s' "$value" | npx wrangler secret put "$name"
             fi
           }
-          put_secret JWT_SECRET "${{ secrets.JWT_SECRET }}"
           put_secret RESEND_API_KEY "${{ secrets.RESEND_API_KEY }}"
           put_secret RESEND_FROM_EMAIL "${{ secrets.RESEND_FROM_EMAIL }}"
           put_secret PAYPAL_CLIENT_ID "${{ secrets.PAYPAL_CLIENT_ID }}"

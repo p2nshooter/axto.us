@@ -58,7 +58,6 @@ Ada 2 cara mengisi secret ini — pilih salah satu:
 
 | Secret | Untuk fitur |
 |---|---|
-| `JWT_SECRET` | *(disiapkan untuk kebutuhan masa depan; sesi saat ini sudah aman via token acak + hash di D1)* |
 | `RESEND_API_KEY`, `RESEND_FROM_EMAIL` | Email reset password & welcome email. Tanpa ini, link reset hanya tercatat di log server |
 | `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`, `PAYPAL_MODE` (`sandbox`/`live`) | Pembayaran PayPal |
 | `MIDTRANS_SERVER_KEY`, `MIDTRANS_CLIENT_KEY`, `MIDTRANS_IS_PRODUCTION` | Pembayaran Midtrans (kartu/bank/e-wallet) |
