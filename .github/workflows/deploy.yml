@@ -43,3 +43,32 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # Pushes app secrets (auth, email, payments) from GitHub Actions secrets into
+      # the deployed Worker. Add each one under Settings → Secrets and variables →
+      # Actions in this repo; any left unset here are simply skipped (feature stays
+      # disabled/degraded until configured — see README "Secrets" section).
+      - name: Sync Worker secrets
+        run: |
+          set -e
+          put_secret() {
+            name="$1"
+            value="$2"
+            if [ -n "$value" ]; then
+              printf '%s' "$value" | npx wrangler secret put "$name"
+            fi
+          }
+          put_secret JWT_SECRET "${{ secrets.JWT_SECRET }}"
+          put_secret RESEND_API_KEY "${{ secrets.RESEND_API_KEY }}"
+          put_secret RESEND_FROM_EMAIL "${{ secrets.RESEND_FROM_EMAIL }}"
+          put_secret PAYPAL_CLIENT_ID "${{ secrets.PAYPAL_CLIENT_ID }}"
+          put_secret PAYPAL_CLIENT_SECRET "${{ secrets.PAYPAL_CLIENT_SECRET }}"
+          put_secret PAYPAL_MODE "${{ secrets.PAYPAL_MODE }}"
+          put_secret MIDTRANS_SERVER_KEY "${{ secrets.MIDTRANS_SERVER_KEY }}"
+          put_secret MIDTRANS_CLIENT_KEY "${{ secrets.MIDTRANS_CLIENT_KEY }}"
+          put_secret MIDTRANS_IS_PRODUCTION "${{ secrets.MIDTRANS_IS_PRODUCTION }}"
+          put_secret NOWPAYMENTS_API_KEY "${{ secrets.NOWPAYMENTS_API_KEY }}"
+          put_secret NOWPAYMENTS_IPN_SECRET "${{ secrets.NOWPAYMENTS_IPN_SECRET }}"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
