@@ -49,6 +49,14 @@
   "images": {
     "binding": "IMAGES"
   },
+  // Binds axto.us straight to this Worker — Cloudflare creates/updates the
+  // DNS record for you on deploy since the zone is already on Cloudflare.
+  // Requires the CLOUDFLARE_API_TOKEN to include Zone:DNS edit + Zone:Zone
+  // read for the axto.us zone (in addition to Account:Workers Scripts edit).
+  "routes": [
+    { "pattern": "axto.us", "custom_domain": true },
+    { "pattern": "www.axto.us", "custom_domain": true }
+  ],
   "vars": {
     "APP_URL": "https://axto.us",
     "DEFAULT_LOCALE": "id"
