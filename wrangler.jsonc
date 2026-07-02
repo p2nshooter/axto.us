@@ -22,7 +22,7 @@
     {
       "binding": "DB",
       "database_name": "axto_db",
-      "database_id": "REPLACE_WITH_D1_DATABASE_ID"
+      "database_id": "eea18df3-0e83-4db5-abea-4c13a2dcc6c8"
     }
   ],
   // --- R2 Buckets ---
@@ -43,7 +43,7 @@
   "kv_namespaces": [
     {
       "binding": "AXTO_KV",
-      "id": "REPLACE_WITH_KV_NAMESPACE_ID"
+      "id": "ff60831a96b24e0ea0ccd6e65c585817"
     }
   ],
   "images": {
