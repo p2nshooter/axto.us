@@ -1,5 +1,5 @@
 /**
- * Generates migrations/seed.sql from the content in src/content/*.
+ * Generates seed/seed.sql from the content in src/content/*.
  * Run with: npm run generate:seed
  *
  * Prints the freshly-generated admin bootstrap password to stdout once —
@@ -92,9 +92,9 @@ lines.push(
   `INSERT OR IGNORE INTO promo_codes (id, code, discount_percent, max_uses, used_count, active, created_at) VALUES ('promo_welcome10', 'WELCOME10', 10, 1000, 0, 1, ${now});`
 );
 
-writeFileSync(path.join(__dirname, '..', 'migrations', 'seed.sql'), lines.join('\n') + '\n');
+writeFileSync(path.join(__dirname, '..', 'seed', 'seed.sql'), lines.join('\n') + '\n');
 
-console.log(`Wrote migrations/seed.sql (${STORIES.length} books, ${CATEGORIES.length} categories, ${AUTHORS.length} authors).`);
+console.log(`Wrote seed/seed.sql (${STORIES.length} books, ${CATEGORIES.length} categories, ${AUTHORS.length} authors).`);
 console.log('');
 console.log('=== ADMIN BOOTSTRAP CREDENTIALS (shown once, not saved to any file) ===');
 console.log(`  email:    ${adminEmail}`);

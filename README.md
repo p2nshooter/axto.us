@@ -18,8 +18,9 @@ sebagai Cloudflare Worker (Pages/Workers + D1 + R2 + KV) lewat [OpenNext](https:
 
 ```bash
 npm install
-npm run generate:seed        # membuat migrations/seed.sql dari src/content/*
-npm run db:migrate:local     # migrasi + seed ke D1 lokal (simulasi)
+npm run generate:seed        # membuat seed/seed.sql dari src/content/*
+npm run db:migrate:local     # migrasi skema ke D1 lokal (simulasi)
+npm run db:seed:local        # isi data (kategori, buku, admin) ke D1 lokal
 npm run dev                  # Next dev server biasa (fitur non-Cloudflare)
 # atau, untuk simulasi penuh dengan binding D1/R2/KV:
 npm run cf:build && npx wrangler dev
@@ -36,13 +37,18 @@ npm run cf:build && npx wrangler dev
 
 ## Deploy otomatis (GitHub Actions)
 
-`.github/workflows/deploy.yml` otomatis build, migrasi D1, dan deploy ke Cloudflare setiap
-push ke branch `main`. Perlu 2 secret di GitHub repo (Settings → Secrets and variables → Actions):
+`.github/workflows/deploy.yml` otomatis build, migrasi skema D1, isi data (seed), deploy ke
+Cloudflare, lalu sync secret aplikasi — setiap push ke branch `main`. Perlu 2 secret di GitHub
+repo (Settings → Secrets and variables → Actions):
 
 | Secret | Keterangan |
 |---|---|
-| `CLOUDFLARE_API_TOKEN` | Token dengan izin Workers Scripts + D1 + R2 (buat di dashboard Cloudflare) |
+| `CLOUDFLARE_API_TOKEN` | Token dengan izin **Account → Workers Scripts: Edit**, **Account → D1: Edit**, **Account → Workers R2 Storage: Edit**, **Account → Workers KV Storage: Edit**, dan **Zone → DNS: Edit** + **Zone → Zone: Read** (di-scope ke zona `axto.us`, dibutuhkan untuk custom domain otomatis) |
 | `CLOUDFLARE_ACCOUNT_ID` | Account ID Cloudflare Anda |
+
+`axto.us` di-bind langsung sebagai custom domain Worker lewat `routes` di `wrangler.jsonc` —
+tidak perlu setting CNAME manual, Cloudflare yang mengatur DNS-nya otomatis saat deploy
+(asalkan token punya izin Zone di atas).
 
 ## Secrets aplikasi (wajib diisi agar fitur benar-benar live)
 
@@ -76,7 +82,7 @@ yang hardcode di kode.
 
 ## Akun admin awal
 
-Satu akun admin dibuat otomatis oleh `migrations/seed.sql` (email `admin@axto.us`). Password
+Satu akun admin dibuat otomatis oleh `seed/seed.sql` (email `admin@axto.us`). Password
 acak dicetak sekali oleh `npm run generate:seed` — **tidak disimpan di file manapun**. Segera
 login dan ganti password lewat `/admin/settings` setelah deploy pertama.
 
@@ -88,6 +94,7 @@ src/
   components/      # UI per area (landing, auth, portal, admin, reader)
   lib/             # db (drizzle), auth, i18n, payments, data access
   content/         # cerita + kategori + penulis (sumber seed)
-migrations/         # schema D1 (drizzle-kit generate) + seed.sql (generate:seed)
+migrations/         # schema D1 (drizzle-kit generate)
+seed/               # data konten: kategori, buku, admin (generate:seed) — re-run tiap deploy
 scripts/            # generate-seed.ts
 ```
