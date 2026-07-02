@@ -1,14 +1,29 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from '@/lib/i18n/LocaleProvider';
 import type { Locale } from '@/lib/i18n/locales';
 
 type DefState = { word: string; loading: boolean; definition?: string; error?: string } | null;
 
-export function WordHelperText({ text, locale }: { text: string; locale: Locale }) {
+export function WordHelperText({
+  sentences,
+  activeIndex,
+  locale
+}: {
+  sentences: string[];
+  activeIndex: number | null;
+  locale: Locale;
+}) {
   const { t } = useTranslation();
   const [def, setDef] = useState<DefState>(null);
+  const activeRef = useRef<HTMLSpanElement | null>(null);
+
+  useEffect(() => {
+    if (activeIndex !== null && activeRef.current) {
+      activeRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [activeIndex]);
 
   async function onWordClick(rawWord: string) {
     const word = rawWord.replace(/[^\p{L}\p{N}'-]/gu, '');
@@ -31,25 +46,31 @@ export function WordHelperText({ text, locale }: { text: string; locale: Locale 
     }
   }
 
-  const words = text.split(/(\s+)/);
-
   return (
     <div>
       <p>
-        {words.map((w, i) =>
-          /\s+/.test(w) ? (
-            <span key={i}>{w}</span>
-          ) : (
-            <button
-              key={i}
-              type="button"
-              onClick={() => onWordClick(w)}
-              className="rounded px-0.5 transition hover:bg-yellow-100 dark:hover:bg-yellow-500/20"
-            >
-              {w}
-            </button>
-          )
-        )}
+        {sentences.map((sentence, si) => (
+          <span
+            key={si}
+            ref={si === activeIndex ? activeRef : undefined}
+            className={`rounded transition-colors ${si === activeIndex ? 'bg-yellow-100 dark:bg-yellow-500/20' : ''}`}
+          >
+            {sentence.split(/(\s+)/).map((w, wi) =>
+              /\s+/.test(w) ? (
+                <span key={wi}>{w}</span>
+              ) : (
+                <button
+                  key={wi}
+                  type="button"
+                  onClick={() => onWordClick(w)}
+                  className="rounded px-0.5 transition hover:bg-brand-100 dark:hover:bg-brand-500/20"
+                >
+                  {w}
+                </button>
+              )
+            )}{' '}
+          </span>
+        ))}
       </p>
 
       {def && (

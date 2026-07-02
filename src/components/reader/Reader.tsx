@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/lib/i18n/LocaleProvider';
 import { PlayIcon, PauseIcon, HeartIcon, MoonIcon, DownloadIcon } from '@/components/ui/Icons';
-import { speak, stopSpeaking, isSpeechSupported } from '@/lib/tts/webSpeech';
+import { speakSentences, stopSpeaking, isSpeechSupported } from '@/lib/tts/webSpeech';
+import { splitIntoSentences } from '@/lib/text';
 import { saveBookOffline, isBookSavedOffline } from '@/lib/offline';
 import { WordHelperText } from './WordHelperText';
 import { QuizPanel } from './QuizPanel';
@@ -68,8 +69,12 @@ export function Reader({
   const [nightMode, setNightMode] = useState(false);
   const [favorited, setFavorited] = useState(isFavorited);
   const [playing, setPlaying] = useState(false);
+  const [autoAdvance, setAutoAdvance] = useState(true);
+  const [activeSentence, setActiveSentence] = useState<number | null>(null);
   const [showQuiz, setShowQuiz] = useState(false);
   const [savedOffline, setSavedOffline] = useState(false);
+
+  const autoPlayNextRef = useRef(false);
 
   const page = pages[index];
   const title = locale === 'id' ? book.titleId : book.titleEn;
@@ -77,11 +82,6 @@ export function Reader({
   useEffect(() => {
     setSavedOffline(isBookSavedOffline(book.id));
   }, [book.id]);
-
-  useEffect(() => {
-    stopSpeaking();
-    setPlaying(false);
-  }, [index]);
 
   const pageTextByLocale = useMemo(() => {
     if (!page) return '';
@@ -97,6 +97,7 @@ export function Reader({
   }, [page, locale]);
 
   const displayText = showTranslation ? page?.textEn ?? '' : pageTextByLocale;
+  const sentences = useMemo(() => splitIntoSentences(displayText), [displayText]);
 
   function persistProgress(nextPage: number, opts?: { completed?: boolean; quizScore?: number; xpEarned?: number }) {
     fetch('/api/progress', {
@@ -106,25 +107,62 @@ export function Reader({
     }).catch(() => {});
   }
 
-  function goTo(next: number) {
-    if (next < 0) return;
-    if (next >= pages.length) {
-      setShowQuiz(true);
-      return;
-    }
-    setIndex(next);
-    persistProgress(next + 1);
+  function startNarration() {
+    if (!isSpeechSupported() || sentences.length === 0) return;
+    setPlaying(true);
+    setActiveSentence(0);
+    speakSentences(sentences, showTranslation ? 'en' : locale, {
+      onSentenceStart: (i) => setActiveSentence(i),
+      onEnd: () => {
+        setPlaying(false);
+        setActiveSentence(null);
+        if (autoAdvance && index < pages.length - 1) {
+          autoPlayNextRef.current = true;
+          goTo(index + 1);
+        }
+      }
+    });
   }
 
   function togglePlay() {
     if (playing) {
       stopSpeaking();
       setPlaying(false);
+      setActiveSentence(null);
       return;
     }
-    if (!isSpeechSupported()) return;
-    setPlaying(true);
-    speak(displayText, showTranslation ? 'en' : locale, () => setPlaying(false));
+    startNarration();
+  }
+
+  // Continues narration onto the next page automatically once its text is
+  // ready, when the previous page finished reading naturally (not stopped
+  // by the user) and "auto-next" is on.
+  useEffect(() => {
+    if (autoPlayNextRef.current) {
+      autoPlayNextRef.current = false;
+      const timer = setTimeout(() => startNarration(), 350);
+      return () => clearTimeout(timer);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
+
+  useEffect(() => {
+    return () => stopSpeaking();
+  }, []);
+
+  function goTo(next: number) {
+    if (next < 0) return;
+    if (next >= pages.length) {
+      stopSpeaking();
+      setPlaying(false);
+      setShowQuiz(true);
+      return;
+    }
+    stopSpeaking();
+    setPlaying(false);
+    setActiveSentence(null);
+    setIndex(next);
+    persistProgress(next + 1);
   }
 
   async function toggleFavorite() {
@@ -186,13 +224,20 @@ export function Reader({
       </div>
 
       <div className={`mt-5 leading-relaxed ${FONT_SIZES[fontSizeIdx]}`}>
-        <WordHelperText text={displayText} locale={showTranslation ? 'en' : locale} />
+        <WordHelperText sentences={sentences} activeIndex={playing ? activeSentence : null} locale={showTranslation ? 'en' : locale} />
       </div>
 
       <div className="mt-6 flex flex-wrap items-center gap-2">
         <button onClick={togglePlay} className="btn-primary !px-4 !py-2 text-sm" disabled={!isSpeechSupported()}>
           {playing ? <PauseIcon className="h-4 w-4" /> : <PlayIcon className="h-4 w-4" />}
           {playing ? t('reader.pause') : t('reader.playVoice')}
+        </button>
+        <button
+          onClick={() => setAutoAdvance((v) => !v)}
+          className={`btn-secondary !px-4 !py-2 text-sm ${autoAdvance ? '!border-brand-500 !text-brand-600' : ''}`}
+          title={locale === 'id' ? 'Otomatis lanjut ke halaman berikutnya' : 'Automatically continue to the next page'}
+        >
+          ⏭️ {locale === 'id' ? 'Auto-lanjut' : 'Auto-next'}
         </button>
         <button
           onClick={() => setShowTranslation((v) => !v)}

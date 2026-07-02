@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useTranslation } from '@/lib/i18n/LocaleProvider';
-import { speak, stopSpeaking, isSpeechSupported } from '@/lib/tts/webSpeech';
+import { speakSentences, stopSpeaking, isSpeechSupported } from '@/lib/tts/webSpeech';
+import { splitIntoSentences } from '@/lib/text';
 import type { GeneratedStoryContent } from '@/lib/storyGenerator';
 
 export default function CreateStoryPage() {
@@ -46,7 +47,8 @@ export default function CreateStoryPage() {
       return;
     }
     setPlaying(true);
-    speak(story.paragraphs.join(' '), locale, () => setPlaying(false));
+    const sentences = story.paragraphs.flatMap((p) => splitIntoSentences(p));
+    speakSentences(sentences, locale, { onEnd: () => setPlaying(false) });
   }
 
   return (
