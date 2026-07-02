@@ -46,7 +46,15 @@ push ke branch `main`. Perlu 2 secret di GitHub repo (Settings → Secrets and v
 
 ## Secrets aplikasi (wajib diisi agar fitur benar-benar live)
 
-Set dengan `wrangler secret put <NAMA>` (atau di dashboard Cloudflare Pages/Workers → Settings → Variables):
+Ada 2 cara mengisi secret ini — pilih salah satu:
+
+1. **Otomatis lewat GitHub Actions (direkomendasikan):** tambahkan secret dengan nama yang
+   sama persis di tabel bawah ini ke **Settings → Secrets and variables → Actions** pada repo
+   GitHub. Step "Sync Worker secrets" di `deploy.yml` akan otomatis push tiap secret yang ada
+   ke Worker via `wrangler secret put` setiap kali deploy. Secret yang belum diisi akan
+   di-skip (fitur terkait otomatis nonaktif/fallback, bukan error).
+2. **Manual:** jalankan `wrangler secret put <NAMA>` sendiri dari terminal (perlu `wrangler login`),
+   atau isi lewat dashboard Cloudflare Workers → Settings → Variables.
 
 | Secret | Untuk fitur |
 |---|---|
