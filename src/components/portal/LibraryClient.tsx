@@ -32,14 +32,15 @@ export function LibraryClient({
   favoriteIds: string[];
   canAccessPremium: boolean;
 }) {
-  const { t, locale } = useTranslation();
+  const { t, locale, dict } = useTranslation();
   const [active, setActive] = useState('all');
   const [activeAge, setActiveAge] = useState('all');
   const [query, setQuery] = useState('');
   const [favorites, setFavorites] = useState(new Set(favoriteIds));
 
   const title = (b: Book) => (locale === 'id' ? b.titleId : b.titleEn);
-  const catName = (c: Category) => (locale === 'id' ? c.nameId : c.nameEn);
+  const catName = (c: Category) =>
+    (dict.categoryNames as Record<string, string>)[c.slug] ?? (locale === 'id' ? c.nameId : c.nameEn);
 
   const filtered = useMemo(() => {
     let list = books;

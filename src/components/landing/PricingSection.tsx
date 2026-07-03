@@ -5,35 +5,9 @@ import { useTranslation } from '@/lib/i18n/LocaleProvider';
 import { CheckIcon } from '@/components/ui/Icons';
 import { PLANS } from '@/lib/pricing';
 
-const COPY = {
-  id: {
-    free: { name: 'Gratis', features: ['15 buku', 'AI Voice terbatas', 'Tanpa unduh', 'Kuis dasar'] },
-    premium: {
-      name: 'Premium',
-      features: ['Buku tanpa batas', 'AI Voice penuh', 'Unduh offline', 'Kuis & lencana', 'Multi-bahasa']
-    },
-    family: {
-      name: 'Family',
-      features: ['Semua fitur Premium', 'Hingga 5 profil', 'Dashboard orang tua', 'Dukungan prioritas']
-    },
-    school: { name: 'Sekolah', features: ['Dashboard sekolah', 'Banyak kelas', 'Laporan detail', 'Dukungan khusus'] },
-    cta: { free: 'Mulai Sekarang', premium: 'Upgrade Premium', family: 'Pilih Family', school: 'Hubungi Sales' }
-  },
-  en: {
-    free: { name: 'Free', features: ['15 books', 'Limited AI Voice', 'No downloads', 'Basic quiz'] },
-    premium: {
-      name: 'Premium',
-      features: ['Unlimited books', 'Full AI Voice', 'Offline downloads', 'Quizzes & badges', 'Multi-language']
-    },
-    family: { name: 'Family', features: ['Everything in Premium', 'Up to 5 profiles', 'Parent dashboard', 'Priority support'] },
-    school: { name: 'School', features: ['School dashboard', 'Multiple classes', 'Detailed reports', 'Dedicated support'] },
-    cta: { free: 'Get Started', premium: 'Go Premium', family: 'Choose Family', school: 'Contact Sales' }
-  }
-};
-
 export function PricingSection() {
-  const { t, locale } = useTranslation();
-  const copy = locale === 'id' ? COPY.id : COPY.en;
+  const { t, dict } = useTranslation();
+  const p = dict.pricing;
 
   return (
     <section id="pricing" className="container-page py-16 md:py-24">
@@ -44,33 +18,33 @@ export function PricingSection() {
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
         <PlanCard
-          name={copy.free.name}
+          name={p.free}
           price="$0"
           suffix={t('common.perMonth')}
-          features={copy.free.features}
-          cta={copy.cta.free}
+          features={p.freeFeatures}
+          cta={p.getStarted}
           href="/register"
         />
         <PlanCard
-          name={copy.premium.name}
+          name={p.premium}
           price={`$${PLANS.premium_monthly.amountUsd}`}
           suffix={t('common.perMonth')}
-          note={`$${PLANS.premium_yearly.amountUsd}${t('common.perYear')} · $${PLANS.lifetime.amountUsd} ${t('pricing.lifetime').toLowerCase()}`}
-          features={copy.premium.features}
-          cta={copy.cta.premium}
+          note={`$${PLANS.premium_yearly.amountUsd}${t('common.perYear')} · $${PLANS.lifetime.amountUsd} ${p.lifetime.toLowerCase()}`}
+          features={p.premiumFeatures}
+          cta={p.goPremium}
           href="/register?plan=premium_monthly"
           highlight
-          badge={t('pricing.mostPopular')}
+          badge={p.mostPopular}
         />
         <PlanCard
-          name={copy.family.name}
+          name={p.family}
           price={`$${PLANS.family.amountUsd}`}
           suffix={t('common.perMonth')}
-          features={copy.family.features}
-          cta={copy.cta.family}
+          features={p.familyFeatures}
+          cta={p.chooseFamily}
           href="/register?plan=family"
         />
-        <PlanCard name={copy.school.name} price="—" suffix="" features={copy.school.features} cta={copy.cta.school} href="/for-schools" />
+        <PlanCard name={p.school} price="—" suffix="" features={p.schoolFeatures} cta={p.contactSales} href="/for-schools" />
       </div>
     </section>
   );

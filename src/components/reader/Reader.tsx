@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslation } from '@/lib/i18n/LocaleProvider';
+import type { Locale } from '@/lib/i18n/locales';
 import { PlayIcon, PauseIcon, HeartIcon, MoonIcon, DownloadIcon } from '@/components/ui/Icons';
 import { speakSentences, stopSpeaking, isSpeechSupported } from '@/lib/tts/webSpeech';
 import { splitIntoSentences } from '@/lib/text';
@@ -83,8 +84,13 @@ export function Reader({
     setSavedOffline(isBookSavedOffline(book.id));
   }, [book.id]);
 
-  const pageTextByLocale = useMemo(() => {
-    if (!page) return '';
+  // Pick the page text in the current UI language, but also track WHICH
+  // language we actually ended up showing. If a book hasn't been translated
+  // into the current locale yet we fall back to English text — and in that
+  // case the narration voice must be English too, otherwise (e.g. Arabic UI
+  // with only English text) the TTS reads English words with an Arabic voice.
+  const { text: pageTextByLocale, textLocale } = useMemo((): { text: string; textLocale: Locale } => {
+    if (!page) return { text: '', textLocale: 'en' };
     const map: Record<string, string | null | undefined> = {
       en: page.textEn,
       id: page.textId,
@@ -93,10 +99,15 @@ export function Reader({
       ar: page.textAr,
       ja: page.textJa
     };
-    return map[locale] || page.textEn;
+    const chosen = map[locale];
+    if (chosen) return { text: chosen, textLocale: locale };
+    return { text: page.textEn, textLocale: 'en' };
   }, [page, locale]);
 
   const displayText = showTranslation ? page?.textEn ?? '' : pageTextByLocale;
+  // The voice must always match the language of displayText, never the raw UI
+  // locale (which may differ when we fell back to English text above).
+  const speechLocale: Locale = showTranslation ? 'en' : textLocale;
   const sentences = useMemo(() => splitIntoSentences(displayText), [displayText]);
 
   function persistProgress(nextPage: number, opts?: { completed?: boolean; quizScore?: number; xpEarned?: number }) {
@@ -111,7 +122,7 @@ export function Reader({
     if (!isSpeechSupported() || sentences.length === 0) return;
     setPlaying(true);
     setActiveSentence(0);
-    speakSentences(sentences, showTranslation ? 'en' : locale, {
+    speakSentences(sentences, speechLocale, {
       onSentenceStart: (i) => setActiveSentence(i),
       onEnd: () => {
         setPlaying(false);
@@ -224,7 +235,7 @@ export function Reader({
       </div>
 
       <div className={`mt-5 leading-relaxed ${FONT_SIZES[fontSizeIdx]}`}>
-        <WordHelperText sentences={sentences} activeIndex={playing ? activeSentence : null} locale={showTranslation ? 'en' : locale} />
+        <WordHelperText sentences={sentences} activeIndex={playing ? activeSentence : null} locale={speechLocale} />
       </div>
 
       <div className="mt-6 flex flex-wrap items-center gap-2">

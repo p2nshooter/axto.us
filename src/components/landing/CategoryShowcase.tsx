@@ -18,7 +18,7 @@ type Book = {
 };
 
 export function CategoryShowcase({ categories, books }: { categories: Category[]; books: Book[] }) {
-  const { t, locale } = useTranslation();
+  const { t, locale, dict } = useTranslation();
   const [active, setActive] = useState<string>('all');
 
   const filtered = useMemo(() => {
@@ -28,7 +28,10 @@ export function CategoryShowcase({ categories, books }: { categories: Category[]
     return books.filter((b) => b.categoryId === cat.id);
   }, [active, books, categories]);
 
-  const catName = (c: Category) => (locale === 'id' ? c.nameId : c.nameEn);
+  // Prefer the localized category name from the dictionary (all 6 languages);
+  // fall back to the DB's EN/ID name only if a slug isn't mapped yet.
+  const catName = (c: Category) =>
+    (dict.categoryNames as Record<string, string>)[c.slug] ?? (locale === 'id' ? c.nameId : c.nameEn);
   const bookTitle = (b: Book) => (locale === 'id' ? b.titleId : b.titleEn);
 
   return (

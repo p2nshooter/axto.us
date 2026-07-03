@@ -4,29 +4,20 @@ import { useTranslation } from '@/lib/i18n/LocaleProvider';
 import { ShieldIcon, SparkleIcon, ChartIcon, HeartIcon } from '@/components/ui/Icons';
 
 export function TrustBadges() {
-  const { locale } = useTranslation();
+  const { dict } = useTranslation();
+  const tr = dict.trust;
 
-  const items =
-    locale === 'id'
-      ? [
-          { icon: ShieldIcon, title: 'Aman & Terpercaya', desc: 'Konten ramah anak, bebas iklan berbahaya.' },
-          { icon: SparkleIcon, title: 'Personalisasi', desc: 'Rekomendasi cerita sesuai minat anak.' },
-          { icon: ChartIcon, title: 'Pantau Perkembangan', desc: 'Orang tua dapat memantau aktivitas dan kemajuan anak.' },
-          { icon: HeartIcon, title: 'Belajar dengan Seru', desc: 'Membaca jadi petualangan yang tak terlupakan.' }
-        ]
-      : [
-          { icon: ShieldIcon, title: 'Safe & Trusted', desc: 'Kid-friendly content, free of harmful ads.' },
-          { icon: SparkleIcon, title: 'Personalized', desc: 'Story recommendations matched to your child.' },
-          { icon: ChartIcon, title: 'Track Progress', desc: 'Parents can monitor activity and growth.' },
-          { icon: HeartIcon, title: 'Fun Learning', desc: 'Reading becomes an unforgettable adventure.' }
-        ];
+  const items = [
+    { icon: ShieldIcon, title: tr.safe.title, desc: tr.safe.desc },
+    { icon: SparkleIcon, title: tr.personalized.title, desc: tr.personalized.desc },
+    { icon: ChartIcon, title: tr.progress.title, desc: tr.progress.desc },
+    { icon: HeartIcon, title: tr.funLearning.title, desc: tr.funLearning.desc }
+  ];
 
   return (
     <section className="container-page py-16">
       <div className="rounded-3xl border border-slate-100 bg-white p-8 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-        <h3 className="mb-8 text-center text-2xl font-black text-slate-900 dark:text-white">
-          {locale === 'id' ? 'Dibuat untuk Anak, Disukai Orang Tua' : 'Built for Kids, Loved by Parents'}
-        </h3>
+        <h3 className="mb-8 text-center text-2xl font-black text-slate-900 dark:text-white">{tr.title}</h3>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((item, i) => (
             <div key={i} className="flex items-start gap-3">
