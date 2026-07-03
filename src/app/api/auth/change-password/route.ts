@@ -28,9 +28,10 @@ export async function POST(req: NextRequest) {
   const passwordHash = await hashPassword(newPassword);
   await db.update(users).set({ passwordHash, updatedAt: new Date() }).where(eq(users.id, user.id));
 
-  // Invalidate every session (all devices) then issue a fresh one for this device.
+  // Invalidate every session (all devices) then issue a fresh one for this device,
+  // preserving whether this device was on an admin-door session.
   await destroyAllSessionsForUser(user.id);
-  await createSession(user.id);
+  await createSession(user.id, guard.user.loginSource);
 
   return NextResponse.json({ ok: true });
 }

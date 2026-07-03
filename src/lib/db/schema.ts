@@ -35,6 +35,11 @@ export const sessions = sqliteTable(
     userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
     expiresAt: integer('expires_at', { mode: 'timestamp_ms' }).notNull(),
     userAgent: text('user_agent'),
+    // Which door this session was created through. Admin panel access requires
+    // both role='admin' AND loginSource='admin' — logging in with correct
+    // admin credentials via the public /login form only ever grants a
+    // 'client' session, never admin access. See requireAdmin() in guards.ts.
+    loginSource: text('login_source', { enum: ['client', 'admin'] }).notNull().default('client'),
     createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull().default(sql`(unixepoch() * 1000)`)
   },
   (t) => ({
