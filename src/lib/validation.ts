@@ -26,6 +26,11 @@ export const changePasswordSchema = z.object({
   newPassword: z.string().min(8, 'Password minimal 8 karakter').max(200)
 });
 
+export const changeEmailSchema = z.object({
+  currentPassword: z.string().min(1),
+  newEmail: z.string().trim().toLowerCase().email('Email tidak valid')
+});
+
 export const updateProfileSchema = z.object({
   name: z.string().trim().min(2).max(80).optional(),
   locale: z.string().min(2).max(5).optional()

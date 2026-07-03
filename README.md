@@ -69,6 +69,7 @@ Ada 2 cara mengisi secret ini — pilih salah satu:
 | `MIDTRANS_SERVER_KEY`, `MIDTRANS_CLIENT_KEY`, `MIDTRANS_IS_PRODUCTION` | Pembayaran Midtrans (kartu/bank/e-wallet) |
 | `NOWPAYMENTS_API_KEY`, `NOWPAYMENTS_IPN_SECRET` | Pembayaran crypto (BTC/ETH/BNB/SOL/DOGE/USDT) via [NOWPayments](https://nowpayments.io) |
 | `ELEVENLABS_API_KEY` / `AZURE_TTS_KEY`+`AZURE_TTS_REGION` | *(opsional)* AI Voice premium — tanpa ini otomatis fallback ke Web Speech API browser (gratis) |
+| `ADMIN_BOOTSTRAP_EMAIL`, `ADMIN_BOOTSTRAP_PASSWORD` | *(opsional)* Membuat 1 akun admin utama otomatis saat deploy — lihat bagian "Akun admin awal" di bawah |
 
 Tanpa secret pembayaran di atas, halaman checkout akan menampilkan pesan error yang jelas
 ("belum dikonfigurasi") alih-alih pura-pura berhasil — tidak ada pembayaran yang di-mock.
@@ -82,9 +83,26 @@ yang hardcode di kode.
 
 ## Akun admin awal
 
-Satu akun admin dibuat otomatis oleh `seed/seed.sql` (email `admin@axto.us`). Password
-acak dicetak sekali oleh `npm run generate:seed` — **tidak disimpan di file manapun**. Segera
-login dan ganti password lewat `/admin/settings` setelah deploy pertama.
+Dua cara membuat akun admin, keduanya tidak pernah menaruh password asli di kode/git:
+
+1. **Akun admin utama (direkomendasikan):** tambahkan secret `ADMIN_BOOTSTRAP_EMAIL` dan
+   `ADMIN_BOOTSTRAP_PASSWORD` di GitHub Actions. Step "Bootstrap primary admin account" di
+   `deploy.yml` akan meng-hash password itu (PBKDF2, tidak pernah plaintext) dan
+   memasukkannya ke D1 sekali saja saat deploy berikutnya. Karena pakai `INSERT OR IGNORE`
+   dengan id tetap, kalau admin nanti ganti email/password sendiri lewat `/admin/settings`,
+   deploy selanjutnya **tidak** akan menimpanya kembali.
+2. **Akun bootstrap fallback:** `seed/seed.sql` juga membuat 1 akun admin (email
+   `admin@axto.us`) dengan password acak yang dicetak sekali oleh `npm run generate:seed`
+   dan tidak disimpan di file manapun.
+
+**Login admin tersembunyi:** halaman `/admin-login` tidak ditautkan di navigasi manapun.
+Untuk membukanya, klik teks copyright di footer landing page 5x dalam 3 detik — muncul link
+kecil "Admin" di sebelahnya. Halaman ini juga diberi `noindex` agar tidak muncul di mesin
+pencari. Ini hanya menyembunyikan pintu masuknya dari tampilan publik — batas keamanan
+sebenarnya tetap pengecekan role admin di server pada setiap route `/admin/*`.
+
+Admin bisa mengganti email dan password akunnya sendiri kapan saja lewat `/admin/settings`
+(perlu memasukkan password saat ini untuk konfirmasi kedua perubahan tersebut).
 
 ## Struktur proyek
 
