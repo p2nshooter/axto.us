@@ -8,6 +8,13 @@
       "when": 1783014258556,
       "tag": "0000_lyrical_loners",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1783070118919,
+      "tag": "0001_fine_guardian",
+      "breakpoints": true
     }
   ]
 }

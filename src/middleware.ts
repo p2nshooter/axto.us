@@ -7,10 +7,11 @@ import { SESSION_COOKIE } from '@/lib/auth/session';
 // not the source of truth.
 export function middleware(req: NextRequest) {
   const hasSession = req.cookies.has(SESSION_COOKIE);
+  const isAdminPath = req.nextUrl.pathname.startsWith('/admin');
 
-  if (!hasSession && (req.nextUrl.pathname.startsWith('/app') || req.nextUrl.pathname.startsWith('/admin'))) {
-    const url = new URL('/login', req.url);
-    url.searchParams.set('next', req.nextUrl.pathname);
+  if (!hasSession && (req.nextUrl.pathname.startsWith('/app') || isAdminPath)) {
+    const url = new URL(isAdminPath ? '/admin-login' : '/login', req.url);
+    if (!isAdminPath) url.searchParams.set('next', req.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
 

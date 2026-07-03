@@ -28,10 +28,10 @@ export default function LoginPage() {
       const data = (await res.json()) as any;
       if (!res.ok) throw new Error(data.error || 'Failed to login');
 
+      // This form only ever creates a 'client' session — admin panel access
+      // requires logging in through /admin-login, regardless of role.
       const next = params.get('next');
-      if (next) router.push(next);
-      else if (data.role === 'admin') router.push('/admin');
-      else router.push('/app');
+      router.push(next || '/app');
       router.refresh();
     } catch (err: any) {
       setError(err.message);

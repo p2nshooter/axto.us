@@ -5,8 +5,11 @@ import { useRouter } from 'next/navigation';
 import { AuthCard } from '@/components/auth/AuthCard';
 
 // Not linked anywhere except a 5-click reveal in the footer, and kept out of
-// search indexes via the meta tag below (defense in depth, not the real
-// security boundary — role is still checked server-side on every /admin route).
+// search indexes via the meta tag below. Sends portal:'admin' so the login
+// route rejects non-admin credentials and tags the session loginSource:
+// 'admin' — the actual security boundary (checked on every /admin route)
+// requires both role='admin' and this session flag, so admin credentials
+// entered through the public /login form never grant admin access.
 export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -22,15 +25,10 @@ export default function AdminLoginPage() {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password, portal: 'admin' })
       });
       const data = (await res.json()) as any;
       if (!res.ok) throw new Error(data.error || 'Login gagal.');
-
-      if (data.role !== 'admin') {
-        await fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
-        throw new Error('Akun ini bukan admin.');
-      }
 
       router.push('/admin');
       router.refresh();

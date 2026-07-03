@@ -16,15 +16,16 @@ export type SessionUser = {
   avatarSeed: string;
   plan: string;
   planExpiresAt: Date | null;
+  loginSource: 'client' | 'admin';
 };
 
-export async function createSession(userId: string) {
+export async function createSession(userId: string, loginSource: 'client' | 'admin' = 'client') {
   const db = await getDb();
   const raw = randomToken(32);
   const id = await sha256Hex(raw);
   const expiresAt = new Date(Date.now() + SESSION_DAYS * 24 * 60 * 60 * 1000);
 
-  await db.insert(sessions).values({ id, userId, expiresAt });
+  await db.insert(sessions).values({ id, userId, expiresAt, loginSource });
 
   const store = await cookies();
   store.set(SESSION_COOKIE, raw, {
@@ -69,7 +70,8 @@ export async function getCurrentUser(): Promise<SessionUser | null> {
       locale: users.locale,
       avatarSeed: users.avatarSeed,
       plan: users.plan,
-      planExpiresAt: users.planExpiresAt
+      planExpiresAt: users.planExpiresAt,
+      loginSource: sessions.loginSource
     })
     .from(sessions)
     .innerJoin(users, eq(sessions.userId, users.id))
