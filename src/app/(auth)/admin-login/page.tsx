@@ -27,8 +27,8 @@ export default function AdminLoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, portal: 'admin' })
       });
-      const data = (await res.json()) as any;
-      if (!res.ok) throw new Error(data.error || 'Login gagal.');
+      const data = (await res.json().catch(() => ({}))) as any;
+      if (!res.ok) throw new Error(data.detail || data.error || `Login gagal (HTTP ${res.status}).`);
 
       router.push('/admin');
       router.refresh();

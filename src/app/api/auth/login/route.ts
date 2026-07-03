@@ -5,8 +5,9 @@ import { users } from '@/lib/db/schema';
 import { loginSchema } from '@/lib/validation';
 import { verifyPassword } from '@/lib/auth/password';
 import { createSession } from '@/lib/auth/session';
+import { withErrorHandling } from '@/lib/api-handler';
 
-export async function POST(req: NextRequest) {
+export const POST = withErrorHandling(async (req: NextRequest) => {
   const body = (await req.json().catch(() => null)) as any;
   const parsed = loginSchema.safeParse(body);
   if (!parsed.success) {
@@ -34,4 +35,4 @@ export async function POST(req: NextRequest) {
   await createSession(user.id, portal);
 
   return NextResponse.json({ ok: true, role: user.role });
-}
+});

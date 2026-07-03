@@ -6,8 +6,9 @@ import { changePasswordSchema } from '@/lib/validation';
 import { hashPassword, verifyPassword } from '@/lib/auth/password';
 import { requireUser } from '@/lib/auth/guards';
 import { createSession, destroyAllSessionsForUser } from '@/lib/auth/session';
+import { withErrorHandling } from '@/lib/api-handler';
 
-export async function POST(req: NextRequest) {
+export const POST = withErrorHandling(async (req: NextRequest) => {
   const guard = await requireUser();
   if ('error' in guard) return guard.error;
 
@@ -34,4 +35,4 @@ export async function POST(req: NextRequest) {
   await createSession(user.id, guard.user.loginSource);
 
   return NextResponse.json({ ok: true });
-}
+});

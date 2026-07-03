@@ -6,8 +6,9 @@ import { forgotPasswordSchema } from '@/lib/validation';
 import { randomToken, sha256Hex } from '@/lib/auth/crypto-utils';
 import { newId } from '@/lib/id';
 import { sendPasswordResetEmail } from '@/lib/email';
+import { withErrorHandling } from '@/lib/api-handler';
 
-export async function POST(req: NextRequest) {
+export const POST = withErrorHandling(async (req: NextRequest) => {
   const body = (await req.json().catch(() => null)) as any;
   const parsed = forgotPasswordSchema.safeParse(body);
   if (!parsed.success) {
@@ -38,4 +39,4 @@ export async function POST(req: NextRequest) {
   }
 
   return NextResponse.json({ ok: true });
-}
+});
