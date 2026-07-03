@@ -1363,4 +1363,1454 @@ export const STORIES: Story[] = [
       }
     ]
   }
+  ,
+  {
+    slug: 'ellies-alphabet-adventure',
+    titleEn: "Ellie's Alphabet Adventure",
+    titleId: 'Petualangan Abjad Ellie',
+    descriptionEn: 'Ellie meets a shy letter who is scared to appear in words, and helps it find its courage.',
+    descriptionId: 'Ellie bertemu sebuah huruf pemalu yang takut muncul di dalam kata, dan membantunya menemukan keberanian.',
+    categorySlug: 'alphabet',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🔤',
+    coverPalette: 'candy',
+    ageMin: 2,
+    ageMax: 5,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'alphabet-1',
+        textEn: 'Ellie loved singing the alphabet every morning. A, B, C, all the way to Z!',
+        textId: 'Ellie suka menyanyikan lagu abjad setiap pagi. A, B, C, sampai ke Z!'
+      },
+      {
+        illustrationSeed: 'alphabet-2',
+        textEn: 'One day, she noticed the letter Q hiding behind a big book, looking very shy.',
+        textId: 'Suatu hari, ia melihat huruf Q bersembunyi di balik buku besar, terlihat sangat pemalu.'
+      },
+      {
+        illustrationSeed: 'alphabet-3',
+        textEn: '"Why are you hiding?" Ellie asked. Q whispered, "I don\'t show up in as many words as the other letters."',
+        textId: '"Kenapa kamu sembunyi?" tanya Ellie. Q berbisik, "Aku tidak muncul di banyak kata seperti huruf lain."'
+      },
+      {
+        illustrationSeed: 'alphabet-4',
+        textEn: 'Ellie smiled. "But you make wonderful words like queen, quiet, and quilt!" she said.',
+        textId: 'Ellie tersenyum. "Tapi kamu membuat kata-kata hebat seperti queen, quiet, dan quilt!" katanya.'
+      },
+      {
+        illustrationSeed: 'alphabet-5',
+        textEn: 'Together they found five words that needed Q, and Q felt proud for the very first time.',
+        textId: 'Bersama-sama mereka menemukan lima kata yang butuh Q, dan Q merasa bangga untuk pertama kalinya.'
+      },
+      {
+        illustrationSeed: 'alphabet-6',
+        textEn: 'From that day, Q always stood tall in the alphabet parade, right between P and R.',
+        textId: 'Sejak hari itu, Q selalu berdiri tegak di barisan abjad, tepat di antara P dan R.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Which letter was hiding?',
+        questionId: 'Huruf apa yang bersembunyi?',
+        optionsEn: ['A', 'Q', 'Z', 'M'],
+        optionsId: ['A', 'Q', 'Z', 'M'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'Why was the letter shy?',
+        questionId: 'Kenapa huruf itu pemalu?',
+        optionsEn: ['It was too loud', 'It was in fewer words than others', 'It was upside down', 'It was too big'],
+        optionsId: ['Terlalu keras', 'Muncul di lebih sedikit kata', 'Terbalik', 'Terlalu besar'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How did Ellie help?',
+        questionId: 'Bagaimana Ellie membantu?',
+        optionsEn: ['She ignored it', 'She found words that use it', 'She erased it', 'She hid too'],
+        optionsId: ['Mengabaikannya', 'Mencari kata yang memakainya', 'Menghapusnya', 'Ikut bersembunyi'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'a-day-with-grandma',
+    titleEn: 'A Day With Grandma',
+    titleId: 'Sehari Bersama Nenek',
+    descriptionEn: 'A little girl spends a warm afternoon learning her grandmother\'s favorite recipe and stories.',
+    descriptionId: 'Seorang gadis kecil menghabiskan sore yang hangat belajar resep dan cerita favorit neneknya.',
+    categorySlug: 'family',
+    authorSlug: 'siti-aminah',
+    coverEmoji: '👵',
+    coverPalette: 'sunrise',
+    ageMin: 3,
+    ageMax: 7,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'family-1',
+        textEn: 'Every Sunday, Nadia visited her grandmother\'s little house at the end of the street.',
+        textId: 'Setiap hari Minggu, Nadia mengunjungi rumah kecil neneknya di ujung jalan.'
+      },
+      {
+        illustrationSeed: 'family-2',
+        textEn: 'Grandma always smelled like cinnamon and warm bread. "Come help me cook," she said with a smile.',
+        textId: 'Nenek selalu berbau kayu manis dan roti hangat. "Ayo bantu Nenek memasak," katanya sambil tersenyum.'
+      },
+      {
+        illustrationSeed: 'family-3',
+        textEn: 'They mixed flour, sugar, and a secret ingredient Grandma would only whisper: a pinch of love.',
+        textId: 'Mereka mengaduk tepung, gula, dan bahan rahasia yang hanya dibisikkan Nenek: sejumput cinta.'
+      },
+      {
+        illustrationSeed: 'family-4',
+        textEn: 'While the cookies baked, Grandma told stories about when she was a little girl, just like Nadia.',
+        textId: 'Sambil kue dipanggang, Nenek bercerita tentang masa kecilnya, sama seperti Nadia sekarang.'
+      },
+      {
+        illustrationSeed: 'family-5',
+        textEn: 'When the cookies were ready, they shared them with the whole family at the dinner table.',
+        textId: 'Ketika kue matang, mereka membagikannya untuk seluruh keluarga di meja makan.'
+      },
+      {
+        illustrationSeed: 'family-6',
+        textEn: 'Nadia hugged Grandma tight. "Family is the warmest place in the world," she thought.',
+        textId: 'Nadia memeluk Nenek erat. "Keluarga adalah tempat paling hangat di dunia," pikirnya.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What day did Nadia visit Grandma?',
+        questionId: 'Hari apa Nadia mengunjungi Nenek?',
+        optionsEn: ['Monday', 'Sunday', 'Friday', 'Saturday'],
+        optionsId: ['Senin', 'Minggu', 'Jumat', 'Sabtu'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What was Grandma\'s secret ingredient?',
+        questionId: 'Apa bahan rahasia Nenek?',
+        optionsEn: ['Salt', 'A pinch of love', 'Extra sugar', 'Chocolate'],
+        optionsId: ['Garam', 'Sejumput cinta', 'Gula ekstra', 'Cokelat'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did they do while the cookies baked?',
+        questionId: 'Apa yang mereka lakukan sambil kue dipanggang?',
+        optionsEn: ['Watched TV', 'Told stories', 'Went shopping', 'Took a nap'],
+        optionsId: ['Menonton TV', 'Bercerita', 'Berbelanja', 'Tidur siang'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'milos-big-feelings',
+    titleEn: 'Milo and His Big Feelings',
+    titleId: 'Milo dan Perasaan Besarnya',
+    descriptionEn: 'Milo learns that it\'s okay to feel angry, sad, or scared, as long as he knows how to talk about it.',
+    descriptionId: 'Milo belajar bahwa tidak apa-apa merasa marah, sedih, atau takut, selama ia tahu cara membicarakannya.',
+    categorySlug: 'emotions',
+    authorSlug: 'sarah-johnson',
+    coverEmoji: '😊',
+    coverPalette: 'meadow',
+    ageMin: 3,
+    ageMax: 7,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'emotions-1',
+        textEn: 'Milo\'s tower of blocks fell down with a crash. His face turned red and hot.',
+        textId: 'Menara balok Milo runtuh dengan suara keras. Wajahnya memerah dan panas.'
+      },
+      {
+        illustrationSeed: 'emotions-2',
+        textEn: '"I feel like yelling!" Milo said. His mom sat beside him. "That\'s okay. That feeling is called anger."',
+        textId: '"Aku ingin berteriak!" kata Milo. Ibunya duduk di sampingnya. "Tidak apa-apa. Perasaan itu namanya marah."'
+      },
+      {
+        illustrationSeed: 'emotions-3',
+        textEn: '"You can feel angry, but we don\'t throw things. Let\'s take a deep breath together," said Mom.',
+        textId: '"Kamu boleh merasa marah, tapi kita tidak melempar barang. Yuk tarik napas dalam-dalam bersama," kata Ibu.'
+      },
+      {
+        illustrationSeed: 'emotions-4',
+        textEn: 'Milo breathed in slowly, then out slowly. The hot feeling started to cool down.',
+        textId: 'Milo menarik napas perlahan, lalu menghembuskannya perlahan. Rasa panas itu mulai mereda.'
+      },
+      {
+        illustrationSeed: 'emotions-5',
+        textEn: '"Now let\'s build the tower again, together," Mom said. Milo smiled a little.',
+        textId: '"Sekarang ayo bangun menaranya lagi, bersama-sama," kata Ibu. Milo tersenyum sedikit.'
+      },
+      {
+        illustrationSeed: 'emotions-6',
+        textEn: 'Milo learned that every feeling has a name, and every feeling can be talked about.',
+        textId: 'Milo belajar bahwa setiap perasaan punya nama, dan setiap perasaan bisa dibicarakan.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Why did Milo feel upset?',
+        questionId: 'Kenapa Milo merasa kesal?',
+        optionsEn: ['He lost a toy', 'His tower fell down', 'He was hungry', 'He was tired'],
+        optionsId: ['Kehilangan mainan', 'Menaranya runtuh', 'Lapar', 'Mengantuk'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What helped Milo feel calmer?',
+        questionId: 'Apa yang membuat Milo lebih tenang?',
+        optionsEn: ['Throwing blocks', 'Taking deep breaths', 'Yelling louder', 'Running away'],
+        optionsId: ['Melempar balok', 'Menarik napas dalam', 'Berteriak lebih keras', 'Lari'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What is the name for the feeling Milo had?',
+        questionId: 'Apa nama perasaan yang dirasakan Milo?',
+        optionsEn: ['Happiness', 'Anger', 'Sleepiness', 'Hunger'],
+        optionsId: ['Bahagia', 'Marah', 'Ngantuk', 'Lapar'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'the-whispering-wand',
+    titleEn: 'The Whispering Wand',
+    titleId: 'Tongkat yang Berbisik',
+    descriptionEn: 'A young girl finds a wand that only grants wishes that help others, teaching her real magic is kindness.',
+    descriptionId: 'Seorang gadis kecil menemukan tongkat yang hanya mengabulkan permintaan untuk menolong orang lain.',
+    categorySlug: 'fantasy',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🪄',
+    coverPalette: 'cosmic',
+    ageMin: 5,
+    ageMax: 9,
+    isPremium: true,
+    pages: [
+      {
+        illustrationSeed: 'fantasy-1',
+        textEn: 'Deep in the Whisper Woods, Lira found a wand glowing softly beneath a silver leaf.',
+        textId: 'Jauh di dalam Hutan Bisikan, Lira menemukan tongkat yang bersinar lembut di bawah daun perak.'
+      },
+      {
+        illustrationSeed: 'fantasy-2',
+        textEn: 'She waved it and wished for a mountain of candy — but nothing happened at all.',
+        textId: 'Ia mengayunkannya dan berharap gunung permen muncul — tapi tidak terjadi apa-apa.'
+      },
+      {
+        illustrationSeed: 'fantasy-3',
+        textEn: 'A tiny voice giggled from the wand. "I only grant wishes that help someone else," it said.',
+        textId: 'Suara kecil terkekeh dari tongkat itu. "Aku hanya mengabulkan permintaan yang menolong orang lain," katanya.'
+      },
+      {
+        illustrationSeed: 'fantasy-4',
+        textEn: 'Lira thought of her neighbor, old Mr. Yusuf, whose garden had wilted in the summer heat.',
+        textId: 'Lira teringat tetangganya, Pak Yusuf, yang kebunnya layu karena panas musim kemarau.'
+      },
+      {
+        illustrationSeed: 'fantasy-5',
+        textEn: 'She wished for rain for his garden. The wand glowed bright, and soft rain fell that very night.',
+        textId: 'Ia berharap hujan turun untuk kebun itu. Tongkat itu bersinar terang, dan hujan lembut turun malam itu juga.'
+      },
+      {
+        illustrationSeed: 'fantasy-6',
+        textEn: 'The next morning, Mr. Yusuf\'s flowers bloomed again. Lira realized real magic was kindness.',
+        textId: 'Keesokan paginya, bunga-bunga Pak Yusuf mekar kembali. Lira sadar bahwa sihir sejati adalah kebaikan.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What kind of wish did the wand grant?',
+        questionId: 'Permintaan seperti apa yang dikabulkan tongkat itu?',
+        optionsEn: ['Wishes for candy', 'Wishes that help someone else', 'Wishes for toys', 'Any wish at all'],
+        optionsId: ['Permen', 'Yang menolong orang lain', 'Mainan', 'Apa saja'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'Who did Lira help?',
+        questionId: 'Siapa yang ditolong Lira?',
+        optionsEn: ['Her teacher', 'Mr. Yusuf', 'Her sister', 'A stranger'],
+        optionsId: ['Gurunya', 'Pak Yusuf', 'Adiknya', 'Orang asing'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did Lira learn in the end?',
+        questionId: 'Apa yang dipelajari Lira pada akhirnya?',
+        optionsEn: ['Wands are useless', 'Real magic is kindness', 'Candy is best', 'Rain is scary'],
+        optionsId: ['Tongkat tidak berguna', 'Sihir sejati adalah kebaikan', 'Permen paling enak', 'Hujan menakutkan'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'the-case-of-the-missing-cookies',
+    titleEn: 'The Case of the Missing Cookies',
+    titleId: 'Kasus Kue Kering yang Hilang',
+    descriptionEn: 'Detective Nina uses clues, not accusations, to solve the mystery of the empty cookie jar.',
+    descriptionId: 'Detektif Nina menggunakan petunjuk, bukan tuduhan, untuk memecahkan misteri toples kue yang kosong.',
+    categorySlug: 'mystery',
+    authorSlug: 'david-lee',
+    coverEmoji: '🔍',
+    coverPalette: 'dusk',
+    ageMin: 5,
+    ageMax: 9,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'mystery-1',
+        textEn: 'The cookie jar was empty! Nina put on her detective hat and grabbed her magnifying glass.',
+        textId: 'Toples kue itu kosong! Nina memakai topi detektifnya dan mengambil kaca pembesar.'
+      },
+      {
+        illustrationSeed: 'mystery-2',
+        textEn: 'Clue one: crumbs led from the kitchen counter across the floor toward the living room.',
+        textId: 'Petunjuk pertama: remah-remah kue mengarah dari meja dapur ke ruang tamu.'
+      },
+      {
+        illustrationSeed: 'mystery-3',
+        textEn: 'Clue two: a small paw print was pressed into a smear of chocolate on the rug.',
+        textId: 'Petunjuk kedua: jejak kaki kecil tercetak di noda cokelat di atas karpet.'
+      },
+      {
+        illustrationSeed: 'mystery-4',
+        textEn: 'Nina followed the trail behind the couch, where she found her dog Max fast asleep, crumbs on his nose.',
+        textId: 'Nina mengikuti jejak itu ke belakang sofa, dan menemukan anjingnya Max tertidur pulas, remah di hidungnya.'
+      },
+      {
+        illustrationSeed: 'mystery-5',
+        textEn: '"Case closed!" Nina laughed. "Max, you\'re a cookie thief, but I still love you."',
+        textId: '"Kasus selesai!" Nina tertawa. "Max, kamu pencuri kue, tapi aku tetap sayang kamu."'
+      },
+      {
+        illustrationSeed: 'mystery-6',
+        textEn: 'From then on, Nina always kept the cookie jar somewhere Max\'s nose couldn\'t reach.',
+        textId: 'Sejak itu, Nina selalu menyimpan toples kue di tempat yang tidak terjangkau hidung Max.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What tool did Nina use?',
+        questionId: 'Alat apa yang digunakan Nina?',
+        optionsEn: ['A telescope', 'A magnifying glass', 'A flashlight', 'A camera'],
+        optionsId: ['Teropong', 'Kaca pembesar', 'Senter', 'Kamera'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'Who ate the cookies?',
+        questionId: 'Siapa yang memakan kue itu?',
+        optionsEn: ['Her brother', 'Her dog Max', 'A neighbor', 'Nobody'],
+        optionsId: ['Kakaknya', 'Anjingnya Max', 'Tetangga', 'Tidak ada yang makan'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What clue was on the rug?',
+        questionId: 'Petunjuk apa yang ada di karpet?',
+        optionsEn: ['A footprint', 'A paw print in chocolate', 'A torn paper', 'A missing shoe'],
+        optionsId: ['Jejak kaki manusia', 'Jejak kaki dengan cokelat', 'Kertas sobek', 'Sepatu hilang'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'captain-nanos-treasure-map',
+    titleEn: "Captain Nano's Treasure Map",
+    titleId: 'Peta Harta Karun Kapten Nano',
+    descriptionEn: 'A young pirate learns that the greatest treasure on the island is the friends who sailed with her.',
+    descriptionId: 'Seorang bajak laut kecil belajar bahwa harta terbesar di pulau itu adalah teman-teman seperjalanannya.',
+    categorySlug: 'pirates',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🏴‍☠️',
+    coverPalette: 'ocean',
+    ageMin: 4,
+    ageMax: 8,
+    isPremium: true,
+    pages: [
+      {
+        illustrationSeed: 'pirates-1',
+        textEn: 'Captain Nano and her crew found an old map hidden inside a bottle on the beach.',
+        textId: 'Kapten Nano dan awaknya menemukan peta tua tersembunyi di dalam botol di pantai.'
+      },
+      {
+        illustrationSeed: 'pirates-2',
+        textEn: 'The map showed an X on Coconut Island, three days of sailing across the Blue Sea.',
+        textId: 'Peta itu menunjukkan tanda X di Pulau Kelapa, tiga hari berlayar melintasi Laut Biru.'
+      },
+      {
+        illustrationSeed: 'pirates-3',
+        textEn: 'Along the way, a storm rocked their little ship, but the crew worked together to steer it safely.',
+        textId: 'Di tengah jalan, badai mengguncang kapal kecil mereka, tapi awak kapal bekerja sama untuk mengemudikannya dengan selamat.'
+      },
+      {
+        illustrationSeed: 'pirates-4',
+        textEn: 'When they finally dug at the X, they found only a small wooden box with an old note inside.',
+        textId: 'Ketika akhirnya mereka menggali di tanda X, mereka hanya menemukan kotak kayu kecil berisi catatan tua.'
+      },
+      {
+        illustrationSeed: 'pirates-5',
+        textEn: 'The note read: "The real treasure was the friends who sailed with you." Captain Nano smiled.',
+        textId: 'Catatan itu berbunyi: "Harta sesungguhnya adalah teman yang berlayar bersamamu." Kapten Nano tersenyum.'
+      },
+      {
+        illustrationSeed: 'pirates-6',
+        textEn: 'They sailed home laughing, already planning their next adventure together.',
+        textId: 'Mereka berlayar pulang sambil tertawa, sudah merencanakan petualangan berikutnya bersama.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Where did they find the map?',
+        questionId: 'Di mana mereka menemukan peta itu?',
+        optionsEn: ['In a bottle on the beach', 'In a cave', 'In a chest', 'In a book'],
+        optionsId: ['Dalam botol di pantai', 'Dalam gua', 'Dalam peti', 'Dalam buku'],
+        correctIndex: 0
+      },
+      {
+        questionEn: 'What happened during the journey?',
+        questionId: 'Apa yang terjadi selama perjalanan?',
+        optionsEn: ['They got lost forever', 'A storm rocked their ship', 'They found gold early', 'Nothing happened'],
+        optionsId: ['Tersesat selamanya', 'Badai mengguncang kapal', 'Menemukan emas lebih awal', 'Tidak terjadi apa-apa'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What was the real treasure?',
+        questionId: 'Apa harta yang sesungguhnya?',
+        optionsEn: ['Gold coins', 'Friendship', 'A map', 'A ship'],
+        optionsId: ['Koin emas', 'Persahabatan', 'Peta', 'Kapal'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'princess-rosa-and-the-kind-knight',
+    titleEn: 'Princess Rosa and the Kind Knight',
+    titleId: 'Putri Rosa dan Ksatria yang Baik Hati',
+    descriptionEn: 'Princess Rosa learns that true bravery is protecting others with kindness, not just a sword.',
+    descriptionId: 'Putri Rosa belajar bahwa keberanian sejati adalah melindungi orang lain dengan kebaikan, bukan hanya pedang.',
+    categorySlug: 'princess-knights',
+    authorSlug: 'sarah-johnson',
+    coverEmoji: '👑',
+    coverPalette: 'candy',
+    ageMin: 4,
+    ageMax: 8,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'princess-1',
+        textEn: 'In the Kingdom of Meadowlight, Princess Rosa wanted to become a knight more than anything.',
+        textId: 'Di Kerajaan Meadowlight, Putri Rosa sangat ingin menjadi seorang ksatria.'
+      },
+      {
+        illustrationSeed: 'princess-2',
+        textEn: 'She trained every day with Sir Callum, the gentlest knight in the castle.',
+        textId: 'Ia berlatih setiap hari bersama Sir Callum, ksatria paling lembut di istana.'
+      },
+      {
+        illustrationSeed: 'princess-3',
+        textEn: 'One day, a baby dragon got stuck in the castle well, crying for help.',
+        textId: 'Suatu hari, seekor bayi naga terjebak di sumur istana, menangis meminta tolong.'
+      },
+      {
+        illustrationSeed: 'princess-4',
+        textEn: 'Other knights wanted to chase it away, but Rosa knelt down and spoke to it softly.',
+        textId: 'Ksatria lain ingin mengusirnya, tapi Rosa berlutut dan berbicara dengan lembut padanya.'
+      },
+      {
+        illustrationSeed: 'princess-5',
+        textEn: 'The dragon calmed down and let Rosa gently guide it out of the well with a rope of flowers.',
+        textId: 'Naga itu tenang dan membiarkan Rosa menuntunnya keluar dari sumur dengan tali bunga.'
+      },
+      {
+        illustrationSeed: 'princess-6',
+        textEn: 'The whole kingdom cheered. Sir Callum said, "You are the bravest knight I know, Rosa."',
+        textId: 'Seluruh kerajaan bersorak. Sir Callum berkata, "Kamu ksatria paling berani yang kukenal, Rosa."'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Who trained Princess Rosa?',
+        questionId: 'Siapa yang melatih Putri Rosa?',
+        optionsEn: ['The King', 'Sir Callum', 'The dragon', 'Her sister'],
+        optionsId: ['Sang Raja', 'Sir Callum', 'Sang naga', 'Kakaknya'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What was stuck in the well?',
+        questionId: 'Apa yang terjebak di sumur?',
+        optionsEn: ['A cat', 'A baby dragon', 'A bucket', 'A ball'],
+        optionsId: ['Kucing', 'Bayi naga', 'Ember', 'Bola'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How did Rosa help the dragon?',
+        questionId: 'Bagaimana Rosa menolong naga itu?',
+        optionsEn: ['She scared it away', 'She spoke to it gently', 'She ignored it', 'She called guards to attack'],
+        optionsId: ['Mengusirnya', 'Berbicara dengan lembut', 'Mengabaikannya', 'Memanggil penjaga untuk menyerang'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'bubbles-the-dolphins-new-friend',
+    titleEn: "Bubbles the Dolphin's New Friend",
+    titleId: 'Teman Baru Bubbles si Lumba-Lumba',
+    descriptionEn: 'A playful dolphin helps a lost baby turtle find its way back to its family in the reef.',
+    descriptionId: 'Seekor lumba-lumba periang membantu bayi penyu yang tersesat kembali ke keluarganya di terumbu karang.',
+    categorySlug: 'ocean-life',
+    authorSlug: 'emily-clark',
+    coverEmoji: '🐬',
+    coverPalette: 'ocean',
+    ageMin: 3,
+    ageMax: 7,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'ocean-1',
+        textEn: 'Bubbles the dolphin loved doing flips near the coral reef every morning.',
+        textId: 'Bubbles si lumba-lumba suka melompat-lompat dekat terumbu karang setiap pagi.'
+      },
+      {
+        illustrationSeed: 'ocean-2',
+        textEn: 'One day, she found a tiny turtle named Kiko, swimming alone and crying softly.',
+        textId: 'Suatu hari, ia menemukan penyu kecil bernama Kiko, berenang sendirian dan menangis pelan.'
+      },
+      {
+        illustrationSeed: 'ocean-3',
+        textEn: '"I got separated from my family during the current," Kiko said. Bubbles promised to help.',
+        textId: '"Aku terpisah dari keluargaku saat ada arus deras," kata Kiko. Bubbles berjanji akan membantu.'
+      },
+      {
+        illustrationSeed: 'ocean-4',
+        textEn: 'They swam past colorful fish and swaying seaweed, following the scent of Kiko\'s home reef.',
+        textId: 'Mereka berenang melewati ikan-ikan warna-warni dan rumput laut yang bergoyang, mengikuti aroma terumbu rumah Kiko.'
+      },
+      {
+        illustrationSeed: 'ocean-5',
+        textEn: 'At last, they spotted Kiko\'s family waiting anxiously near a big sea sponge.',
+        textId: 'Akhirnya, mereka melihat keluarga Kiko menunggu cemas dekat spons laut besar.'
+      },
+      {
+        illustrationSeed: 'ocean-6',
+        textEn: 'Kiko\'s family thanked Bubbles with a happy underwater dance, and Bubbles had a new best friend.',
+        textId: 'Keluarga Kiko berterima kasih pada Bubbles dengan tarian bahagia di bawah air, dan Bubbles punya sahabat baru.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What is the turtle\'s name?',
+        questionId: 'Siapa nama penyu itu?',
+        optionsEn: ['Kiko', 'Bubbles', 'Rex', 'Fin'],
+        optionsId: ['Kiko', 'Bubbles', 'Rex', 'Fin'],
+        correctIndex: 0
+      },
+      {
+        questionEn: 'Why was Kiko alone?',
+        questionId: 'Kenapa Kiko sendirian?',
+        optionsEn: ['He was hiding', 'He got separated in the current', 'He ran away', 'He was sleeping'],
+        optionsId: ['Bersembunyi', 'Terpisah karena arus', 'Kabur', 'Tidur'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How did the story end?',
+        questionId: 'Bagaimana akhir ceritanya?',
+        optionsEn: ['Kiko stayed lost', 'Kiko found his family', 'Bubbles got lost too', 'They never met again'],
+        optionsId: ['Kiko tetap tersesat', 'Kiko menemukan keluarganya', 'Bubbles juga tersesat', 'Mereka tidak pernah bertemu lagi'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'zuri-and-the-lost-cub',
+    titleEn: 'Zuri and the Lost Cub',
+    titleId: 'Zuri dan Anak Singa yang Tersesat',
+    descriptionEn: 'A young elephant helps a lost lion cub find its pride, learning that kindness has no borders.',
+    descriptionId: 'Seekor anak gajah membantu anak singa yang tersesat menemukan kelompoknya, belajar bahwa kebaikan tak mengenal batas.',
+    categorySlug: 'jungle-safari',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🦁',
+    coverPalette: 'meadow',
+    ageMin: 4,
+    ageMax: 8,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'safari-1',
+        textEn: 'Zuri the young elephant was drinking at the waterhole when she heard a tiny roar.',
+        textId: 'Zuri si anak gajah sedang minum di lubang air ketika ia mendengar auman kecil.'
+      },
+      {
+        illustrationSeed: 'safari-2',
+        textEn: 'A lion cub named Jabari was stuck between two rocks, too small to climb out alone.',
+        textId: 'Seekor anak singa bernama Jabari terjepit di antara dua batu, terlalu kecil untuk memanjat keluar sendiri.'
+      },
+      {
+        illustrationSeed: 'safari-3',
+        textEn: 'Even though lions and elephants usually kept their distance, Zuri gently lifted Jabari with her trunk.',
+        textId: 'Meski singa dan gajah biasanya menjaga jarak, Zuri dengan lembut mengangkat Jabari dengan belalainya.'
+      },
+      {
+        illustrationSeed: 'safari-4',
+        textEn: '"Thank you," Jabari said, shaking with fear. "I can\'t find my pride anywhere."',
+        textId: '"Terima kasih," kata Jabari, gemetar ketakutan. "Aku tidak bisa menemukan kelompokku."'
+      },
+      {
+        illustrationSeed: 'safari-5',
+        textEn: 'Zuri used her long trunk to sniff the air and followed the scent all the way to the acacia trees.',
+        textId: 'Zuri menggunakan belalai panjangnya untuk mencium udara dan mengikuti aromanya sampai ke pohon akasia.'
+      },
+      {
+        illustrationSeed: 'safari-6',
+        textEn: 'There, Jabari\'s mother waited, relieved. From that day, elephants and lions in that savanna were the best of friends.',
+        textId: 'Di sana, ibu Jabari menunggu, lega. Sejak hari itu, gajah dan singa di sabana itu menjadi sahabat terbaik.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Who got stuck between two rocks?',
+        questionId: 'Siapa yang terjepit di antara dua batu?',
+        optionsEn: ['Zuri', 'Jabari the lion cub', 'A zebra', 'A bird'],
+        optionsId: ['Zuri', 'Jabari si anak singa', 'Zebra', 'Burung'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How did Zuri find Jabari\'s family?',
+        questionId: 'Bagaimana Zuri menemukan keluarga Jabari?',
+        optionsEn: ['She asked a bird', 'She followed the scent with her trunk', 'She guessed', 'She waited for them'],
+        optionsId: ['Bertanya pada burung', 'Mengikuti aroma dengan belalainya', 'Menebak', 'Menunggu mereka'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What lesson does the story teach?',
+        questionId: 'Pelajaran apa yang diajarkan cerita ini?',
+        optionsEn: ['Only help your own kind', 'Kindness has no borders', 'Stay away from strangers', 'Lions are scary'],
+        optionsId: ['Hanya tolong sejenis', 'Kebaikan tak mengenal batas', 'Jauhi orang asing', 'Singa menakutkan'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'old-macfarms-missing-rooster',
+    titleEn: 'Old MacFarm and the Missing Rooster',
+    titleId: 'Peternakan Tua dan Ayam Jantan yang Hilang',
+    descriptionEn: 'When the rooster who wakes the farm disappears, the animals must learn to work together.',
+    descriptionId: 'Ketika ayam jantan yang membangunkan peternakan menghilang, para hewan harus belajar bekerja sama.',
+    categorySlug: 'farm',
+    authorSlug: 'siti-aminah',
+    coverEmoji: '🐓',
+    coverPalette: 'sunrise',
+    ageMin: 3,
+    ageMax: 6,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'farm-1',
+        textEn: 'Every morning, Rudi the rooster crowed "Cock-a-doodle-doo!" to wake up the whole farm.',
+        textId: 'Setiap pagi, Rudi si ayam jantan berkokok "Kukuruyuk!" untuk membangunkan seluruh peternakan.'
+      },
+      {
+        illustrationSeed: 'farm-2',
+        textEn: 'One morning, there was silence. No crowing at all. Rudi was nowhere to be found!',
+        textId: 'Suatu pagi, semua sunyi. Tidak ada kokokan sama sekali. Rudi tidak ditemukan di mana pun!'
+      },
+      {
+        illustrationSeed: 'farm-3',
+        textEn: 'The cow, the sheep, and the pig searched everywhere, calling his name across the barn.',
+        textId: 'Sapi, domba, dan babi mencari ke mana-mana, memanggil namanya di seluruh kandang.'
+      },
+      {
+        illustrationSeed: 'farm-4',
+        textEn: 'The little duck found him stuck in the mud near the pond, his feathers all muddy.',
+        textId: 'Bebek kecil menemukannya terjebak di lumpur dekat kolam, bulunya penuh lumpur.'
+      },
+      {
+        illustrationSeed: 'farm-5',
+        textEn: 'All the animals worked together, pulling gently, until Rudi popped free with a happy squelch.',
+        textId: 'Semua hewan bekerja sama, menarik dengan lembut, sampai Rudi terlepas dengan suara lucu.'
+      },
+      {
+        illustrationSeed: 'farm-6',
+        textEn: 'The next morning, Rudi crowed louder than ever, thankful for his wonderful farm friends.',
+        textId: 'Keesokan paginya, Rudi berkokok lebih keras dari biasanya, berterima kasih pada teman-teman peternakannya.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What does Rudi do every morning?',
+        questionId: 'Apa yang dilakukan Rudi setiap pagi?',
+        optionsEn: ['He sleeps in', 'He crows to wake everyone', 'He eats breakfast', 'He swims'],
+        optionsId: ['Tidur lagi', 'Berkokok membangunkan semua', 'Sarapan', 'Berenang'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'Where was Rudi stuck?',
+        questionId: 'Di mana Rudi terjebak?',
+        optionsEn: ['In a tree', 'In the mud near the pond', 'In the barn', 'On the roof'],
+        optionsId: ['Di pohon', 'Di lumpur dekat kolam', 'Di kandang', 'Di atap'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How was Rudi rescued?',
+        questionId: 'Bagaimana Rudi diselamatkan?',
+        optionsEn: ['He escaped alone', 'All the animals worked together', 'The farmer used a machine', 'He was left there'],
+        optionsId: ['Kabur sendiri', 'Semua hewan bekerja sama', 'Petani pakai mesin', 'Dibiarkan saja'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'buddys-first-day-home',
+    titleEn: "Buddy the Puppy's First Day Home",
+    titleId: 'Hari Pertama Buddy si Anak Anjing di Rumah Baru',
+    descriptionEn: 'A nervous new puppy learns that his new family will love and take care of him always.',
+    descriptionId: 'Seekor anak anjing yang gugup belajar bahwa keluarga barunya akan selalu mencintai dan merawatnya.',
+    categorySlug: 'pets',
+    authorSlug: 'sarah-johnson',
+    coverEmoji: '🐶',
+    coverPalette: 'sunrise',
+    ageMin: 2,
+    ageMax: 6,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'pets-1',
+        textEn: 'Buddy the puppy arrived at his new home in a little basket, feeling small and nervous.',
+        textId: 'Buddy si anak anjing tiba di rumah barunya dalam keranjang kecil, merasa kecil dan gugup.'
+      },
+      {
+        illustrationSeed: 'pets-2',
+        textEn: 'A little boy named Dimas knelt down slowly and held out his hand. "Hi Buddy, I\'m your friend now."',
+        textId: 'Seorang anak laki-laki bernama Dimas berlutut pelan dan mengulurkan tangannya. "Hai Buddy, aku temanmu sekarang."'
+      },
+      {
+        illustrationSeed: 'pets-3',
+        textEn: 'Buddy sniffed his hand carefully, then wagged his tail just a little bit.',
+        textId: 'Buddy mengendus tangan itu hati-hati, lalu mengibaskan ekornya sedikit.'
+      },
+      {
+        illustrationSeed: 'pets-4',
+        textEn: 'Dimas showed him his cozy new bed, a bowl of fresh water, and a soft squeaky toy.',
+        textId: 'Dimas menunjukkan tempat tidur baru yang nyaman, mangkuk berisi air segar, dan mainan lembut yang berbunyi.'
+      },
+      {
+        illustrationSeed: 'pets-5',
+        textEn: 'That night, Buddy curled up next to Dimas\'s bed, feeling safe for the very first time.',
+        textId: 'Malam itu, Buddy meringkuk di samping tempat tidur Dimas, merasa aman untuk pertama kalinya.'
+      },
+      {
+        illustrationSeed: 'pets-6',
+        textEn: 'By morning, Buddy was already best friends with his whole new family.',
+        textId: 'Menjelang pagi, Buddy sudah menjadi sahabat bagi seluruh keluarga barunya.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'How did Buddy feel when he first arrived?',
+        questionId: 'Bagaimana perasaan Buddy saat pertama tiba?',
+        optionsEn: ['Excited and loud', 'Small and nervous', 'Angry', 'Sleepy all day'],
+        optionsId: ['Bersemangat dan berisik', 'Kecil dan gugup', 'Marah', 'Ngantuk seharian'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'Who welcomed Buddy?',
+        questionId: 'Siapa yang menyambut Buddy?',
+        optionsEn: ['A cat', 'A boy named Dimas', 'A stranger', 'Nobody'],
+        optionsId: ['Kucing', 'Anak bernama Dimas', 'Orang asing', 'Tidak ada'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'Where did Buddy sleep that night?',
+        questionId: 'Di mana Buddy tidur malam itu?',
+        optionsEn: ['Outside', 'Next to Dimas\'s bed', 'In the kitchen', 'In a basket outside'],
+        optionsId: ['Di luar', 'Di samping tempat tidur Dimas', 'Di dapur', 'Dalam keranjang di luar'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'beep-and-the-broken-toy',
+    titleEn: 'Beep and the Broken Toy',
+    titleId: 'Beep dan Mainan yang Rusak',
+    descriptionEn: 'A helpful little robot learns that not everything broken needs fixing — sometimes it just needs care.',
+    descriptionId: 'Seekor robot kecil yang suka menolong belajar bahwa tidak semua yang rusak perlu diperbaiki — kadang cukup dirawat.',
+    categorySlug: 'robots-tech',
+    authorSlug: 'david-lee',
+    coverEmoji: '🤖',
+    coverPalette: 'cosmic',
+    ageMin: 4,
+    ageMax: 9,
+    isPremium: true,
+    pages: [
+      {
+        illustrationSeed: 'robots-1',
+        textEn: 'Beep the robot loved fixing things. Squeaky doors, wobbly tables, anything at all.',
+        textId: 'Beep si robot suka memperbaiki barang. Pintu berdecit, meja goyang, apa saja.'
+      },
+      {
+        illustrationSeed: 'robots-2',
+        textEn: 'One day, he found a little girl named Wina crying over her torn teddy bear, Coco.',
+        textId: 'Suatu hari, ia menemukan gadis kecil bernama Wina menangis karena boneka beruangnya, Coco, robek.'
+      },
+      {
+        illustrationSeed: 'robots-3',
+        textEn: '"I can fix him with my tools!" Beep said, reaching for his glue and needle.',
+        textId: '"Aku bisa memperbaikinya dengan peralatanku!" kata Beep, mengambil lem dan jarumnya.'
+      },
+      {
+        illustrationSeed: 'robots-4',
+        textEn: '"Wait," Wina said softly. "Coco doesn\'t need to be perfect. He just needs a hug and some love."',
+        textId: '"Tunggu," kata Wina lembut. "Coco tidak perlu sempurna. Ia hanya butuh pelukan dan kasih sayang."'
+      },
+      {
+        illustrationSeed: 'robots-5',
+        textEn: 'Beep paused his tools and thought about it. He gently helped Wina sew one small stitch instead.',
+        textId: 'Beep menghentikan peralatannya dan berpikir. Ia membantu Wina menjahit satu jahitan kecil saja.'
+      },
+      {
+        illustrationSeed: 'robots-6',
+        textEn: 'Coco was still a little worn, but Wina hugged him tight and smiled. Beep learned love fixes more than tools.',
+        textId: 'Coco masih agak usang, tapi Wina memeluknya erat dan tersenyum. Beep belajar bahwa cinta memperbaiki lebih dari sekadar alat.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What did Beep love to do?',
+        questionId: 'Apa yang disukai Beep?',
+        optionsEn: ['Sleeping', 'Fixing things', 'Singing', 'Cooking'],
+        optionsId: ['Tidur', 'Memperbaiki barang', 'Bernyanyi', 'Memasak'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What was broken?',
+        questionId: 'Apa yang rusak?',
+        optionsEn: ['A chair', 'Wina\'s teddy bear', 'A robot arm', 'A window'],
+        optionsId: ['Kursi', 'Boneka beruang Wina', 'Lengan robot', 'Jendela'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did Wina say Coco really needed?',
+        questionId: 'Apa yang menurut Wina benar-benar dibutuhkan Coco?',
+        optionsEn: ['New stuffing', 'A hug and love', 'A new owner', 'To be thrown away'],
+        optionsId: ['Isi baru', 'Pelukan dan kasih sayang', 'Pemilik baru', 'Dibuang'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'the-tree-everyone-forgot',
+    titleEn: 'The Tree That Everyone Forgot',
+    titleId: 'Pohon yang Terlupakan',
+    descriptionEn: 'Children rediscover an old forgotten tree in their neighborhood and learn to care for nature together.',
+    descriptionId: 'Anak-anak menemukan kembali sebuah pohon tua yang terlupakan di lingkungan mereka dan belajar merawat alam bersama.',
+    categorySlug: 'nature-environment',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🌳',
+    coverPalette: 'forest',
+    ageMin: 4,
+    ageMax: 9,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'nature-1',
+        textEn: 'At the end of Melati Street stood an old tree, its leaves dusty and branches drooping.',
+        textId: 'Di ujung Jalan Melati berdiri sebuah pohon tua, daunnya berdebu dan rantingnya menunduk.'
+      },
+      {
+        illustrationSeed: 'nature-2',
+        textEn: 'Every day, children walked past it without even noticing it was there.',
+        textId: 'Setiap hari, anak-anak melewatinya tanpa menyadari keberadaannya.'
+      },
+      {
+        illustrationSeed: 'nature-3',
+        textEn: 'One afternoon, little Arka stopped and looked up. "Why is this tree so sad?" he wondered.',
+        textId: 'Suatu sore, Arka kecil berhenti dan menengadah. "Kenapa pohon ini terlihat sedih?" pikirnya.'
+      },
+      {
+        illustrationSeed: 'nature-4',
+        textEn: 'He gathered his friends, and together they watered its roots and cleared the trash around it.',
+        textId: 'Ia mengumpulkan teman-temannya, dan bersama-sama mereka menyiram akarnya dan membersihkan sampah di sekitarnya.'
+      },
+      {
+        illustrationSeed: 'nature-5',
+        textEn: 'Week by week, the tree grew greener. Birds began building nests in its branches again.',
+        textId: 'Minggu demi minggu, pohon itu semakin hijau. Burung-burung mulai membuat sarang di rantingnya lagi.'
+      },
+      {
+        illustrationSeed: 'nature-6',
+        textEn: 'Now the children call it "Our Tree," and every child on Melati Street helps take care of it.',
+        textId: 'Sekarang anak-anak menyebutnya "Pohon Kita," dan setiap anak di Jalan Melati ikut merawatnya.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What was wrong with the tree at first?',
+        questionId: 'Apa yang salah dengan pohon itu di awal?',
+        optionsEn: ['It was cut down', 'It looked dusty and drooping', 'It was on fire', 'It moved away'],
+        optionsId: ['Ditebang', 'Terlihat berdebu dan lesu', 'Terbakar', 'Berpindah tempat'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did Arka and his friends do?',
+        questionId: 'Apa yang dilakukan Arka dan teman-temannya?',
+        optionsEn: ['Ignored it', 'Watered it and cleared trash', 'Cut it down', 'Painted it'],
+        optionsId: ['Mengabaikannya', 'Menyiram dan membersihkan sampah', 'Menebangnya', 'Mengecatnya'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What happened after they cared for it?',
+        questionId: 'Apa yang terjadi setelah mereka merawatnya?',
+        optionsEn: ['It died anyway', 'It grew greener and birds returned', 'Nothing changed', 'It was cut down'],
+        optionsId: ['Tetap mati', 'Semakin hijau dan burung kembali', 'Tidak ada yang berubah', 'Ditebang'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'the-rainbow-after-the-rain',
+    titleEn: 'The Rainbow After the Rain',
+    titleId: 'Pelangi Setelah Hujan',
+    descriptionEn: 'A little boy learns why rainbows appear and discovers that even rainy days can lead to something beautiful.',
+    descriptionId: 'Seorang anak laki-laki belajar kenapa pelangi muncul dan menemukan bahwa hari hujan pun bisa berujung indah.',
+    categorySlug: 'weather-seasons',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🌦️',
+    coverPalette: 'dusk',
+    ageMin: 2,
+    ageMax: 6,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'weather-1',
+        textEn: 'Dark clouds rolled in, and rain began to fall. Bayu sighed, "No playing outside today."',
+        textId: 'Awan gelap datang, dan hujan mulai turun. Bayu menghela napas, "Tidak bisa main di luar hari ini."'
+      },
+      {
+        illustrationSeed: 'weather-2',
+        textEn: 'His grandfather smiled. "Every rain has a surprise waiting at the end, if you\'re patient."',
+        textId: 'Kakeknya tersenyum. "Setiap hujan menyimpan kejutan di akhir, kalau kamu sabar menunggu."'
+      },
+      {
+        illustrationSeed: 'weather-3',
+        textEn: 'They watched from the window as the rain slowed down, drop by drop, until it finally stopped.',
+        textId: 'Mereka menonton dari jendela saat hujan melambat, tetes demi tetes, sampai akhirnya berhenti.'
+      },
+      {
+        illustrationSeed: 'weather-4',
+        textEn: 'The sun peeked out from behind a cloud, and light passed through the tiny raindrops in the air.',
+        textId: 'Matahari mengintip dari balik awan, dan cahaya melewati tetesan air kecil di udara.'
+      },
+      {
+        illustrationSeed: 'weather-5',
+        textEn: 'Suddenly, a rainbow stretched across the sky — red, orange, yellow, green, blue, and purple.',
+        textId: 'Tiba-tiba, sebuah pelangi terbentang di langit — merah, jingga, kuning, hijau, biru, dan ungu.'
+      },
+      {
+        illustrationSeed: 'weather-6',
+        textEn: '"The rain made room for the rainbow," Grandfather said. Bayu smiled, no longer sad about the rain.',
+        textId: '"Hujan memberi ruang untuk pelangi," kata Kakek. Bayu tersenyum, tak lagi sedih karena hujan.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What was Bayu sad about?',
+        questionId: 'Apa yang membuat Bayu sedih?',
+        optionsEn: ['He lost a toy', 'He couldn\'t play outside because of rain', 'He was hungry', 'School was cancelled'],
+        optionsId: ['Kehilangan mainan', 'Tidak bisa main di luar karena hujan', 'Lapar', 'Sekolah diliburkan'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What appeared after the rain?',
+        questionId: 'Apa yang muncul setelah hujan?',
+        optionsEn: ['Snow', 'A rainbow', 'A storm', 'Fog'],
+        optionsId: ['Salju', 'Pelangi', 'Badai', 'Kabut'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What lesson did Bayu learn?',
+        questionId: 'Pelajaran apa yang dipetik Bayu?',
+        optionsEn: ['Rain is always bad', 'Rain can lead to something beautiful', 'Rainbows are scary', 'Never go outside'],
+        optionsId: ['Hujan selalu buruk', 'Hujan bisa berujung indah', 'Pelangi menakutkan', 'Jangan pernah keluar rumah'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'a-day-with-officer-dan',
+    titleEn: 'A Day With Officer Dan',
+    titleId: 'Sehari Bersama Petugas Dan',
+    descriptionEn: 'A curious boy spends a day shadowing a police officer and learns how community helpers keep everyone safe.',
+    descriptionId: 'Seorang anak yang penasaran menghabiskan sehari mengikuti seorang polisi dan belajar bagaimana profesi membantu menjaga keselamatan semua orang.',
+    categorySlug: 'community-helpers',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '👮',
+    coverPalette: 'night',
+    ageMin: 3,
+    ageMax: 7,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'community-1',
+        textEn: 'On School Career Day, Farrel got to spend the morning with Officer Dan, the friendliest police officer in town.',
+        textId: 'Di Hari Profesi Sekolah, Farrel menghabiskan pagi bersama Petugas Dan, polisi paling ramah di kota.'
+      },
+      {
+        illustrationSeed: 'community-2',
+        textEn: 'First, they helped a group of children cross the busy street safely, holding up a bright stop sign.',
+        textId: 'Pertama, mereka membantu sekelompok anak menyeberang jalan ramai dengan aman, mengangkat rambu berhenti yang cerah.'
+      },
+      {
+        illustrationSeed: 'community-3',
+        textEn: 'Next, they helped an elderly man who couldn\'t find his way home, guiding him gently back to his street.',
+        textId: 'Selanjutnya, mereka membantu seorang kakek yang tersesat, menuntunnya kembali ke jalannya dengan lembut.'
+      },
+      {
+        illustrationSeed: 'community-4',
+        textEn: '"Being a helper means noticing when someone needs you," Officer Dan explained with a warm smile.',
+        textId: '"Menjadi penolong berarti peka saat seseorang membutuhkanmu," jelas Petugas Dan dengan senyum hangat.'
+      },
+      {
+        illustrationSeed: 'community-5',
+        textEn: 'Farrel even got to wave to cars from a bicycle, helping keep the school zone safe at pickup time.',
+        textId: 'Farrel bahkan boleh melambai ke mobil dari sepeda, membantu menjaga keamanan zona sekolah saat jam jemput.'
+      },
+      {
+        illustrationSeed: 'community-6',
+        textEn: 'That night, Farrel told his family, "I want to be a helper like Officer Dan when I grow up."',
+        textId: 'Malam itu, Farrel bercerita ke keluarganya, "Aku ingin jadi penolong seperti Petugas Dan kalau sudah besar."'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Who did Farrel spend the day with?',
+        questionId: 'Farrel menghabiskan hari bersama siapa?',
+        optionsEn: ['A doctor', 'Officer Dan', 'A firefighter', 'A teacher'],
+        optionsId: ['Dokter', 'Petugas Dan', 'Pemadam kebakaran', 'Guru'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did they help the elderly man with?',
+        questionId: 'Apa yang mereka bantu untuk kakek itu?',
+        optionsEn: ['Carrying groceries', 'Finding his way home', 'Fixing his bike', 'Crossing a river'],
+        optionsId: ['Membawa belanjaan', 'Menemukan jalan pulang', 'Memperbaiki sepeda', 'Menyeberangi sungai'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did Farrel decide he wanted to be?',
+        questionId: 'Farrel ingin menjadi apa?',
+        optionsEn: ['A chef', 'A helper like Officer Dan', 'A pilot', 'A painter'],
+        optionsId: ['Koki', 'Penolong seperti Petugas Dan', 'Pilot', 'Pelukis'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'team-sunflowers-big-game',
+    titleEn: "Team Sunflower's Big Game",
+    titleId: 'Pertandingan Besar Tim Bunga Matahari',
+    descriptionEn: 'A young player learns that supporting your teammates matters more than winning.',
+    descriptionId: 'Seorang pemain kecil belajar bahwa mendukung teman satu tim lebih penting daripada menang.',
+    categorySlug: 'sports',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '⚽',
+    coverPalette: 'meadow',
+    ageMin: 5,
+    ageMax: 10,
+    isPremium: true,
+    pages: [
+      {
+        illustrationSeed: 'sports-1',
+        textEn: 'Team Sunflower had practiced all season for the final match against Team Comet.',
+        textId: 'Tim Bunga Matahari sudah berlatih sepanjang musim untuk pertandingan final melawan Tim Komet.'
+      },
+      {
+        illustrationSeed: 'sports-2',
+        textEn: 'Rayhan, the fastest runner on the team, was so nervous his hands were shaking before the whistle blew.',
+        textId: 'Rayhan, pelari tercepat di tim, sangat gugup hingga tangannya gemetar sebelum peluit ditiup.'
+      },
+      {
+        illustrationSeed: 'sports-3',
+        textEn: 'In the second half, Rayhan missed an easy goal, and his shoulders slumped in disappointment.',
+        textId: 'Di babak kedua, Rayhan gagal mencetak gol yang mudah, dan bahunya turun kecewa.'
+      },
+      {
+        illustrationSeed: 'sports-4',
+        textEn: 'His teammate Bimo ran over and patted his back. "We win and lose together. Keep playing!"',
+        textId: 'Rekan setimnya, Bimo, berlari dan menepuk punggungnya. "Kita menang dan kalah bersama. Ayo terus main!"'
+      },
+      {
+        illustrationSeed: 'sports-5',
+        textEn: 'Cheered on by his team, Rayhan ran faster than ever and passed the ball perfectly to score in the last minute.',
+        textId: 'Didukung timnya, Rayhan berlari lebih cepat dari sebelumnya dan mengoper bola dengan sempurna untuk mencetak gol di menit terakhir.'
+      },
+      {
+        illustrationSeed: 'sports-6',
+        textEn: 'Team Sunflower won, but Rayhan said the best part was his team believing in him even after a mistake.',
+        textId: 'Tim Bunga Matahari menang, tapi bagi Rayhan yang terbaik adalah timnya tetap percaya padanya walau ia sempat gagal.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What team did Rayhan play for?',
+        questionId: 'Rayhan bermain untuk tim apa?',
+        optionsEn: ['Team Comet', 'Team Sunflower', 'Team Star', 'Team Ocean'],
+        optionsId: ['Tim Komet', 'Tim Bunga Matahari', 'Tim Bintang', 'Tim Laut'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What happened when Rayhan missed a goal?',
+        questionId: 'Apa yang terjadi saat Rayhan gagal mencetak gol?',
+        optionsEn: ['His team got angry', 'His teammate encouraged him', 'He was sent home', 'The game stopped'],
+        optionsId: ['Tim marah', 'Rekan setimnya menyemangatinya', 'Ia dipulangkan', 'Pertandingan berhenti'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did Rayhan say was the best part?',
+        questionId: 'Apa menurut Rayhan bagian terbaiknya?',
+        optionsEn: ['Winning the trophy', 'His team believing in him', 'Being the fastest', 'Getting a prize'],
+        optionsId: ['Memenangkan trofi', 'Timnya tetap percaya padanya', 'Menjadi tercepat', 'Mendapat hadiah'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'the-song-that-made-the-village-dance',
+    titleEn: 'The Song That Made the Village Dance',
+    titleId: 'Lagu yang Membuat Desa Menari',
+    descriptionEn: 'A shy girl discovers her singing voice can bring an entire village together in joy.',
+    descriptionId: 'Seorang gadis pemalu menemukan suara nyanyiannya bisa menyatukan seluruh desa dalam kebahagiaan.',
+    categorySlug: 'music-rhymes',
+    authorSlug: 'siti-aminah',
+    coverEmoji: '🎵',
+    coverPalette: 'candy',
+    ageMin: 3,
+    ageMax: 7,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'music-1',
+        textEn: 'Sari loved to hum little tunes, but she was too shy to sing in front of anyone.',
+        textId: 'Sari suka menggumamkan lagu-lagu kecil, tapi ia terlalu malu untuk bernyanyi di depan orang.'
+      },
+      {
+        illustrationSeed: 'music-2',
+        textEn: 'One evening, the village harvest festival felt quiet and a little sad — the usual singer was sick.',
+        textId: 'Suatu malam, festival panen desa terasa sepi dan sedikit sedih — penyanyi biasa sedang sakit.'
+      },
+      {
+        illustrationSeed: 'music-3',
+        textEn: 'Sari\'s grandmother whispered, "Music is a gift you share, not something to hide."',
+        textId: 'Nenek Sari berbisik, "Musik adalah hadiah yang kau bagikan, bukan yang kau sembunyikan."'
+      },
+      {
+        illustrationSeed: 'music-4',
+        textEn: 'With shaking knees, Sari stepped up and began to sing a gentle rhyme about the moon and rice fields.',
+        textId: 'Dengan lutut gemetar, Sari maju dan mulai menyanyikan pantun lembut tentang bulan dan sawah.'
+      },
+      {
+        illustrationSeed: 'music-5',
+        textEn: 'One by one, the villagers began clapping along, then swaying, then dancing under the stars.',
+        textId: 'Satu per satu, warga desa mulai bertepuk tangan, lalu bergoyang, lalu menari di bawah bintang.'
+      },
+      {
+        illustrationSeed: 'music-6',
+        textEn: 'From that night on, Sari sang at every festival, no longer afraid to share her gift.',
+        textId: 'Sejak malam itu, Sari bernyanyi di setiap festival, tak lagi takut membagikan hadiahnya.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Why was the festival feeling sad?',
+        questionId: 'Kenapa festival terasa sedih?',
+        optionsEn: ['It was raining', 'The usual singer was sick', 'There was no food', 'It was cancelled'],
+        optionsId: ['Sedang hujan', 'Penyanyi biasa sedang sakit', 'Tidak ada makanan', 'Dibatalkan'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did Sari sing about?',
+        questionId: 'Sari bernyanyi tentang apa?',
+        optionsEn: ['Cars and roads', 'The moon and rice fields', 'Robots', 'The ocean'],
+        optionsId: ['Mobil dan jalan', 'Bulan dan sawah', 'Robot', 'Laut'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did the villagers do while Sari sang?',
+        questionId: 'Apa yang dilakukan warga desa saat Sari bernyanyi?',
+        optionsEn: ['They left', 'They clapped and danced', 'They fell asleep', 'They argued'],
+        optionsId: ['Pergi', 'Bertepuk tangan dan menari', 'Tertidur', 'Bertengkar'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'grandmas-lantern-festival',
+    titleEn: "Grandma's Lantern Festival",
+    titleId: 'Festival Lampion Nenek',
+    descriptionEn: 'A boy learns the meaning behind his family\'s lantern festival tradition and why celebrations bring people together.',
+    descriptionId: 'Seorang anak belajar makna di balik tradisi festival lampion keluarganya dan kenapa perayaan menyatukan orang.',
+    categorySlug: 'holidays-culture',
+    authorSlug: 'siti-aminah',
+    coverEmoji: '🏮',
+    coverPalette: 'night',
+    ageMin: 4,
+    ageMax: 8,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'holidays-1',
+        textEn: 'Every year, Bram\'s family made paper lanterns together for the village Lantern Festival.',
+        textId: 'Setiap tahun, keluarga Bram membuat lampion kertas bersama untuk Festival Lampion desa.'
+      },
+      {
+        illustrationSeed: 'holidays-2',
+        textEn: '"Why do we do this every year, Grandma?" Bram asked, folding red paper carefully.',
+        textId: '"Kenapa kita melakukan ini setiap tahun, Nek?" tanya Bram, sambil melipat kertas merah hati-hati.'
+      },
+      {
+        illustrationSeed: 'holidays-3',
+        textEn: '"The lanterns carry our wishes for the new year, and light guides family back home," Grandma explained.',
+        textId: '"Lampion membawa harapan kita untuk tahun baru, dan cahayanya menuntun keluarga kembali pulang," jelas Nenek.'
+      },
+      {
+        illustrationSeed: 'holidays-4',
+        textEn: 'That evening, the whole village gathered, lighting their lanterns one by one until the sky glowed gold.',
+        textId: 'Malam itu, seluruh desa berkumpul, menyalakan lampion satu per satu hingga langit bersinar keemasan.'
+      },
+      {
+        illustrationSeed: 'holidays-5',
+        textEn: 'Bram wrote his wish on his lantern: "I wish everyone I love stays happy and healthy."',
+        textId: 'Bram menulis harapannya di lampionnya: "Aku berharap semua yang kucintai tetap bahagia dan sehat."'
+      },
+      {
+        illustrationSeed: 'holidays-6',
+        textEn: 'Watching hundreds of lanterns float into the sky, Bram finally understood why the tradition mattered.',
+        textId: 'Melihat ratusan lampion melayang ke langit, Bram akhirnya paham kenapa tradisi ini begitu berarti.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What did Bram\'s family make together?',
+        questionId: 'Apa yang dibuat keluarga Bram bersama?',
+        optionsEn: ['Kites', 'Paper lanterns', 'Cookies', 'Masks'],
+        optionsId: ['Layang-layang', 'Lampion kertas', 'Kue', 'Topeng'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What do the lanterns carry, according to Grandma?',
+        questionId: 'Menurut Nenek, apa yang dibawa lampion?',
+        optionsEn: ['Food', 'Wishes for the new year', 'Money', 'Nothing special'],
+        optionsId: ['Makanan', 'Harapan untuk tahun baru', 'Uang', 'Tidak ada yang khusus'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did Bram write on his lantern?',
+        questionId: 'Apa yang ditulis Bram di lampionnya?',
+        optionsEn: ['A joke', 'A wish for loved ones to be happy and healthy', 'His name only', 'A drawing'],
+        optionsId: ['Lelucon', 'Harapan agar orang tercinta bahagia dan sehat', 'Namanya saja', 'Gambar'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'why-teeth-need-brushing',
+    titleEn: 'Why Teeth Need Brushing',
+    titleId: 'Kenapa Gigi Perlu Disikat',
+    descriptionEn: 'A friendly visit to the dentist teaches a reluctant boy why brushing his teeth every day matters.',
+    descriptionId: 'Kunjungan yang menyenangkan ke dokter gigi mengajarkan seorang anak yang malas kenapa menyikat gigi setiap hari itu penting.',
+    categorySlug: 'health-body',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🦷',
+    coverPalette: 'ocean',
+    ageMin: 3,
+    ageMax: 7,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'health-1',
+        textEn: 'Ega never liked brushing his teeth. "It takes too long," he always complained.',
+        textId: 'Ega tidak pernah suka menyikat gigi. "Terlalu lama," ia selalu mengeluh.'
+      },
+      {
+        illustrationSeed: 'health-2',
+        textEn: 'One day, his tooth started to hurt, so Mom took him to see Dr. Nisa, the dentist.',
+        textId: 'Suatu hari, giginya mulai sakit, jadi Ibu membawanya ke Dr. Nisa, dokter gigi.'
+      },
+      {
+        illustrationSeed: 'health-3',
+        textEn: 'Dr. Nisa showed him a picture: tiny sugar bugs love hiding in unbrushed teeth and cause holes.',
+        textId: 'Dr. Nisa menunjukkan gambar: kuman gula kecil suka bersembunyi di gigi yang tak disikat dan menyebabkan lubang.'
+      },
+      {
+        illustrationSeed: 'health-4',
+        textEn: '"Brushing twice a day chases the sugar bugs away before they can make a home in your teeth," she said.',
+        textId: '"Menyikat gigi dua kali sehari mengusir kuman gula sebelum mereka bisa tinggal di gigimu," katanya.'
+      },
+      {
+        illustrationSeed: 'health-5',
+        textEn: 'Dr. Nisa gently fixed Ega\'s tooth, and gave him a fun new toothbrush shaped like a dinosaur.',
+        textId: 'Dr. Nisa memperbaiki gigi Ega dengan lembut, dan memberinya sikat gigi baru berbentuk dinosaurus.'
+      },
+      {
+        illustrationSeed: 'health-6',
+        textEn: 'Now Ega brushes every morning and night, proud that his teeth are strong and sugar-bug-free.',
+        textId: 'Sekarang Ega menyikat gigi setiap pagi dan malam, bangga giginya kuat dan bebas kuman gula.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'Why did Ega go to the dentist?',
+        questionId: 'Kenapa Ega pergi ke dokter gigi?',
+        optionsEn: ['For a checkup only', 'His tooth started to hurt', 'To get a toy', 'For fun'],
+        optionsId: ['Cek rutin saja', 'Giginya mulai sakit', 'Untuk dapat mainan', 'Untuk senang-senang'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What did Dr. Nisa say causes holes in teeth?',
+        questionId: 'Menurut Dr. Nisa, apa yang menyebabkan lubang di gigi?',
+        optionsEn: ['Cold water', 'Sugar bugs on unbrushed teeth', 'Sunlight', 'Too much sleep'],
+        optionsId: ['Air dingin', 'Kuman gula di gigi tak disikat', 'Sinar matahari', 'Terlalu banyak tidur'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How often should you brush your teeth?',
+        questionId: 'Seberapa sering sebaiknya menyikat gigi?',
+        optionsEn: ['Once a week', 'Twice a day', 'Only when it hurts', 'Never'],
+        optionsId: ['Sekali seminggu', 'Dua kali sehari', 'Hanya saat sakit', 'Tidak pernah'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'the-magic-words',
+    titleEn: 'The Magic Words: Please and Thank You',
+    titleId: 'Kata Ajaib: Tolong dan Terima Kasih',
+    descriptionEn: 'A young rabbit discovers that two small words can turn a grumpy day into a wonderful one.',
+    descriptionId: 'Seekor kelinci kecil menemukan bahwa dua kata sederhana bisa mengubah hari yang buruk menjadi menyenangkan.',
+    categorySlug: 'manners',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🙏',
+    coverPalette: 'sunrise',
+    ageMin: 2,
+    ageMax: 6,
+    isPremium: false,
+    pages: [
+      {
+        illustrationSeed: 'manners-1',
+        textEn: 'Kiki the rabbit wanted a carrot from the market stall. "Give me a carrot!" she demanded.',
+        textId: 'Kiki si kelinci ingin sebuah wortel dari kios pasar. "Kasih aku wortel!" katanya menuntut.'
+      },
+      {
+        illustrationSeed: 'manners-2',
+        textEn: 'The shopkeeper, Mr. Beaver, looked a little sad and slowly turned away without a word.',
+        textId: 'Pemilik toko, Pak Berang-berang, terlihat sedikit sedih dan perlahan berbalik tanpa berkata apa-apa.'
+      },
+      {
+        illustrationSeed: 'manners-3',
+        textEn: 'Kiki\'s mother whispered gently, "Try asking with the magic words, sweetheart."',
+        textId: 'Ibu Kiki berbisik lembut, "Coba minta dengan kata ajaib, Sayang."'
+      },
+      {
+        illustrationSeed: 'manners-4',
+        textEn: '"Could I please have a carrot?" Kiki asked, softer this time. Mr. Beaver\'s face lit up with a smile.',
+        textId: '"Bolehkah aku minta wortel, tolong?" tanya Kiki, kali ini lebih lembut. Wajah Pak Berang-berang langsung ceria.'
+      },
+      {
+        illustrationSeed: 'manners-5',
+        textEn: 'He handed her the biggest, crunchiest carrot in the stall. "Thank you so much!" Kiki said happily.',
+        textId: 'Ia memberikan wortel terbesar dan paling renyah di kiosnya. "Terima kasih banyak!" kata Kiki riang.'
+      },
+      {
+        illustrationSeed: 'manners-6',
+        textEn: 'From that day, Kiki always remembered: please and thank you make everyone\'s day a little brighter.',
+        textId: 'Sejak hari itu, Kiki selalu ingat: tolong dan terima kasih membuat hari semua orang sedikit lebih cerah.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'How did Kiki first ask for a carrot?',
+        questionId: 'Bagaimana Kiki pertama kali meminta wortel?',
+        optionsEn: ['Politely', 'By demanding it rudely', 'By singing', 'By writing a note'],
+        optionsId: ['Dengan sopan', 'Dengan menuntut kasar', 'Dengan bernyanyi', 'Dengan menulis catatan'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What are the "magic words"?',
+        questionId: 'Apa "kata ajaib" itu?',
+        optionsEn: ['Hello and goodbye', 'Please and thank you', 'Yes and no', 'Sorry and okay'],
+        optionsId: ['Halo dan sampai jumpa', 'Tolong dan terima kasih', 'Ya dan tidak', 'Maaf dan oke'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How did Mr. Beaver react to the magic words?',
+        questionId: 'Bagaimana reaksi Pak Berang-berang mendengar kata ajaib?',
+        optionsEn: ['He got angrier', 'He smiled and gave the best carrot', 'He ignored her', 'He closed his shop'],
+        optionsId: ['Makin marah', 'Tersenyum dan memberi wortel terbaik', 'Mengabaikannya', 'Menutup tokonya'],
+        correctIndex: 1
+      }
+    ]
+  },
+  {
+    slug: 'the-girl-who-planted-a-forest',
+    titleEn: 'The Girl Who Planted a Forest',
+    titleId: 'Gadis yang Menanam Hutan',
+    descriptionEn: 'Inspired by real young environmentalists around the world, this story follows a girl whose one small act of planting trees grows into a movement.',
+    descriptionId: 'Terinspirasi dari anak-anak pencinta lingkungan di dunia nyata, kisah ini mengikuti seorang gadis yang aksi kecilnya menanam pohon tumbuh menjadi gerakan besar.',
+    categorySlug: 'true-stories',
+    authorSlug: 'axto-creative-team',
+    coverEmoji: '🌟',
+    coverPalette: 'forest',
+    ageMin: 6,
+    ageMax: 11,
+    isPremium: true,
+    pages: [
+      {
+        illustrationSeed: 'true-1',
+        textEn: 'When Maya was seven, she noticed the hill behind her school had no trees left — only dry, cracked earth.',
+        textId: 'Ketika Maya berusia tujuh tahun, ia menyadari bukit di belakang sekolahnya tak ada pohon lagi — hanya tanah kering yang retak.'
+      },
+      {
+        illustrationSeed: 'true-2',
+        textEn: 'Her teacher explained that without trees, the soil couldn\'t hold rainwater, and animals had nowhere to live.',
+        textId: 'Gurunya menjelaskan bahwa tanpa pohon, tanah tak bisa menahan air hujan, dan hewan tak punya tempat tinggal.'
+      },
+      {
+        illustrationSeed: 'true-3',
+        textEn: 'Maya decided to plant just one small seedling that weekend. It felt tiny compared to the whole bare hill.',
+        textId: 'Maya memutuskan menanam satu bibit kecil akhir pekan itu. Rasanya kecil sekali dibanding seluruh bukit gundul.'
+      },
+      {
+        illustrationSeed: 'true-4',
+        textEn: 'She asked her friends to help the next weekend. Ten children came, then twenty, then the whole school.',
+        textId: 'Ia mengajak teman-temannya membantu akhir pekan berikutnya. Sepuluh anak datang, lalu dua puluh, lalu seluruh sekolah.'
+      },
+      {
+        illustrationSeed: 'true-5',
+        textEn: 'Within two years, hundreds of young trees covered the hill, and birds and butterflies began to return.',
+        textId: 'Dalam dua tahun, ratusan pohon muda menutupi bukit itu, dan burung serta kupu-kupu mulai kembali.'
+      },
+      {
+        illustrationSeed: 'true-6',
+        textEn: 'Maya learned that one small act, shared with others, can grow into something as big as a forest.',
+        textId: 'Maya belajar bahwa satu tindakan kecil, jika dibagikan bersama orang lain, bisa tumbuh menjadi sebesar hutan.'
+      }
+    ],
+    quiz: [
+      {
+        questionEn: 'What did Maya notice about the hill?',
+        questionId: 'Apa yang disadari Maya tentang bukit itu?',
+        optionsEn: ['It had too many trees', 'It had no trees left', 'It was covered in flowers', 'It was underwater'],
+        optionsId: ['Terlalu banyak pohon', 'Tidak ada pohon lagi', 'Penuh bunga', 'Terendam air'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'How did Maya\'s small act grow?',
+        questionId: 'Bagaimana tindakan kecil Maya berkembang?',
+        optionsEn: ['It stayed just her alone', 'Friends and eventually the whole school joined', 'She gave up', 'Nobody noticed'],
+        optionsId: ['Tetap sendirian', 'Teman-teman dan akhirnya seluruh sekolah ikut', 'Ia menyerah', 'Tidak ada yang peduli'],
+        correctIndex: 1
+      },
+      {
+        questionEn: 'What returned to the hill after the trees grew?',
+        questionId: 'Apa yang kembali ke bukit setelah pohon tumbuh?',
+        optionsEn: ['Cars', 'Birds and butterflies', 'Buildings', 'Nothing changed'],
+        optionsId: ['Mobil', 'Burung dan kupu-kupu', 'Gedung', 'Tidak ada yang berubah'],
+        correctIndex: 1
+      }
+    ]
+  }
 ];

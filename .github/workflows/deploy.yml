@@ -66,12 +66,23 @@ jobs:
           const crypto = require('crypto');
           const fs = require('fs');
           const email = process.env.ADMIN_EMAIL.trim().toLowerCase().replace(/'/g, "''");
-          const iterations = 120000;
+          // Must match src/lib/auth/password.ts — Cloudflare Workers caps PBKDF2
+          // at 100000 iterations, so a hash made with more can never be verified
+          // in the Worker.
+          const iterations = 100000;
           const salt = crypto.randomBytes(16);
           const hash = crypto.pbkdf2Sync(process.env.ADMIN_PASSWORD, salt, iterations, 32, 'sha256');
           const passwordHash = `pbkdf2$${iterations}$${salt.toString('base64')}$${hash.toString('base64')}`;
           const now = Date.now();
-          const sql = `INSERT OR IGNORE INTO users (id, name, email, password_hash, role, locale, avatar_seed, plan, created_at, updated_at) VALUES ('usr_admin_primary', 'AXTO Admin', '${email}', '${passwordHash}', 'admin', 'id', 'admin-primary', 'lifetime', ${now}, ${now});`;
+          // Surgically drop only a previously-seeded admin row whose hash uses an
+          // unsupported iteration count (the old 120000 bug) so the corrected
+          // hash below replaces it exactly once. If the admin has since changed
+          // their own password (hash no longer starts with pbkdf2$120000$) this
+          // DELETE matches nothing and INSERT OR IGNORE leaves their row intact.
+          const sql = [
+            "DELETE FROM users WHERE id='usr_admin_primary' AND password_hash LIKE 'pbkdf2$120000$%';",
+            `INSERT OR IGNORE INTO users (id, name, email, password_hash, role, locale, avatar_seed, plan, created_at, updated_at) VALUES ('usr_admin_primary', 'AXTO Admin', '${email}', '${passwordHash}', 'admin', 'id', 'admin-primary', 'lifetime', ${now}, ${now});`
+          ].join('\n');
           fs.writeFileSync('/tmp/admin-bootstrap.sql', sql);
           NODE_EOF
           node /tmp/bootstrap-admin.js

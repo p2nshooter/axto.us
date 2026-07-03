@@ -1,6 +1,11 @@
 import { toBase64, fromBase64, timingSafeEqual } from './crypto-utils';
 
-const ITERATIONS = 120_000;
+// Cloudflare Workers' Web Crypto implementation rejects PBKDF2 iteration
+// counts above 100_000 ("iteration counts above 100000 are not supported").
+// A hash created elsewhere (e.g. Node in CI) with more iterations can never
+// be *verified* inside the Worker, which silently broke admin login. Keep
+// this at the Workers ceiling so hashing and verifying agree everywhere.
+const ITERATIONS = 100_000;
 const KEY_LENGTH_BITS = 256;
 
 async function deriveBits(password: string, salt: Uint8Array, iterations: number): Promise<Uint8Array> {

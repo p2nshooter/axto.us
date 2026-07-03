@@ -17,7 +17,7 @@ function sqlEscape(value: string): string {
 }
 
 function hashPasswordSync(password: string): string {
-  const iterations = 120_000;
+  const iterations = 100_000; // Cloudflare Workers PBKDF2 ceiling — see src/lib/auth/password.ts
   const salt = crypto.randomBytes(16);
   const hash = crypto.pbkdf2Sync(password, salt, iterations, 32, 'sha256');
   return `pbkdf2$${iterations}$${salt.toString('base64')}$${hash.toString('base64')}`;
