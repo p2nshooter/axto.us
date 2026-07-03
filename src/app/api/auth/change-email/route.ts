@@ -5,8 +5,9 @@ import { users } from '@/lib/db/schema';
 import { changeEmailSchema } from '@/lib/validation';
 import { verifyPassword } from '@/lib/auth/password';
 import { requireUser } from '@/lib/auth/guards';
+import { withErrorHandling } from '@/lib/api-handler';
 
-export async function POST(req: NextRequest) {
+export const POST = withErrorHandling(async (req: NextRequest) => {
   const guard = await requireUser();
   if ('error' in guard) return guard.error;
 
@@ -32,4 +33,4 @@ export async function POST(req: NextRequest) {
   await db.update(users).set({ email: newEmail, updatedAt: new Date() }).where(eq(users.id, user.id));
 
   return NextResponse.json({ ok: true, email: newEmail });
-}
+});

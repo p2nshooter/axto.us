@@ -25,8 +25,8 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
-      const data = (await res.json()) as any;
-      if (!res.ok) throw new Error(data.error || 'Failed to login');
+      const data = (await res.json().catch(() => ({}))) as any;
+      if (!res.ok) throw new Error(data.detail || data.error || `Failed to login (HTTP ${res.status})`);
 
       // This form only ever creates a 'client' session — admin panel access
       // requires logging in through /admin-login, regardless of role.

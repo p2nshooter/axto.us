@@ -7,8 +7,9 @@ import { hashPassword } from '@/lib/auth/password';
 import { createSession } from '@/lib/auth/session';
 import { newId } from '@/lib/id';
 import { sendWelcomeEmail } from '@/lib/email';
+import { withErrorHandling } from '@/lib/api-handler';
 
-export async function POST(req: NextRequest) {
+export const POST = withErrorHandling(async (req: NextRequest) => {
   const body = (await req.json().catch(() => null)) as any;
   const parsed = registerSchema.safeParse(body);
   if (!parsed.success) {
@@ -40,4 +41,4 @@ export async function POST(req: NextRequest) {
   await sendWelcomeEmail(email, name).catch((err) => console.error('welcome email failed', err));
 
   return NextResponse.json({ ok: true });
-}
+});
