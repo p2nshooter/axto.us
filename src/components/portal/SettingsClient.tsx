@@ -13,6 +13,13 @@ export function SettingsClient({ user }: { user: SessionUser }) {
   const [profileMsg, setProfileMsg] = useState<string | null>(null);
   const [profileSaving, setProfileSaving] = useState(false);
 
+  const [currentEmail, setCurrentEmail] = useState(user.email);
+  const [emailPassword, setEmailPassword] = useState('');
+  const [newEmail, setNewEmail] = useState('');
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [emailSuccess, setEmailSuccess] = useState(false);
+  const [emailSaving, setEmailSaving] = useState(false);
+
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [pwError, setPwError] = useState<string | null>(null);
@@ -34,6 +41,31 @@ export function SettingsClient({ user }: { user: SessionUser }) {
       router.refresh();
     } finally {
       setProfileSaving(false);
+    }
+  }
+
+  async function changeEmail(e: React.FormEvent) {
+    e.preventDefault();
+    setEmailError(null);
+    setEmailSuccess(false);
+    setEmailSaving(true);
+    try {
+      const res = await fetch('/api/auth/change-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword: emailPassword, newEmail })
+      });
+      const data = (await res.json()) as any;
+      if (!res.ok) throw new Error(data.error || 'Failed');
+      setEmailSuccess(true);
+      setCurrentEmail(data.email);
+      setEmailPassword('');
+      setNewEmail('');
+      router.refresh();
+    } catch (err: any) {
+      setEmailError(err.message);
+    } finally {
+      setEmailSaving(false);
     }
   }
 
@@ -73,6 +105,38 @@ export function SettingsClient({ user }: { user: SessionUser }) {
           </button>
           {profileMsg && <span className="text-sm text-emerald-600">{profileMsg}</span>}
         </div>
+      </form>
+
+      <form onSubmit={changeEmail} className="card space-y-4">
+        <h2 className="font-semibold text-slate-800 dark:text-slate-100">{t('auth.changeEmailTitle')}</h2>
+        <p className="text-sm text-slate-500 dark:text-slate-400">
+          {t('auth.currentEmail')}: <span className="font-medium text-slate-700 dark:text-slate-200">{currentEmail}</span>
+        </p>
+        <div>
+          <label className="label">{t('auth.newEmail')}</label>
+          <input
+            type="email"
+            className="input"
+            required
+            value={newEmail}
+            onChange={(e) => setNewEmail(e.target.value)}
+          />
+        </div>
+        <div>
+          <label className="label">{t('auth.currentPassword')}</label>
+          <input
+            type="password"
+            className="input"
+            required
+            value={emailPassword}
+            onChange={(e) => setEmailPassword(e.target.value)}
+          />
+        </div>
+        {emailError && <p className="text-sm text-red-600">{emailError}</p>}
+        {emailSuccess && <p className="text-sm text-emerald-600">✓</p>}
+        <button type="submit" disabled={emailSaving} className="btn-primary">
+          {emailSaving ? t('common.loading') : t('auth.changeEmailTitle')}
+        </button>
       </form>
 
       <form onSubmit={changePassword} className="card space-y-4">

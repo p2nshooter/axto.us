@@ -48,6 +48,38 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      # Creates the one primary admin account from GitHub secrets — the
+      # plaintext password never touches the repo, only its PBKDF2 hash goes
+      # into D1. INSERT OR IGNORE is keyed on a fixed row id, so this only
+      # ever fires once: if the admin later changes their own email/password
+      # from /admin/settings, later deploys won't overwrite it. Skipped
+      # entirely if the two secrets aren't set.
+      - name: Bootstrap primary admin account
+        if: ${{ secrets.ADMIN_BOOTSTRAP_EMAIL != '' && secrets.ADMIN_BOOTSTRAP_PASSWORD != '' }}
+        continue-on-error: true
+        run: |
+          set -e
+          cat <<'NODE_EOF' > /tmp/bootstrap-admin.js
+          const crypto = require('crypto');
+          const fs = require('fs');
+          const email = process.env.ADMIN_EMAIL.trim().toLowerCase().replace(/'/g, "''");
+          const iterations = 120000;
+          const salt = crypto.randomBytes(16);
+          const hash = crypto.pbkdf2Sync(process.env.ADMIN_PASSWORD, salt, iterations, 32, 'sha256');
+          const passwordHash = `pbkdf2$${iterations}$${salt.toString('base64')}$${hash.toString('base64')}`;
+          const now = Date.now();
+          const sql = `INSERT OR IGNORE INTO users (id, name, email, password_hash, role, locale, avatar_seed, plan, created_at, updated_at) VALUES ('usr_admin_primary', 'AXTO Admin', '${email}', '${passwordHash}', 'admin', 'id', 'admin-primary', 'lifetime', ${now}, ${now});`;
+          fs.writeFileSync('/tmp/admin-bootstrap.sql', sql);
+          NODE_EOF
+          node /tmp/bootstrap-admin.js
+          npx wrangler d1 execute axto_db --remote --file=/tmp/admin-bootstrap.sql
+          rm -f /tmp/bootstrap-admin.js /tmp/admin-bootstrap.sql
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          ADMIN_EMAIL: ${{ secrets.ADMIN_BOOTSTRAP_EMAIL }}
+          ADMIN_PASSWORD: ${{ secrets.ADMIN_BOOTSTRAP_PASSWORD }}
+
       # Wrangler refuses to publish without either a registered workers.dev
       # subdomain or explicit routes. Registers one automatically (idempotent —
       # skipped if the account already has one) so first deploy doesn't need a
