@@ -55,10 +55,13 @@ jobs:
       # from /admin/settings, later deploys won't overwrite it. Skipped
       # entirely if the two secrets aren't set.
       - name: Bootstrap primary admin account
-        if: ${{ secrets.ADMIN_BOOTSTRAP_EMAIL != '' && secrets.ADMIN_BOOTSTRAP_PASSWORD != '' }}
         continue-on-error: true
         run: |
           set -e
+          if [ -z "$ADMIN_EMAIL" ] || [ -z "$ADMIN_PASSWORD" ]; then
+            echo "ADMIN_BOOTSTRAP_EMAIL/ADMIN_BOOTSTRAP_PASSWORD not set, skipping."
+            exit 0
+          fi
           cat <<'NODE_EOF' > /tmp/bootstrap-admin.js
           const crypto = require('crypto');
           const fs = require('fs');
