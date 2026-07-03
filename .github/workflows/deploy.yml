@@ -78,9 +78,13 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       # Best-effort: attaches axto.us / www.axto.us straight to this Worker via
-      # the Cloudflare API when CLOUDFLARE_ZONE_ID is set. Non-fatal if the
-      # token lacks the needed scope — falls back to the one manual dashboard
-      # click (Workers & Pages → axto-us → Settings → Domains & Routes → Add).
+      # the Cloudflare API when CLOUDFLARE_ZONE_ID is set. Cloudflare refuses to
+      # attach a Custom Domain over a hostname that still has its own A/AAAA/
+      # CNAME record (e.g. the old registrar parking page), so those specific
+      # record types are deleted first — MX/TXT/_dmarc records are left alone
+      # so email keeps working. Non-fatal if the token lacks the needed scope —
+      # falls back to the one manual dashboard click (Workers & Pages → axto-us
+      # → Settings → Domains & Routes → Add).
       - name: Attach axto.us custom domain (best effort)
         continue-on-error: true
         run: |
@@ -89,6 +93,17 @@ jobs:
             exit 0
           fi
           for host in axto.us www.axto.us; do
+            for type in A AAAA CNAME; do
+              ids=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records?type=$type&name=$host" \
+                | node -e "try{const d=JSON.parse(require('fs').readFileSync(0,'utf8'));(d.result||[]).forEach(r=>console.log(r.id))}catch(e){}")
+              for id in $ids; do
+                echo "Deleting conflicting $type record for $host ($id)..."
+                curl -s -X DELETE -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+                  "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records/$id"
+                echo
+              done
+            done
             echo "Attaching $host ..."
             curl -s -X PUT -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
               -d "{\"hostname\":\"$host\",\"zone_id\":\"$CLOUDFLARE_ZONE_ID\",\"service\":\"axto-us\",\"environment\":\"production\"}" \
