@@ -48,6 +48,29 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
+      # Wrangler refuses to publish without either a registered workers.dev
+      # subdomain or explicit routes. Registers one automatically (idempotent —
+      # skipped if the account already has one) so first deploy doesn't need a
+      # manual dashboard click.
+      - name: Ensure workers.dev subdomain is registered
+        run: |
+          set -e
+          current=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
+            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain")
+          existing=$(node -e "try{const d=JSON.parse(process.argv[1]);process.stdout.write(d.result&&d.result.subdomain?d.result.subdomain:'')}catch(e){}" "$current")
+          if [ -n "$existing" ]; then
+            echo "workers.dev subdomain already registered: $existing"
+          else
+            echo "Registering workers.dev subdomain 'axto'..."
+            resp=$(curl -s -X PUT -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
+              -d '{"subdomain":"axto"}' \
+              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain")
+            echo "$resp"
+          fi
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
       - name: Deploy to Cloudflare Workers
         run: npx opennextjs-cloudflare deploy
         env:
