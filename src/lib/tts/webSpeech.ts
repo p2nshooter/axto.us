@@ -46,6 +46,8 @@ function pickVoice(lang: string): SpeechSynthesisVoice | undefined {
 export type SpeakHandlers = {
   onSentenceStart?: (index: number) => void;
   onEnd?: () => void;
+  rate?: number;
+  pitch?: number;
 };
 
 // Bumped on every new call so a stale, in-flight utterance chain from a
@@ -81,8 +83,8 @@ export function speakSentences(sentences: string[], locale: Locale, handlers: Sp
     handlers.onSentenceStart?.(i);
     const utterance = new SpeechSynthesisUtterance(sentences[i]);
     utterance.lang = lang;
-    utterance.rate = 0.95;
-    utterance.pitch = 1.05;
+    utterance.rate = handlers.rate ?? 0.95;
+    utterance.pitch = handlers.pitch ?? 1.05;
     const voice = pickVoice(lang);
     if (voice) utterance.voice = voice;
 

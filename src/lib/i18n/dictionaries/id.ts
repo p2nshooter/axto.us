@@ -38,7 +38,9 @@ const id: Dictionary = {
       'Platform e-book anak dengan AI Voice dan multi-bahasa untuk pengalaman membaca yang seru, aman, dan bermanfaat bagi seluruh keluarga.',
     ctaStart: 'Mulai Membaca Gratis',
     ctaBrowse: 'Lihat Koleksi',
-    usedBy: 'Digunakan oleh 50.000+ keluarga di seluruh dunia'
+    usedBy: 'Digunakan oleh 50.000+ keluarga di seluruh dunia',
+    playIntro: 'Putar perkenalan',
+    pauseIntro: 'Jeda perkenalan'
   },
   features: {
     title: 'Semua yang dibutuhkan pembaca cilik',

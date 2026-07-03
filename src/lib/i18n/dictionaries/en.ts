@@ -36,7 +36,9 @@ const en = {
       'A kids ebook platform with AI voice and multiple languages — safe, fun and enriching reading experiences for every family.',
     ctaStart: 'Start Reading Free',
     ctaBrowse: 'Browse Collection',
-    usedBy: 'Used by 50,000+ families worldwide'
+    usedBy: 'Used by 50,000+ families worldwide',
+    playIntro: 'Play introduction',
+    pauseIntro: 'Pause introduction'
   },
   features: {
     title: 'Everything a young reader needs',
