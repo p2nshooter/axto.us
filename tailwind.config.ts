@@ -25,6 +25,25 @@ const config: Config = {
       },
       borderRadius: {
         xl2: '1.25rem'
+      },
+      keyframes: {
+        slideFadeIn: {
+          '0%': { opacity: '0', transform: 'translateY(6px) scale(0.98)' },
+          '100%': { opacity: '1', transform: 'translateY(0) scale(1)' }
+        },
+        floatSlow: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-10px)' }
+        },
+        waveBar: {
+          '0%, 100%': { transform: 'scaleY(0.3)' },
+          '50%': { transform: 'scaleY(1)' }
+        }
+      },
+      animation: {
+        'slide-fade-in': 'slideFadeIn 0.5s ease-out',
+        'float-slow': 'floatSlow 4s ease-in-out infinite',
+        'wave-bar': 'waveBar 0.9s ease-in-out infinite'
       }
     }
   },
