@@ -25,14 +25,10 @@
       "database_id": "eea18df3-0e83-4db5-abea-4c13a2dcc6c8"
     }
   ],
-  // --- R2 Bucket (book covers, illustrations, uploaded assets) ---
-  // Create with: wrangler r2 bucket create axto-assets
-  "r2_buckets": [
-    {
-      "binding": "ASSETS_BUCKET",
-      "bucket_name": "axto-assets"
-    }
-  ],
+  // R2 bucket "axto-assets" exists but isn't bound here: the CLOUDFLARE_API_TOKEN
+  // used by CI lacks R2 permissions, and no code currently reads/writes it (covers
+  // are emoji+gradient placeholders). Add the binding back once the token has R2
+  // edit permission and an upload feature actually needs it.
   // --- KV Namespace (sessions cache, rate limiting) ---
   // Create with: wrangler kv namespace create AXTO_KV
   "kv_namespaces": [
