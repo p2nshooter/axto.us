@@ -8,10 +8,11 @@ import { SESSION_COOKIE } from '@/lib/auth/session';
 export function middleware(req: NextRequest) {
   const hasSession = req.cookies.has(SESSION_COOKIE);
   const isAdminPath = req.nextUrl.pathname.startsWith('/admin');
+  const isSchoolPortalPath = req.nextUrl.pathname.startsWith('/school-portal');
 
-  if (!hasSession && (req.nextUrl.pathname.startsWith('/app') || isAdminPath)) {
-    const url = new URL(isAdminPath ? '/admin-login' : '/login', req.url);
-    if (!isAdminPath) url.searchParams.set('next', req.nextUrl.pathname);
+  if (!hasSession && (req.nextUrl.pathname.startsWith('/app') || isAdminPath || isSchoolPortalPath)) {
+    const url = new URL(isAdminPath ? '/admin-login' : isSchoolPortalPath ? '/school-login' : '/login', req.url);
+    if (!isAdminPath && !isSchoolPortalPath) url.searchParams.set('next', req.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
 
@@ -19,5 +20,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/app/:path*', '/admin/:path*']
+  matcher: ['/app/:path*', '/admin/:path*', '/school-portal/:path*']
 };

@@ -1,10 +1,39 @@
 import { z } from 'zod';
 
-export const registerSchema = z.object({
-  name: z.string().trim().min(2, 'Nama minimal 2 karakter').max(80),
-  email: z.string().trim().toLowerCase().email('Email tidak valid'),
-  password: z.string().min(8, 'Password minimal 8 karakter').max(200),
-  locale: z.string().min(2).max(5).optional()
+export const registerSchema = z
+  .object({
+    name: z.string().trim().min(2, 'Nama minimal 2 karakter').max(80),
+    email: z.string().trim().toLowerCase().email('Email tidak valid'),
+    password: z.string().min(8, 'Password minimal 8 karakter').max(200),
+    locale: z.string().min(2).max(5).optional(),
+    // Diisi kalau daftar lewat sekolah (toggle "Daftar lewat sekolah" di halaman signup).
+    schoolId: z.string().trim().max(40).optional(),
+    // Wajib kalau schoolId diisi — penggunanya anak-anak, jadi butuh consent eksplisit
+    // dari orang tua/wali, bukan cukup dari siswa atau sekolah.
+    parentEmail: z.string().trim().toLowerCase().email('Email orang tua tidak valid').optional()
+  })
+  .refine((data) => !data.schoolId || !!data.parentEmail, {
+    message: 'Email orang tua/wali wajib diisi untuk pendaftaran lewat sekolah.',
+    path: ['parentEmail']
+  });
+
+export const schoolRegisterSchema = z.object({
+  schoolName: z.string().trim().min(2, 'Nama sekolah minimal 2 karakter').max(150),
+  country: z.string().trim().min(2, 'Negara wajib diisi').max(56),
+  city: z.string().trim().max(100).optional(),
+  adminName: z.string().trim().min(2, 'Nama minimal 2 karakter').max(80),
+  adminEmail: z.string().trim().toLowerCase().email('Email tidak valid'),
+  password: z.string().min(8, 'Password minimal 8 karakter').max(200)
+});
+
+export const schoolStudentActionSchema = z.object({
+  action: z.enum(['approve', 'reject', 'deactivate'])
+});
+
+export const apiCredentialSchema = z.object({
+  provider: z.string().trim().min(1, 'Provider wajib diisi').max(50),
+  label: z.string().trim().min(1, 'Label wajib diisi').max(100),
+  value: z.string().min(1, 'Nilai credential wajib diisi').max(4000)
 });
 
 export const loginSchema = z.object({

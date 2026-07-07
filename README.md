@@ -70,6 +70,11 @@ Ada 2 cara mengisi secret ini — pilih salah satu:
 | `NOWPAYMENTS_API_KEY`, `NOWPAYMENTS_IPN_SECRET` | Pembayaran crypto (BTC/ETH/BNB/SOL/DOGE/USDT) via [NOWPayments](https://nowpayments.io) |
 | `ELEVENLABS_API_KEY` / `AZURE_TTS_KEY`+`AZURE_TTS_REGION` | *(opsional)* AI Voice premium — tanpa ini otomatis fallback ke Web Speech API browser (gratis) |
 | `ADMIN_BOOTSTRAP_EMAIL`, `ADMIN_BOOTSTRAP_PASSWORD` | *(opsional)* Membuat 1 akun admin utama otomatis saat deploy — lihat bagian "Akun admin awal" di bawah |
+| `CREDENTIALS_ENCRYPTION_KEY` | Master key buat enkripsi credential yang ditambahkan lewat Admin > Kredensial API — generate sekali dengan `openssl rand -base64 32`, jangan pernah diganti setelah ada credential tersimpan |
+| `NVIDIA_API_KEY` | Smart engine — fallback env var kalau belum ada credential aktif di Admin > Kredensial API (generate teks & narasi lewat NVIDIA NIM) |
+| `RUNPOD_API_KEY`, `RUNPOD_ENDPOINT_ID` | Smart engine — generate video (self-hosted Wan2.7/LTX-2.3 di RunPod Serverless), juga bisa diisi lewat Admin > Kredensial API |
+| `CRON_SECRET` | Header rahasia yang wajib dikirim scheduler eksternal ke `/api/ai/jobs/finalize-video` |
+| `EXTERNAL_ENGINE_WS_URL`, `EXTERNAL_ENGINE_WS_TOKEN` | *(opsional)* Kalau diisi, menggantikan NVIDIA/RunPod di atas dengan satu engine eksternal lewat WebSocket |
 
 Tanpa secret pembayaran di atas, halaman checkout akan menampilkan pesan error yang jelas
 ("belum dikonfigurasi") alih-alih pura-pura berhasil — tidak ada pembayaran yang di-mock.

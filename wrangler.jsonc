@@ -26,9 +26,23 @@
     }
   ],
   // R2 bucket "axto-assets" exists but isn't bound here: the CLOUDFLARE_API_TOKEN
-  // used by CI lacks R2 permissions, and no code currently reads/writes it (covers
-  // are emoji+gradient placeholders). Add the binding back once the token has R2
-  // edit permission and an upload feature actually needs it.
+  // used by CI lacks R2 permissions. Covers are emoji+gradient placeholders, so
+  // nothing needs it yet — EXCEPT the new video/narration-audio smart-engine jobs
+  // (lib/ai/smart-engine.ts, api/ai/jobs/finalize-video), which write generated
+  // output to env.AXTO_ASSETS and will fail at generation time (not at deploy
+  // time) until this is bound. Add the binding here as
+  // { "binding": "AXTO_ASSETS", "bucket_name": "axto-assets" } under an
+  // "r2_buckets" array once the token has R2 edit permission. story_text jobs
+  // don't need R2 at all (output stored directly in the DB).
+  //
+  // The real-time generation-progress Durable Object (durable-objects/
+  // GenerationProgressRoom.ts, used by api/ai/jobs/[id]/ws) is similarly not
+  // wired into this file yet — OpenNext's Cloudflare adapter builds "main" from
+  // .open-next/worker.js, so a Durable Object class isn't auto-exported from
+  // there; confirm the current @opennextjs/cloudflare version's supported
+  // mechanism for exporting extra Durable Object classes before adding a
+  // "durable_objects" binding + "migrations" block here. Until then, clients
+  // should poll GET /api/ai/jobs/[id] for status instead of opening the /ws route.
   // --- KV Namespace (sessions cache, rate limiting) ---
   // Create with: wrangler kv namespace create AXTO_KV
   "kv_namespaces": [
@@ -50,5 +64,8 @@
   }
   // Secrets (never put these here) — set via: wrangler secret put <NAME>
   // RESEND_API_KEY, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET,
-  // MIDTRANS_SERVER_KEY, MIDTRANS_CLIENT_KEY, NOWPAYMENTS_API_KEY, NOWPAYMENTS_IPN_SECRET
+  // MIDTRANS_SERVER_KEY, MIDTRANS_CLIENT_KEY, NOWPAYMENTS_API_KEY, NOWPAYMENTS_IPN_SECRET,
+  // CREDENTIALS_ENCRYPTION_KEY (openssl rand -base64 32 — see lib/crypto/secrets.ts),
+  // NVIDIA_API_KEY, RUNPOD_API_KEY, RUNPOD_ENDPOINT_ID,
+  // CRON_SECRET, EXTERNAL_ENGINE_WS_URL, EXTERNAL_ENGINE_WS_TOKEN (optional)
 }

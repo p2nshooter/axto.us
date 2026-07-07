@@ -56,3 +56,24 @@ export async function sendWelcomeEmail(to: string, name: string) {
     `
   });
 }
+
+export async function sendParentConsentEmail(
+  to: string,
+  studentName: string,
+  schoolName: string,
+  confirmUrl: string
+) {
+  await sendEmail({
+    to,
+    subject: `Persetujuan diperlukan — ${studentName} mendaftar lewat ${schoolName}`,
+    html: `
+      <div style="font-family:sans-serif;max-width:480px;margin:0 auto">
+        <h2 style="color:#7f3dfb">AXTO</h2>
+        <p><strong>${studentName}</strong> mendaftar di AXTO lewat <strong>${schoolName}</strong> dan mencantumkan Anda sebagai orang tua/wali.</p>
+        <p>Akun ini baru aktif setelah Anda menyetujuinya. Silakan konfirmasi kalau Anda mengizinkan:</p>
+        <p><a href="${confirmUrl}" style="background:#7f3dfb;color:#fff;padding:12px 20px;border-radius:8px;text-decoration:none;display:inline-block">Setujui Pendaftaran</a></p>
+        <p>Kalau Anda tidak mengenali pendaftaran ini, abaikan saja email ini — akun tidak akan aktif tanpa persetujuan Anda.</p>
+      </div>
+    `
+  });
+}

@@ -15,6 +15,8 @@ const NAV = [
   { href: '/admin/promo', label: 'Promo & Kode', icon: '🏷️' },
   { href: '/admin/reports', label: 'Laporan', icon: '📈' },
   { href: '/admin/audit-log', label: 'Audit Log', icon: '🧾' },
+  { href: '/admin/credentials', label: 'Kredensial API', icon: '🔑' },
+  { href: '/admin/schools', label: 'Sekolah', icon: '🏫' },
   { href: '/admin/settings', label: 'Pengaturan', icon: '⚙️' }
 ];
 

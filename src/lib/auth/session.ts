@@ -11,15 +11,15 @@ export type SessionUser = {
   id: string;
   name: string;
   email: string;
-  role: 'user' | 'admin';
+  role: 'user' | 'admin' | 'school_admin';
   locale: string;
   avatarSeed: string;
   plan: string;
   planExpiresAt: Date | null;
-  loginSource: 'client' | 'admin';
+  loginSource: 'client' | 'admin' | 'school';
 };
 
-export async function createSession(userId: string, loginSource: 'client' | 'admin' = 'client') {
+export async function createSession(userId: string, loginSource: 'client' | 'admin' | 'school' = 'client') {
   const db = await getDb();
   const raw = randomToken(32);
   const id = await sha256Hex(raw);
