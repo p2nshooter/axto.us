@@ -17,6 +17,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6371903555702163"
+          crossOrigin="anonymous"
+        />
+        <script async src="//www.ezojs.com/ezoic/sa.min.js" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ezstandalone = window.ezstandalone || {}; ezstandalone.cmd = ezstandalone.cmd || [];`
+          }}
+        />
+        <script src="//ezoicanalytics.com/analytics.js" />
+      </head>
       <body>
         <LocaleProvider initialLocale={locale}>{children}</LocaleProvider>
       </body>
