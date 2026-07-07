@@ -4,6 +4,32 @@ import { isCryptoCurrency, type CryptoCurrency } from './constants';
 export { isCryptoCurrency };
 export type { CryptoCurrency };
 
+// Setiap coin punya minimum transaksi sendiri di NOWPayments (didorong oleh
+// biaya jaringan, bukan aturan mereka) — BTC misalnya bisa naik ke atas $10-20
+// pas fee jaringan lagi tinggi, sementara stablecoin (USDT) minimumnya jauh
+// lebih rendah. Tanpa cek ini dulu, paket murah (mis. premium_monthly $4.99)
+// bisa gagal di BTC dengan error mentah NOWPayments yang tidak ramah user.
+export async function getMinimumCryptoAmountUsd(payCurrency: CryptoCurrency): Promise<number> {
+  const env = await getEnv();
+  if (!env.NOWPAYMENTS_API_KEY) {
+    throw new Error('Pembayaran crypto belum dikonfigurasi. Set NOWPAYMENTS_API_KEY.');
+  }
+
+  const res = await fetch(
+    `https://api.nowpayments.io/v1/min-amount?currency_from=usd&currency_to=${payCurrency}&fiat_equivalent=usd`,
+    { headers: { 'x-api-key': env.NOWPAYMENTS_API_KEY } }
+  );
+  if (!res.ok) {
+    // Kalau cek minimum sendiri gagal (mis. NOWPayments down), jangan blokir
+    // seluruh alur checkout — lanjut saja dan biarkan create-payment di bawah
+    // jadi validasi terakhir (tetap lebih baik daripada checkout mati total).
+    return 0;
+  }
+  const data = (await res.json()) as any;
+  const min = Number(data.fiat_equivalent ?? data.min_amount);
+  return Number.isFinite(min) ? min : 0;
+}
+
 export async function createCryptoPayment(params: {
   orderId: string;
   amountUsd: number;
@@ -12,6 +38,13 @@ export async function createCryptoPayment(params: {
   const env = await getEnv();
   if (!env.NOWPAYMENTS_API_KEY) {
     throw new Error('Pembayaran crypto belum dikonfigurasi. Set NOWPAYMENTS_API_KEY.');
+  }
+
+  const minUsd = await getMinimumCryptoAmountUsd(params.payCurrency);
+  if (minUsd > 0 && params.amountUsd < minUsd) {
+    throw new Error(
+      `Nominal paket ini ($${params.amountUsd.toFixed(2)}) di bawah minimum transaksi ${params.payCurrency.toUpperCase()} saat ini (sekitar $${minUsd.toFixed(2)}, dipengaruhi biaya jaringan). Coba pilih mata uang crypto lain (mis. USDT) atau paket yang lebih besar.`
+    );
   }
 
   const res = await fetch('https://api.nowpayments.io/v1/payment', {
@@ -29,7 +62,17 @@ export async function createCryptoPayment(params: {
 
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`Gagal membuat pembayaran crypto: ${text}`);
+    // NOWPayments balikin JSON error mentah (mis. {"code":"AMOUNT_MINIMAL_ERROR",...})
+    // — coba ambil field "message"-nya biar pesan ke user tetap manusiawi
+    // walau pre-check minUsd di atas entah kenapa kelewatan (race kurs, dll).
+    let friendly = text;
+    try {
+      const parsed = JSON.parse(text);
+      if (parsed?.message) friendly = parsed.message;
+    } catch {
+      // biarkan teks mentah kalau bukan JSON
+    }
+    throw new Error(`Gagal membuat pembayaran crypto: ${friendly}`);
   }
 
   const data = (await res.json()) as any;
