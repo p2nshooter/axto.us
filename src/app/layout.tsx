@@ -3,6 +3,7 @@ import './globals.css';
 import { getServerLocale } from '@/lib/i18n/server';
 import { LOCALE_META } from '@/lib/i18n/locales';
 import { LocaleProvider } from '@/lib/i18n/LocaleProvider';
+import { AdSlot } from '@/components/AdSlot';
 
 export const metadata: Metadata = {
   title: 'AXTO — Adventures eXplore Together, Unlimited Stories',
@@ -27,7 +28,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body>
-        <LocaleProvider initialLocale={locale}>{children}</LocaleProvider>
+        <LocaleProvider initialLocale={locale}>
+          {children}
+          {/* One tasteful, centrally-controlled ad above the page bottom. */}
+          <div className="mx-auto max-w-4xl px-4">
+            <AdSlot placement="footer" />
+          </div>
+        </LocaleProvider>
       </body>
     </html>
   );

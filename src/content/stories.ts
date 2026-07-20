@@ -1,3 +1,4 @@
+import { WORLD_STORIES } from "./stories-world";
 export type StoryPage = { illustrationSeed: string; textEn: string; textId: string };
 export type QuizItem = {
   questionEn: string;
@@ -2814,3 +2815,6 @@ export const STORIES: Story[] = [
     ]
   }
 ];
+
+// World folk tales (retold public-domain, ~10 min each) appended to the library.
+STORIES.push(...WORLD_STORIES);
