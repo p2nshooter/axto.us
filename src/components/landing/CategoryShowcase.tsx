@@ -66,7 +66,7 @@ export function CategoryShowcase({ categories, books }: { categories: Category[]
       </div>
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-        {filtered.slice(0, 12).map((book) => (
+        {filtered.map((book) => (
           <Link key={book.id} href={`/read/${book.slug}`} className="group">
             <div className="relative">
               <BookCover emoji={book.coverEmoji} palette={book.coverPalette} />

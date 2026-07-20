@@ -11,10 +11,12 @@ export function Navbar({ user }: { user: SessionUser | null }) {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
 
+  // Public nav for a register-free site: no pricing, no login/register —
+  // everything is free to read and listen to (owner: "tanpa ada register").
   const links = [
     { href: '/#features', label: t('nav.features') },
-    { href: '/#categories', label: t('nav.categories') },
-    { href: '/#pricing', label: t('nav.pricing') },
+    { href: '/library', label: t('nav.categories') },
+    { href: '/blog', label: 'Blog' },
     { href: '/for-schools', label: t('nav.forSchools') }
   ];
 
@@ -40,14 +42,9 @@ export function Navbar({ user }: { user: SessionUser | null }) {
               {t('portal.library')}
             </Link>
           ) : (
-            <>
-              <Link href="/login" className="text-sm font-medium text-slate-600 hover:text-brand-600 dark:text-slate-300">
-                {t('nav.login')}
-              </Link>
-              <Link href="/register" className="btn-primary !px-5 !py-2 text-sm">
-                {t('nav.getStarted')}
-              </Link>
-            </>
+            <Link href="/library" className="btn-primary !px-5 !py-2 text-sm">
+              {t('hero.ctaStart')}
+            </Link>
           )}
         </div>
 
@@ -73,14 +70,9 @@ export function Navbar({ user }: { user: SessionUser | null }) {
                   {t('portal.library')}
                 </Link>
               ) : (
-                <div className="flex gap-2">
-                  <Link href="/login" className="btn-secondary !px-4 !py-2 text-sm">
-                    {t('nav.login')}
-                  </Link>
-                  <Link href="/register" className="btn-primary !px-4 !py-2 text-sm">
-                    {t('nav.getStarted')}
-                  </Link>
-                </div>
+                <Link href="/library" className="btn-primary !px-4 !py-2 text-sm">
+                  {t('hero.ctaStart')}
+                </Link>
               )}
             </div>
           </div>

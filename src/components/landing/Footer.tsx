@@ -38,16 +38,16 @@ export function Footer() {
           <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{t('footer.product')}</p>
           <ul className="mt-3 space-y-2 text-sm text-slate-500 dark:text-slate-400">
             <li><a href="/#features">{t('nav.features')}</a></li>
-            <li><a href="/#categories">{t('nav.categories')}</a></li>
-            <li><a href="/#pricing">{t('nav.pricing')}</a></li>
+            <li><Link href="/library">{t('nav.categories')}</Link></li>
+            <li><Link href="/blog">Blog</Link></li>
             <li><Link href="/for-schools">{t('nav.forSchools')}</Link></li>
           </ul>
         </div>
         <div>
           <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">{t('footer.company')}</p>
           <ul className="mt-3 space-y-2 text-sm text-slate-500 dark:text-slate-400">
-            <li><Link href="/login">{t('nav.login')}</Link></li>
-            <li><Link href="/register">{t('nav.getStarted')}</Link></li>
+            <li><Link href="/library">{t('hero.ctaStart')}</Link></li>
+            <li><Link href="/blog">Blog</Link></li>
           </ul>
         </div>
         <div>
