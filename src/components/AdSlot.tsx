@@ -19,8 +19,8 @@ let cached: Promise<AdView> | null = null;
 function fetchAdView(): Promise<AdView> {
   if (cached) return cached;
   cached = fetch("https://api.ulyah.com/content/ad-config?site=axto-us")
-    .then((r) => r.json())
-    .then((v: Partial<AdView>) => ({ enabled: !!v.enabled, clientId: v.clientId ?? "", slots: v.slots ?? {} }))
+    .then((r) => r.json() as Promise<Partial<AdView>>)
+    .then((v) => ({ enabled: !!v.enabled, clientId: v.clientId ?? "", slots: v.slots ?? {} }))
     .catch(() => ({ enabled: false, clientId: "", slots: {} }));
   return cached;
 }
