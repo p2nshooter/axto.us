@@ -295,7 +295,7 @@ export const STORIES: Story[] = [
     coverPalette: 'forest',
     ageMin: 4,
     ageMax: 9,
-    isPremium: true,
+    isPremium: false,
     pages: [
       {
         illustrationSeed: 'dino-1',
@@ -389,7 +389,7 @@ export const STORIES: Story[] = [
     coverPalette: 'cosmic',
     ageMin: 5,
     ageMax: 10,
-    isPremium: true,
+    isPremium: false,
     pages: [
       {
         illustrationSeed: 'space-1',
@@ -473,7 +473,7 @@ export const STORIES: Story[] = [
     coverPalette: 'meadow',
     ageMin: 5,
     ageMax: 10,
-    isPremium: true,
+    isPremium: false,
     pages: [
       {
         illustrationSeed: 'robot-1',
@@ -848,7 +848,7 @@ export const STORIES: Story[] = [
     coverPalette: 'dusk',
     ageMin: 4,
     ageMax: 8,
-    isPremium: true,
+    isPremium: false,
     pages: [
       {
         illustrationSeed: 'aira-1',
@@ -1584,7 +1584,7 @@ export const STORIES: Story[] = [
     coverPalette: 'cosmic',
     ageMin: 5,
     ageMax: 9,
-    isPremium: true,
+    isPremium: false,
     pages: [
       {
         illustrationSeed: 'fantasy-1',
@@ -1722,7 +1722,7 @@ export const STORIES: Story[] = [
     coverPalette: 'ocean',
     ageMin: 4,
     ageMax: 8,
-    isPremium: true,
+    isPremium: false,
     pages: [
       {
         illustrationSeed: 'pirates-1',
@@ -2136,7 +2136,7 @@ export const STORIES: Story[] = [
     coverPalette: 'cosmic',
     ageMin: 4,
     ageMax: 9,
-    isPremium: true,
+    isPremium: false,
     pages: [
       {
         illustrationSeed: 'robots-1',
@@ -2412,7 +2412,7 @@ export const STORIES: Story[] = [
     coverPalette: 'meadow',
     ageMin: 5,
     ageMax: 10,
-    isPremium: true,
+    isPremium: false,
     pages: [
       {
         illustrationSeed: 'sports-1',
@@ -2757,7 +2757,7 @@ export const STORIES: Story[] = [
     coverPalette: 'forest',
     ageMin: 6,
     ageMax: 11,
-    isPremium: true,
+    isPremium: false,
     pages: [
       {
         illustrationSeed: 'true-1',

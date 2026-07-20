@@ -271,16 +271,9 @@ export function Reader({
         <button onClick={toggleFavorite} className="btn-secondary !px-4 !py-2 text-sm">
           <HeartIcon className="h-4 w-4" filled={favorited} />
         </button>
-        {book.isPremium && (
-          <button
-            onClick={downloadOffline}
-            disabled={savedOffline}
-            className="btn-secondary !px-4 !py-2 text-sm disabled:opacity-50"
-          >
-            <DownloadIcon className="h-4 w-4" />
-            {savedOffline ? '✓' : t('reader.download')}
-          </button>
-        )}
+        {/* Downloads are intentionally disabled everywhere — every story is
+            free to read and listen to, but not downloadable (owner: "bebas
+            didengarkan tp tidak bisa di-download"). */}
       </div>
 
       <div className="mt-8 flex items-center justify-between">

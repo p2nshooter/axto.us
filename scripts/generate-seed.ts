@@ -92,6 +92,12 @@ lines.push(
   `INSERT OR IGNORE INTO promo_codes (id, code, discount_percent, max_uses, used_count, active, created_at) VALUES ('promo_welcome10', 'WELCOME10', 10, 1000, 0, 1, ${now});`
 );
 
+// Every story is FREE (owner: "semuanya gratis"). INSERT OR IGNORE never
+// overwrites books that already exist in the deployed DB, so this UPDATE also
+// clears the premium flag on any previously-seeded premium books.
+lines.push('\n-- Make the whole library free.');
+lines.push('UPDATE books SET is_premium = 0;');
+
 writeFileSync(path.join(__dirname, '..', 'seed', 'seed.sql'), lines.join('\n') + '\n');
 
 console.log(`Wrote seed/seed.sql (${STORIES.length} books, ${CATEGORIES.length} categories, ${AUTHORS.length} authors).`);
