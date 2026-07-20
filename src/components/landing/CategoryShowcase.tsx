@@ -67,14 +67,9 @@ export function CategoryShowcase({ categories, books }: { categories: Category[]
 
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
         {filtered.slice(0, 12).map((book) => (
-          <Link key={book.id} href={`/register?next=/app/read/${book.slug}`} className="group">
+          <Link key={book.id} href={`/read/${book.slug}`} className="group">
             <div className="relative">
               <BookCover emoji={book.coverEmoji} palette={book.coverPalette} />
-              {book.isPremium && (
-                <span className="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-bold text-brand-700 shadow">
-                  PRO
-                </span>
-              )}
             </div>
             <p className="mt-2 truncate text-sm font-semibold text-slate-800 group-hover:text-brand-600 dark:text-slate-200">
               {bookTitle(book)}

@@ -15,7 +15,7 @@ export function CTABanner() {
         <h3 className="relative text-2xl font-black sm:text-3xl">{c.title}</h3>
         <p className="relative mx-auto mt-3 max-w-lg text-brand-100">{c.subtitle}</p>
         <Link
-          href="/register"
+          href="/library"
           className="relative mt-6 inline-flex rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-700 shadow hover:bg-brand-50"
         >
           {c.button}

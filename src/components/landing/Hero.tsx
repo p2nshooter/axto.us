@@ -86,7 +86,7 @@ export function Hero() {
           </h1>
           <p className="mt-5 max-w-lg text-lg text-slate-600 dark:text-slate-300">{t('hero.subtitle')}</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/register" className="btn-primary">
+            <Link href="/library" className="btn-primary">
               {t('hero.ctaStart')}
             </Link>
             <a href="#categories" className="btn-secondary">

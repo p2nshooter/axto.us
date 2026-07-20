@@ -52,7 +52,15 @@ export function Reader({
   quiz,
   isFavorited,
   initialPage,
-  alreadyCompleted
+  alreadyCompleted,
+  // Where "back" and the end-of-book button go. Defaults to the signed-in
+  // portal library; the public (register-free) reader passes a public path so
+  // a guest is never bounced to /login (owner: "bebasin siapapun yg membaca
+  // tanpa perlu register").
+  backHref = '/app/library',
+  // Guests can read & listen freely but have no account to persist to, so the
+  // public reader turns off the progress/favorite network calls entirely.
+  guest = false
 }: {
   book: Book;
   pages: Page[];
@@ -60,6 +68,8 @@ export function Reader({
   isFavorited: boolean;
   initialPage: number;
   alreadyCompleted: boolean;
+  backHref?: string;
+  guest?: boolean;
 }) {
   const { t, locale } = useTranslation();
   const router = useRouter();
@@ -111,6 +121,7 @@ export function Reader({
   const sentences = useMemo(() => splitIntoSentences(displayText), [displayText]);
 
   function persistProgress(nextPage: number, opts?: { completed?: boolean; quizScore?: number; xpEarned?: number }) {
+    if (guest) return;
     fetch('/api/progress', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -177,6 +188,7 @@ export function Reader({
   }
 
   async function toggleFavorite() {
+    if (guest) return;
     setFavorited((v) => !v);
     await fetch('/api/favorites', {
       method: 'POST',
@@ -209,7 +221,7 @@ export function Reader({
         bookTitle={title}
         quiz={quiz}
         onFinish={onQuizFinished}
-        onBackToLibrary={() => router.push('/app/library')}
+        onBackToLibrary={() => router.push(backHref)}
       />
     );
   }
@@ -217,7 +229,7 @@ export function Reader({
   return (
     <div className={`mx-auto max-w-2xl ${nightMode ? 'rounded-3xl bg-slate-900 p-6 text-slate-100' : ''}`}>
       <div className="mb-4 flex items-center justify-between">
-        <Link href="/app/library" className="text-sm text-slate-500 hover:text-brand-600">
+        <Link href={backHref} className="text-sm text-slate-500 hover:text-brand-600">
           ← {t('common.back')}
         </Link>
         <h1 className="truncate text-sm font-semibold">{title}</h1>
@@ -268,9 +280,11 @@ export function Reader({
         >
           <MoonIcon className="h-4 w-4" />
         </button>
-        <button onClick={toggleFavorite} className="btn-secondary !px-4 !py-2 text-sm">
-          <HeartIcon className="h-4 w-4" filled={favorited} />
-        </button>
+        {!guest && (
+          <button onClick={toggleFavorite} className="btn-secondary !px-4 !py-2 text-sm">
+            <HeartIcon className="h-4 w-4" filled={favorited} />
+          </button>
+        )}
         {/* Downloads are intentionally disabled everywhere — every story is
             free to read and listen to, but not downloadable (owner: "bebas
             didengarkan tp tidak bisa di-download"). */}
