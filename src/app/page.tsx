@@ -1,5 +1,5 @@
 import { getCurrentUser } from '@/lib/auth/session';
-import { getCategories, getFeaturedBooks } from '@/lib/data/books';
+import { getCategories, getAllPublishedBooks } from '@/lib/data/books';
 import { Navbar } from '@/components/landing/Navbar';
 import { Hero } from '@/components/landing/Hero';
 import { CategoryShowcase } from '@/components/landing/CategoryShowcase';
@@ -12,7 +12,11 @@ import { Footer } from '@/components/landing/Footer';
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  const [user, categories, books] = await Promise.all([getCurrentUser(), getCategories(), getFeaturedBooks(24)]);
+  // Show the WHOLE library on the landing category browser — getFeaturedBooks(24)
+  // only returned the 24 most-read books, so ~12 categories looked empty even
+  // though all 44 books across every category are published. getAllPublishedBooks
+  // returns them all (44 rows is trivial to render).
+  const [user, categories, books] = await Promise.all([getCurrentUser(), getCategories(), getAllPublishedBooks()]);
 
   return (
     <div>
