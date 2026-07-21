@@ -9,7 +9,8 @@ export const metadata: Metadata = {
   title: 'AXTO — Adventures eXplore Together, Unlimited Stories',
   description:
     'AXTO adalah platform e-book anak dengan AI Voice, multi-bahasa, dan pengalaman membaca interaktif untuk anak, orang tua, dan pendidik.',
-  metadataBase: new URL('https://axto.us')
+  metadataBase: new URL('https://axto.us'),
+  icons: { icon: '/icon.svg', shortcut: '/icon.svg', apple: '/icon.svg' }
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
