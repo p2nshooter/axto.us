@@ -5,6 +5,7 @@
  * no database round-trip, indexed by the sitemap.
  */
 import { BLOG_POSTS_2 } from "./blog-posts-batch2";
+import AUTO_POSTS from "./auto-blog-posts.json";
 import { BLOG_POSTS_3 } from "./blog-posts-batch3";
 
 export interface BlogPost {
@@ -330,3 +331,6 @@ export function getPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
 }
 BLOG_POSTS.push(...BLOG_POSTS_3);
+
+// Autonomous content bot output (committed by the ulyah.com Orchestra).
+BLOG_POSTS.push(...(AUTO_POSTS as unknown as BlogPost[]));
