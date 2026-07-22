@@ -4,6 +4,7 @@
  * AI read-aloud voice, multilingual reading). Static module: prerenderable,
  * no database round-trip, indexed by the sitemap.
  */
+import { BLOG_POSTS_2 } from "./blog-posts-batch2";
 
 export interface BlogPost {
   slug: string;
@@ -318,6 +319,11 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
   },
 ];
+
+// Batch 2 — twenty more original articles, kept in a separate module for
+// readability and concatenated here so every consumer (blog index, [slug]
+// pages, sitemap, getPost) sees one flat list.
+BLOG_POSTS.push(...BLOG_POSTS_2);
 
 export function getPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((p) => p.slug === slug);
