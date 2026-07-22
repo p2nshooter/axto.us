@@ -15,7 +15,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${post.title} | AXTO Blog`,
     description: post.description,
     alternates: { canonical: `/blog/${post.slug}` },
-    openGraph: { title: post.title, description: post.description, type: "article", publishedTime: post.date },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      type: "article",
+      url: `https://axto.us/blog/${post.slug}`,
+      siteName: "AXTO",
+      publishedTime: post.date,
+      modifiedTime: post.date,
+      section: post.tag,
+    },
   };
 }
 
@@ -54,11 +63,35 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "Article",
-            headline: post.title,
-            description: post.description,
-            datePublished: post.date,
-            author: { "@type": "Organization", name: "AXTO" },
+            "@graph": [
+              {
+                "@type": "Article",
+                "@id": `https://axto.us/blog/${post.slug}#article`,
+                headline: post.title,
+                description: post.description,
+                datePublished: post.date,
+                dateModified: post.date,
+                articleSection: post.tag,
+                wordCount: post.body.filter((p) => !p.startsWith("## ")).join(" ").split(/\s+/).filter(Boolean).length,
+                inLanguage: "en",
+                mainEntityOfPage: { "@type": "WebPage", "@id": `https://axto.us/blog/${post.slug}` },
+                author: { "@type": "Organization", name: "AXTO", url: "https://axto.us" },
+                publisher: {
+                  "@type": "Organization",
+                  name: "AXTO",
+                  url: "https://axto.us",
+                  logo: { "@type": "ImageObject", url: "https://axto.us/icon.svg" },
+                },
+              },
+              {
+                "@type": "BreadcrumbList",
+                itemListElement: [
+                  { "@type": "ListItem", position: 1, name: "AXTO", item: "https://axto.us" },
+                  { "@type": "ListItem", position: 2, name: "Blog", item: "https://axto.us/blog" },
+                  { "@type": "ListItem", position: 3, name: post.title, item: `https://axto.us/blog/${post.slug}` },
+                ],
+              },
+            ],
           }),
         }}
       />
