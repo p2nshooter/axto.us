@@ -3,6 +3,7 @@ import { WORLD_STORIES_2 } from "./stories-world-2";
 import { STORIES_BATCH_A } from "./stories-batch-a";
 import { STORIES_BATCH_B } from "./stories-batch-b";
 import { STORIES_BATCH_C } from "./stories-batch-c";
+import { STORIES_BATCH_D } from "./stories-batch-d";
 export type StoryPage = { illustrationSeed: string; textEn: string; textId: string };
 export type QuizItem = {
   questionEn: string;
@@ -2829,3 +2830,4 @@ STORIES.push(...WORLD_STORIES_2);
 STORIES.push(...STORIES_BATCH_A);
 STORIES.push(...STORIES_BATCH_B);
 STORIES.push(...STORIES_BATCH_C);
+STORIES.push(...STORIES_BATCH_D);
