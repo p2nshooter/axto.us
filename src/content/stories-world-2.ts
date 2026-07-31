@@ -42,7 +42,7 @@ export const WORLD_STORIES_2: Story[] = [
     ],
   },
   {
-    slug: "the-honest-woodcutter",
+    slug: "the-honest-woodcutter-and-the-golden-axe",
     titleEn: "The Honest Woodcutter and the Golden Axe",
     titleId: "Penebang Kayu yang Jujur dan Kapak Emas",
     descriptionEn: "A poor woodcutter drops his only axe into the deep river — and a shining spirit rises with a test that will change his life.",
