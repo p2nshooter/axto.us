@@ -2,6 +2,7 @@ import { WORLD_STORIES } from "./stories-world";
 import { WORLD_STORIES_2 } from "./stories-world-2";
 import { STORIES_BATCH_A } from "./stories-batch-a";
 import { STORIES_BATCH_B } from "./stories-batch-b";
+import { STORIES_BATCH_C } from "./stories-batch-c";
 export type StoryPage = { illustrationSeed: string; textEn: string; textId: string };
 export type QuizItem = {
   questionEn: string;
@@ -2827,3 +2828,4 @@ STORIES.push(...WORLD_STORIES_2);
 // edited, replaced or merged. Add each new batch on its own line.
 STORIES.push(...STORIES_BATCH_A);
 STORIES.push(...STORIES_BATCH_B);
+STORIES.push(...STORIES_BATCH_C);
