@@ -11,6 +11,7 @@ import { STORIES_BATCH_H } from "./stories-batch-h";
 import { STORIES_BATCH_I } from "./stories-batch-i";
 import { STORIES_BATCH_J } from "./stories-batch-j";
 import { STORIES_BATCH_K } from "./stories-batch-k";
+import { STORIES_BATCH_L } from "./stories-batch-l";
 export type StoryPage = { illustrationSeed: string; textEn: string; textId: string };
 export type QuizItem = {
   questionEn: string;
@@ -2845,3 +2846,4 @@ STORIES.push(...STORIES_BATCH_H);
 STORIES.push(...STORIES_BATCH_I);
 STORIES.push(...STORIES_BATCH_J);
 STORIES.push(...STORIES_BATCH_K);
+STORIES.push(...STORIES_BATCH_L);
