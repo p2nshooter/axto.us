@@ -477,6 +477,26 @@ export const BLOG_EXPANSIONS: BlogExpansion[] = [
       "If movement has stopped for a year, or rhyme never arrived, or the child has decided they are stupid, that is the point to ask for help — early, without drama, and without ever saying the word behind where the child can hear it.",
       "Everything else on this page is detail. Those two paragraphs are the article.",
     ],
+  },
+  {
+    slug: "schools-digital-library",
+    body: [
+      "## Two years on, what schools say they wish they had known",
+      "The most common regret is buying breadth. Schools that licensed the largest catalogue available almost always report that the size was irrelevant and that the same forty or fifty titles carried the year, chosen by a teacher who knew the classes.",
+      "The second is underestimating the launch. A platform introduced in a staff meeting and never mentioned again is a platform nobody uses; the ones that stuck had a term of visible teacher enthusiasm behind them, which is a cost in attention rather than money.",
+      "The third is the reading-record trap. Several schools describe building a whole tracking culture around the platform's dashboards, discovering a year later that the numbers rewarded skimming, and having to unwind it in front of children who had learned to game it.",
+      "And the last is the most cheering: schools that expected the platform to help their strongest readers found it mostly helped their weakest. The narration, the adjustable text and the invisibility of what you are reading all matter far more to a struggling nine-year-old than to a confident one, and that is a good argument for buying it.",
+    ],
+  },
+  {
+    slug: "early-literacy-milestones",
+    body: [
+      "## A note for the parent whose child is the youngest in the year",
+      "Summer-born children are consistently over-referred for reading difficulties, and the reason is arithmetic rather than development. A child born in August is compared, every day, with classmates who have had up to eleven extra months of life — which at five is a fifth of their entire existence.",
+      "That gap narrows and largely disappears over the primary years, but it is very real at five and six, and it produces a great deal of unnecessary worry and a certain number of unnecessary referrals.",
+      "If your child is among the youngest in their class and is otherwise moving forward, mentally add a year group when you compare. Then compare them with themselves six months ago, which is the only comparison that ever tells you anything useful.",
+      "What does not help is the child overhearing that they are behind. Children who believe they are poor readers read less, and reading less is the one thing guaranteed to make the gap real.",
+    ],
   }
 ];
 
