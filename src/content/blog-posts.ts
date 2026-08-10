@@ -7,6 +7,7 @@
 import { BLOG_POSTS_2 } from "./blog-posts-batch2";
 import AUTO_POSTS from "./auto-blog-posts.json";
 import { BLOG_POSTS_3 } from "./blog-posts-batch3";
+import { applyBlogExpansions } from "./blog-expansions";
 
 export interface BlogPost {
   slug: string;
@@ -334,3 +335,8 @@ BLOG_POSTS.push(...BLOG_POSTS_3);
 
 // Autonomous content bot output (committed by the ulyah.com Orchestra).
 BLOG_POSTS.push(...(AUTO_POSTS as unknown as BlogPost[]));
+
+// Hand-written expansions. Additive only: they append sections to existing
+// posts and re-measure every reading time from the finished text.
+applyBlogExpansions(BLOG_POSTS);
+

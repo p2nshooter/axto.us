@@ -13,3 +13,4 @@ dist
 next-env.d.ts
 *.tsbuildinfo
 storycheck.ts
+bcheck.ts
