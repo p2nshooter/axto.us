@@ -13,7 +13,21 @@
   var W = 1920;
   var H = 1080;
   var FPS = 30;
-  var DURATION = 36; // detik
+  var DURATION = 92; // detik
+
+  /* Alur waktu (detik).
+   * Adegan kartu dan puncak punya "beat" internal yang ditulis dalam skala
+   * ringkasnya sendiri, lalu diregangkan memakai RATE di bawah ini supaya
+   * total durasi bisa diubah tanpa menulis ulang setiap detailnya. */
+  var FIELD_START = 7.8;
+  var FIELD_SPAN = 44;
+  var FIELD_BEATS = 16.6;                        // panjang "beat" internal kartu
+  var FIELD_RATE = FIELD_BEATS / FIELD_SPAN;     // ≈ 0,377 — gerak jadi lebih tenang
+  var SUMMIT_START = 50.4;
+  var SUMMIT_SPAN = 26;
+  var SUMMIT_BEATS = 9.2;
+  var SUMMIT_RATE = SUMMIT_BEATS / SUMMIT_SPAN;  // ≈ 0,354
+  var OUTRO_START = 72.5;
 
   /* ------------------------------------------------------------------ *
    * Utilitas
@@ -78,6 +92,13 @@
   };
 
   var FONT = '"Liberation Sans", "DejaVu Sans", Arial, sans-serif';
+
+  // Tiga tokoh: nama, warna, dan medan yang dihadapinya.
+  var KADUS = [
+    { name: 'KADUS 1', color: '#9d70ff', terrain: 'TEBING BATU' },
+    { name: 'KADUS 2', color: '#f5b544', terrain: 'GURUN PASIR' },
+    { name: 'KADUS 3', color: '#35d1c2', terrain: 'ARUS SUNGAI' }
+  ];
 
   function font(size, weight) {
     return (weight || 400) + ' ' + size + 'px ' + FONT;
@@ -145,6 +166,23 @@
   // Konvensi sudut: 0 = mengarah ke bawah, PI = ke atas, positif = miring ke +x.
   function tip(x, y, ang, len) { return [x + Math.sin(ang) * len, y + Math.cos(ang) * len]; }
 
+  // Kain bendera yang berkibar; (x, y) = ujung atas tiang.
+  function pennant(ctx, x, y, w, h, color, phase) {
+    var u, i;
+    ctx.beginPath();
+    for (i = 0; i <= 10; i++) {
+      u = i / 10;
+      ctx.lineTo(x + u * w, y + Math.sin(u * 4.6 + phase) * 3.2 + u * 2);
+    }
+    for (i = 10; i >= 0; i--) {
+      u = i / 10;
+      ctx.lineTo(x + u * w, y + h + Math.sin(u * 4.6 + phase) * 3.2 + u * 2);
+    }
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
   function limb(ctx, x, y, a1, l1, a2, l2, w) {
     var m = tip(x, y, a1, l1);
     var e = tip(m[0], m[1], a2, l2);
@@ -198,6 +236,22 @@
       ctx.fillStyle = rgba(col, 0.85);
       roundRect(ctx, -20, -16, 17, 32, 7);
       ctx.fill();
+      ctx.restore();
+    }
+
+    // Bendera kecil yang dibawa di punggung
+    if (o.flag !== undefined) {
+      ctx.save();
+      ctx.translate(lerp(0, sh[0], 0.6), lerp(0, sh[1], 0.6));
+      ctx.rotate(-lean);
+      ctx.strokeStyle = rgba('#efe9ff', 0.85);
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(-14, 16);
+      ctx.lineTo(-22, -60);
+      ctx.stroke();
+      pennant(ctx, -22, -60, 32, 15, o.flag, o.flagPhase || 0);
       ctx.restore();
     }
 
@@ -357,11 +411,25 @@
     ctx.beginPath();
     ctx.arc(84, 74, 7, 0, 6.2832);
     ctx.fill();
-    label(ctx, 'AXTO', 104, 82, { size: 22, weight: 700, color: C.text, tracking: 5 });
-    label(ctx, 'Adventures eXplore Together', 186, 82, { size: 16, color: C.faint, tracking: 1.4 });
 
+    // Kop kiri atas: TKJ 3 · "Team Kemenangan JOFA" · JILID 3
+    ctx.textBaseline = 'alphabetic';
+    var hx = 104;
+    ctx.font = font(23, 700);
+    ctx.fillStyle = C.text;
+    hx += tracked(ctx, 'TKJ 3', hx, 82, 5, 'left') + 20;
+    ctx.font = font(17, 400);
+    ctx.fillStyle = C.muted;
+    hx += tracked(ctx, '"Team Kemenangan JOFA"', hx, 82, 1.4, 'left') + 18;
+    ctx.font = font(16, 700);
+    ctx.fillStyle = C.faint;
+    tracked(ctx, 'JILID 3', hx, 82, 3, 'left');
+
+    label(ctx, 'created by : Yusron Efendi', W - 84, 60, {
+      size: 19, color: C.text, tracking: 1.4, align: 'right', weight: 700
+    });
     if (chapter) {
-      label(ctx, chapter, W - 84, 82, { size: 16, color: C.muted, tracking: 3.4, align: 'right' });
+      label(ctx, chapter, W - 84, 88, { size: 15, color: C.faint, tracking: 3.4, align: 'right' });
     }
 
     ctx.strokeStyle = rgba('#ffffff', 0.07);
@@ -382,10 +450,10 @@
     ctx.save();
     ctx.globalAlpha = a;
 
-    var cy = 470;
+    var cy = 452;
 
     // Garis tipis yang merekah dari tengah
-    var lw = easeOut(seg(t, 0.5, 2.0)) * 420;
+    var lw = easeOut(seg(t, 0.5, 2.6)) * 420;
     var lg = ctx.createLinearGradient(W / 2 - lw, 0, W / 2 + lw, 0);
     lg.addColorStop(0, rgba(C.brand, 0));
     lg.addColorStop(0.5, rgba(C.rock, 0.9));
@@ -398,13 +466,13 @@
     ctx.stroke();
 
     // Kata pembuka
-    var e0 = smooth(seg(t, 0.7, 1.8));
+    var e0 = smooth(seg(t, 0.7, 2.0));
     label(ctx, 'SEBUAH CATATAN PERJALANAN', W / 2, cy - 152, {
       size: 19, color: C.muted, tracking: 8.5, align: 'center', alpha: e0
     });
 
     // Judul
-    var e1 = smooth(seg(t, 1.2, 2.6));
+    var e1 = smooth(seg(t, 1.4, 3.2));
     ctx.save();
     ctx.globalAlpha *= e1;
     ctx.translate(0, (1 - easeOut(e1)) * 26);
@@ -419,37 +487,38 @@
     ctx.restore();
 
     // Sub-judul
-    var e2 = smooth(seg(t, 2.0, 3.2));
+    var e2 = smooth(seg(t, 2.4, 3.8));
     label(ctx, 'Tujuan yang sama. Medan yang berbeda. Cara yang tak pernah sama.', W / 2, cy + 66, {
       size: 30, color: C.muted, align: 'center', alpha: e2, tracking: 0.6
     });
 
-    // Tiga karakter berjalan di tempat, memperkenalkan warna masing-masing
-    var e3 = smooth(seg(t, 2.6, 3.9));
-    var trio = [
-      { c: C.rock, x: W / 2 - 250, ph: 0.0 },
-      { c: C.sand, x: W / 2, ph: 2.1 },
-      { c: C.river, x: W / 2 + 250, ph: 4.2 }
-    ];
-    var groundY = cy + 300;
+    // Tiga pembawa bendera diperkenalkan satu per satu
+    var groundY = cy + 306;
     ctx.save();
-    ctx.globalAlpha *= e3;
     ctx.strokeStyle = rgba('#ffffff', 0.12);
     ctx.lineWidth = 1;
+    ctx.globalAlpha *= smooth(seg(t, 3.2, 4.4));
     ctx.beginPath();
-    ctx.moveTo(W / 2 - 420, groundY + 6);
-    ctx.lineTo(W / 2 + 420, groundY + 6);
+    ctx.moveTo(W / 2 - 460, groundY + 6);
+    ctx.lineTo(W / 2 + 460, groundY + 6);
     ctx.stroke();
-    trio.forEach(function (m, i) {
-      var p = t * 5.4 + m.ph;
-      var w = poseWalk(p, 0.75);
-      var pop = smooth(seg(t, 2.6 + i * 0.22, 3.5 + i * 0.22));
+    ctx.restore();
+
+    KADUS.forEach(function (m, i) {
+      var pop = smooth(seg(t, 3.3 + i * 0.7, 4.6 + i * 0.7));
+      if (pop <= 0) return;
+      var w = poseWalk(t * 5.4 + i * 2.1, 0.75);
+      var x = W / 2 + (i - 1) * 270;
       figure(ctx, {
-        x: m.x, y: groundY - 58 * pop + w.bob, s: 1.0 * pop, color: m.c, lean: 0.07,
-        arms: w.arms, legs: w.legs, pack: true, alpha: pop, glow: true
+        x: x, y: groundY - 58 * pop + w.bob, s: 1.0 * pop, color: m.color, lean: 0.07,
+        arms: w.arms, legs: w.legs, pack: true, alpha: pop, glow: true,
+        flag: m.color, flagPhase: t * 4 + i
+      });
+      label(ctx, m.name, x, groundY + 52, {
+        size: 22, weight: 700, color: m.color, tracking: 4.4, align: 'center',
+        alpha: smooth(seg(t, 4.0 + i * 0.7, 5.0 + i * 0.7))
       });
     });
-    ctx.restore();
 
     ctx.restore();
   }
@@ -478,11 +547,16 @@
     return { x: x, y: CARD.top, w: w, h: CARD.h };
   }
 
-  function cardHeader(ctx, r, idx, title, color, alpha) {
+  function cardHeader(ctx, r, idx, title, color, alpha, who) {
     ctx.save();
     ctx.globalAlpha *= alpha;
     label(ctx, idx, r.x + CARD.pad, r.y + 54, { size: 17, color: color, weight: 700, tracking: 2 });
     label(ctx, title, r.x + CARD.pad + 46, r.y + 54, { size: 25, color: C.text, weight: 700, tracking: 3.4 });
+    if (who) {
+      label(ctx, who, r.x + r.w - CARD.pad, r.y + 54, {
+        size: 19, color: color, weight: 700, tracking: 3, align: 'right'
+      });
+    }
     ctx.strokeStyle = rgba(color, 0.35);
     ctx.lineWidth = 1;
     ctx.beginPath();
@@ -662,8 +736,8 @@
       ctx.globalAlpha = 1;
     }
 
-    // Karakter memanjat
-    var speed = stall > 0.5 ? 1.2 : 4.0;
+    // Karakter memanjat — irama tangan mengikuti kecepatan naiknya
+    var speed = (stall > 0.5 ? 1.2 : 4.0) * (FIELD_RATE * 2.4);
     var pose = poseClimb(t * speed);
     var hold = stall; // saat menunggu, tubuh merapat ke dinding
 
@@ -679,7 +753,8 @@
     figure(ctx, {
       x: x, y: y + pose.bob, s: 0.7, color: C.rock, flip: true,
       lean: lerp(0.16, 0.05, hold),
-      arms: pose.arms, legs: pose.legs, pack: true, glow: true
+      arms: pose.arms, legs: pose.legs, pack: true, glow: true,
+      flag: KADUS[0].color, flagPhase: t * 3
     });
 
     // Serpih batu kecil yang jatuh dari pijakan
@@ -764,7 +839,8 @@
     ctx.restore();
 
     // Karakter: berjalan, lalu jongkok berlindung, lalu berjalan lagi
-    var stepSpeed = tt < 8.2 ? 5.2 : 3.4; // setelah badai: ritme lebih pelan & hemat
+    // Setelah badai: ritme lebih pelan & hemat tenaga
+    var stepSpeed = (tt < 8.2 ? 5.2 : 3.4) * (FIELD_RATE * 2.65);
     var amp = tt < 8.2 ? 1 : 0.68;
     var wk = poseWalk(t * stepSpeed, amp);
     var cr = poseCrouch(shelter);
@@ -784,7 +860,8 @@
     figure(ctx, {
       x: px, y: py - 58 * 0.62 + pose.bob, s: 0.62, color: C.sand,
       lean: lerp(0.12, 0.34, shelter),
-      arms: pose.arms, legs: pose.legs, pack: true, glow: true
+      arms: pose.arms, legs: pose.legs, pack: true, glow: true,
+      flag: KADUS[1].color, flagPhase: t * 5 + stormA * 3
     });
 
     // Badai pasir
@@ -935,7 +1012,7 @@
     ctx.rotate(tilt);
 
     // Galah panjang: bergantian menancap ke kiri dan ke kanan
-    var stroke = Math.sin(t * 1.7);
+    var stroke = Math.sin(t * 1.15);
     var side = stroke > 0 ? 1 : -1;
     var dip = 0.5 + 0.5 * Math.cos(t * 3.4);
     var poleDX = (34 + dip * 16) * side;
@@ -972,7 +1049,8 @@
     figure(ctx, {
       x: 0, y: -36 + pd.bob, s: 0.6, color: C.river,
       lean: 0.06 + crouch * 0.22,
-      arms: pd.arms, legs: pd.legs, pack: false, glow: true
+      arms: pd.arms, legs: pd.legs, pack: false, glow: true,
+      flag: KADUS[2].color, flagPhase: t * 4.5
     });
     ctx.restore();
 
@@ -995,11 +1073,10 @@
    * Babak 2 — perakitan tiga kartu
    * ------------------------------------------------------------------ */
 
-  var FIELD_START = 4.7;
-
   function sceneField(ctx, t, a) {
     if (a <= 0) return;
-    var tt = t - FIELD_START;
+    // Beat internal kartu diregangkan ke seluruh durasi babak.
+    var tt = (t - FIELD_START) * FIELD_RATE;
     ctx.save();
     ctx.globalAlpha = a;
 
@@ -1016,11 +1093,11 @@
     ];
 
     for (var i = 0; i < 3; i++) {
-      var appear = smooth(seg(t, FIELD_START + i * 0.28, FIELD_START + 1.1 + i * 0.28));
+      var appear = smooth(seg(t, FIELD_START + i * 0.8, FIELD_START + 2.0 + i * 0.8));
       var r = cardFrame(ctx, i, appear);
       ctx.save();
       ctx.globalAlpha *= appear;
-      cardHeader(ctx, r, cards[i].idx, cards[i].title, cards[i].color, 1);
+      cardHeader(ctx, r, cards[i].idx, cards[i].title, cards[i].color, 1, KADUS[i].name);
       if (i === 0) sceneCliff(ctx, r, t, tt);
       else if (i === 1) sceneDune(ctx, r, t, tt);
       else sceneRiver(ctx, r, t, tt);
@@ -1045,8 +1122,7 @@
    * Babak 3 — Puncak bersama
    * ------------------------------------------------------------------ */
 
-  var SUMMIT_START = 20.6;
-  var PEAK = { x: W * 0.5, y: 352 };
+  var PEAK = { x: W * 0.5, y: 502 };
 
   function hump(x, cx, w, h) {
     var d = (x - cx) / w;
@@ -1057,7 +1133,7 @@
   function mountainY(x) {
     var y = 1010;
     y -= hump(x, PEAK.x, 430, 1010 - PEAK.y - 70);
-    y -= hump(x, PEAK.x + 8, 118, 78); // puncak yang lebih runcing
+    y -= hump(x, PEAK.x + 8, 196, 78); // bahu puncak, cukup lebar untuk istana
     y -= hump(x, 430, 300, 210);
     y -= hump(x, 1520, 340, 250);
     y -= hump(x, 1180, 150, 60);
@@ -1074,6 +1150,141 @@
     return cfg.base - hump(x, cfg.cx, cfg.w, cfg.h) -
       hump(x, cfg.cx + 640, cfg.w * 0.7, cfg.h * 0.55) +
       Math.sin(x * 0.011 + cfg.ph) * 18 + Math.sin(x * 0.03 + cfg.ph * 2) * 8;
+  }
+
+  /**
+   * Istana di puncak: teras, gerbang, dua menara sudut, dan menara utama
+   * berkubah. `appear` 0..1 mengatur kemunculan, `lit` menyalakan jendela.
+   */
+  function palace(ctx, cx, baseY, appear, lit, dawn, t) {
+    if (appear <= 0) return;
+    var body = mix('#1a1338', '#3a2650', dawn);
+    var roof = mix('#2b2058', '#6b3f63', dawn);
+    var edge = rgba('#ffffff', 0.22 + dawn * 0.2);
+    var warm = rgba('#ffd79a', 0.85 * lit);
+
+    ctx.save();
+    ctx.translate(cx, baseY);
+    ctx.globalAlpha *= appear;
+    ctx.scale(1, lerp(0.86, 1, smooth(appear)));
+
+    // Kaki batu: menyatukan teras dengan punggungan gunung di bawahnya
+    ctx.beginPath();
+    ctx.moveTo(-132, -10);
+    ctx.lineTo(132, -10);
+    ctx.lineTo(168, 56);
+    ctx.lineTo(-168, 56);
+    ctx.closePath();
+    ctx.fillStyle = mix('#0d0a26', '#1e1234', dawn * 0.75);
+    ctx.fill();
+    ctx.strokeStyle = rgba('#ffffff', 0.09 + dawn * 0.08);
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Teras
+    ctx.fillStyle = mix('#141029', '#2e1f3f', dawn);
+    roundRect(ctx, -132, -16, 264, 20, 5);
+    ctx.fill();
+    ctx.strokeStyle = edge;
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    // Sayap kiri & kanan
+    ctx.fillStyle = body;
+    ctx.beginPath();
+    ctx.rect(-108, -78, 216, 62);
+    ctx.fill();
+    ctx.strokeStyle = edge;
+    ctx.stroke();
+
+    // Atap sayap
+    ctx.fillStyle = roof;
+    ctx.beginPath();
+    ctx.moveTo(-116, -78);
+    ctx.lineTo(0, -104);
+    ctx.lineTo(116, -78);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = edge;
+    ctx.stroke();
+
+    // Menara sudut
+    [-108, 108].forEach(function (tx) {
+      ctx.fillStyle = body;
+      ctx.beginPath();
+      ctx.rect(tx - 17, -122, 34, 106);
+      ctx.fill();
+      ctx.strokeStyle = edge;
+      ctx.stroke();
+      ctx.fillStyle = roof;
+      ctx.beginPath();
+      ctx.moveTo(tx - 23, -122);
+      ctx.lineTo(tx, -164);
+      ctx.lineTo(tx + 23, -122);
+      ctx.closePath();
+      ctx.fill();
+      ctx.strokeStyle = edge;
+      ctx.stroke();
+      // Jendela menara
+      ctx.fillStyle = warm;
+      ctx.beginPath();
+      ctx.rect(tx - 4, -104, 8, 13);
+      ctx.rect(tx - 4, -74, 8, 13);
+      ctx.fill();
+    });
+
+    // Menara utama + kubah
+    ctx.fillStyle = body;
+    ctx.beginPath();
+    ctx.rect(-31, -168, 62, 90);
+    ctx.fill();
+    ctx.strokeStyle = edge;
+    ctx.stroke();
+    ctx.fillStyle = roof;
+    ctx.beginPath();
+    ctx.moveTo(-38, -168);
+    ctx.quadraticCurveTo(0, -232, 38, -168);
+    ctx.closePath();
+    ctx.fill();
+    ctx.strokeStyle = edge;
+    ctx.stroke();
+
+    // Tiang & bendera puncak istana
+    ctx.strokeStyle = rgba('#ffffff', 0.85);
+    ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    ctx.moveTo(0, -214);
+    ctx.lineTo(0, -268);
+    ctx.stroke();
+    pennant(ctx, 0, -268, 40, 19, rgba(C.brand, 0.92), t * 5);
+
+    // Gerbang & jendela
+    ctx.fillStyle = warm;
+    ctx.beginPath();
+    ctx.moveTo(-17, -16);
+    ctx.lineTo(-17, -46);
+    ctx.quadraticCurveTo(0, -66, 17, -46);
+    ctx.lineTo(17, -16);
+    ctx.closePath();
+    ctx.fill();
+    [-84, -58, 58, 84].forEach(function (wx) {
+      ctx.beginPath();
+      ctx.rect(wx - 6, -62, 12, 16);
+      ctx.fill();
+    });
+    ctx.beginPath();
+    ctx.rect(-8, -150, 16, 20);
+    ctx.fill();
+
+    // Cahaya hangat yang keluar dari bangunan
+    if (lit > 0) {
+      var gl = ctx.createRadialGradient(0, -70, 10, 0, -70, 300);
+      gl.addColorStop(0, rgba('#ffc987', 0.2 * lit));
+      gl.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = gl;
+      ctx.fillRect(-300, -370, 600, 400);
+    }
+    ctx.restore();
   }
 
   function fillProfile(ctx, fn, color, alpha) {
@@ -1121,23 +1332,23 @@
 
   function sceneSummit(ctx, t, a, dawn) {
     if (a <= 0) return;
-    var tt = t - SUMMIT_START;
+    var tt = (t - SUMMIT_START) * SUMMIT_RATE;
     ctx.save();
     ctx.globalAlpha = a;
 
-    // Matahari terbit
+    // Matahari terbit di sisi kanan puncak
     var sunP = smooth(seg(tt, 3.0, 8.0));
     if (sunP > 0) {
-      var sx = PEAK.x, sy = lerp(560, 400, sunP);
+      var sx = PEAK.x + 350, sy = lerp(660, 470, sunP);
       var rg = ctx.createRadialGradient(sx, sy, 0, sx, sy, 460);
       rg.addColorStop(0, rgba('#ffd9a0', 0.55 * sunP));
       rg.addColorStop(0.4, rgba('#ff9d5c', 0.2 * sunP));
       rg.addColorStop(1, rgba('#ff9d5c', 0));
       ctx.fillStyle = rg;
       ctx.fillRect(sx - 460, sy - 460, 920, 920);
-      ctx.fillStyle = rgba('#ffe7bd', 0.9 * sunP);
+      ctx.fillStyle = rgba('#fff1d4', 0.85 * sunP);
       ctx.beginPath();
-      ctx.arc(sx, sy, 58, 0, 6.2832);
+      ctx.arc(sx, sy, 46, 0, 6.2832);
       ctx.fill();
     }
 
@@ -1209,8 +1420,19 @@
       arrive.push(prog);
     }
 
-    // Posisi berdiri di puncak: bersisian di punggungan, menghadap matahari
-    var slots = [-108, -58, -8];
+    // Istana Sukakarya berdiri di titik tertinggi
+    var castleUp = smooth(seg(tt, 3.4, 5.2));
+    var castleLit = smooth(seg(tt, 4.6, 6.6));
+    palace(ctx, PEAK.x, mountainY(PEAK.x) + 6, castleUp, castleLit, dawn, t);
+    if (castleUp > 0.4) {
+      label(ctx, 'ISTANA SUKAKARYA', PEAK.x, mountainY(PEAK.x) + 96, {
+        size: 23, weight: 700, color: '#ffe1b0', tracking: 6.5, align: 'center',
+        alpha: smooth(seg(tt, 4.8, 6.0))
+      });
+    }
+
+    // Rombongan berdiri di punggungan kiri, di depan istana
+    var slots = [-424, -326, -228];
 
     for (var j = 0; j < 3; j++) {
       var p = arrive[j];
@@ -1222,7 +1444,7 @@
       var moving = !atTop;
       var pose;
       if (moving) {
-        pose = poseWalk(t * 5.0 + j * 1.7, 0.85);
+        pose = poseWalk(t * 5.0 * (SUMMIT_RATE * 2.6) + j * 1.7, 0.85);
       } else {
         var breathe = Math.sin(t * 1.6 + j) * 0.03;
         pose = {
@@ -1235,38 +1457,63 @@
         pose.arms[0] = [lerp(0.16, Math.PI * 0.78, wave), lerp(0.26, Math.PI * 0.9, wave)];
       }
       var fs = atTop ? 0.52 : 0.46;
+      var planted = smooth(seg(tt, 6.0 + j * 0.5, 7.2 + j * 0.5));
+
       figure(ctx, {
         x: x, y: y - 58 * fs + pose.bob, s: fs, color: cols[j],
         lean: moving ? 0.14 : 0.02, flip: !moving ? false : j === 2,
-        arms: pose.arms, legs: pose.legs, pack: true, glow: true
+        arms: pose.arms, legs: pose.legs, pack: true, glow: true,
+        // Bendera pindah dari punggung ke tanah begitu ditancapkan
+        flag: planted > 0.9 ? undefined : cols[j], flagPhase: t * 4 + j
       });
+
+      // Bendera kemenangan yang ditancapkan di sisi masing-masing
+      if (atTop && planted > 0) {
+        ctx.save();
+        ctx.globalAlpha *= planted;
+        var px2 = sx2 + 34;
+        var py2 = mountainY(px2) - 2;
+        var poleH = 96 * planted;
+        ctx.strokeStyle = rgba('#f6f2ff', 0.9);
+        ctx.lineWidth = 3;
+        ctx.lineCap = 'round';
+        ctx.beginPath();
+        ctx.moveTo(px2, py2);
+        ctx.lineTo(px2, py2 - poleH);
+        ctx.stroke();
+        pennant(ctx, px2, py2 - poleH, 52 * planted, 24, rgba(cols[j], 0.92), t * 4.2 + j * 1.3);
+        label(ctx, KADUS[j].name, px2 + 6, py2 + 26, {
+          size: 17, weight: 700, color: cols[j], tracking: 2.6, align: 'center',
+          alpha: smooth(seg(tt, 6.8 + j * 0.5, 7.8 + j * 0.5))
+        });
+        ctx.restore();
+      }
     }
 
-    // Tiang & bendera kecil di puncak
-    var flag = smooth(seg(tt, 5.6, 6.8));
-    if (flag > 0) {
+    // Judul di atas puncak
+    var head = smooth(seg(tt, 7.4, 8.6));
+    if (head > 0) {
       ctx.save();
-      ctx.globalAlpha = flag;
-      var fx = PEAK.x + 62, fy = mountainY(PEAK.x + 62) - 2;
-      ctx.strokeStyle = rgba('#ffffff', 0.8);
-      ctx.lineWidth = 2.4;
+      ctx.globalAlpha *= head;
+      var hy = 168;
+      var hg = ctx.createLinearGradient(PEAK.x - 460, 0, PEAK.x + 460, 0);
+      hg.addColorStop(0, C.rock);
+      hg.addColorStop(0.5, '#ffffff');
+      hg.addColorStop(1, C.river);
+      ctx.font = font(52, 700);
+      ctx.fillStyle = hg;
+      tracked(ctx, 'BENDERA KEMENANGAN', PEAK.x, hy, 9, 'center');
+      var rw = 300 * head;
+      var rg2 = ctx.createLinearGradient(PEAK.x - rw, 0, PEAK.x + rw, 0);
+      rg2.addColorStop(0, rgba(C.brand, 0));
+      rg2.addColorStop(0.5, rgba('#ffe1b0', 0.75));
+      rg2.addColorStop(1, rgba(C.brand, 0));
+      ctx.strokeStyle = rg2;
+      ctx.lineWidth = 1.4;
       ctx.beginPath();
-      ctx.moveTo(fx, fy);
-      ctx.lineTo(fx, fy - 74 * flag);
+      ctx.moveTo(PEAK.x - rw, hy + 24);
+      ctx.lineTo(PEAK.x + rw, hy + 24);
       ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(fx, fy - 74);
-      for (var w = 0; w <= 10; w++) {
-        var u = w / 10;
-        ctx.lineTo(fx + u * 46, fy - 74 + Math.sin(u * 5 + t * 5) * 5 + u * 3);
-      }
-      for (var w2 = 10; w2 >= 0; w2--) {
-        var u2 = w2 / 10;
-        ctx.lineTo(fx + u2 * 46, fy - 74 + 24 + Math.sin(u2 * 5 + t * 5) * 5 + u2 * 3);
-      }
-      ctx.closePath();
-      ctx.fillStyle = rgba(C.brand, 0.85);
-      ctx.fill();
       ctx.restore();
     }
 
@@ -1278,11 +1525,16 @@
    * ------------------------------------------------------------------ */
 
   var CAPTIONS = [
-    [6.0, 10.0, 'Tiga medan berbeda. Tiga cara berbeda.', C.text],
-    [10.2, 14.0, 'Cara yang berhasil di satu medan belum tentu cocok di medan lain.', C.text],
-    [14.4, 18.0, 'Rintangan tidak bisa dipilih —', C.muted],
-    [18.2, 21.4, 'yang bisa dipilih adalah cara menghadapinya: menyesuaikan, bukan memaksa.', C.text],
-    [22.0, 26.0, 'Tiba di puncak yang sama, lewat jalan yang berbeda.', C.text]
+    [10.5, 16.0, 'Tiga orang berangkat menuju satu tujuan yang sama.', C.text],
+    [16.4, 22.0, 'Kadus 1 lewat tebing batu, Kadus 2 lewat gurun pasir, Kadus 3 lewat arus sungai.', C.text],
+    [22.4, 28.0, 'Masing-masing membawa benderanya sendiri — dan caranya sendiri.', C.text],
+    [28.4, 34.0, 'Cara yang menyelamatkan di tebing tidak berguna di atas pasir.', C.muted],
+    [34.4, 40.0, 'Lalu rintangan datang: batu runtuh, badai pasir, jeram yang deras.', C.text],
+    [40.4, 45.6, 'Rintangan tidak bisa dipilih —', C.muted],
+    [45.8, 50.4, 'yang bisa dipilih adalah cara menghadapinya: menyesuaikan, bukan memaksa.', C.text],
+    [52.0, 58.0, 'Jalur berbeda, langkah berbeda, tetapi arahnya satu.', C.text],
+    [58.4, 64.0, 'Di puncak berdiri Istana Sukakarya — tempat ketiganya akhirnya bertemu.', C.text],
+    [64.4, 70.4, 'Tiga bendera kemenangan ditancapkan berdampingan.', C.text]
   ];
 
   function captions(ctx, t) {
@@ -1301,8 +1553,6 @@
     });
   }
 
-  var OUTRO_START = 26.3;
-
   function sceneOutro(ctx, t) {
     var tt = t - OUTRO_START;
     if (tt <= 0) return;
@@ -1320,16 +1570,16 @@
     ctx.restore();
 
     var lines = [
-      [0.35, 'Tidak ada satu cara yang sempurna.', 34, C.text],
-      [1.35, 'Yang berhasil hari ini belum tentu berhasil di medan lain.', 34, C.text],
-      [2.45, 'Maka kekuatan sesungguhnya bukan pada caranya —', 30, C.muted],
-      [3.25, 'tapi pada kemampuan menyesuaikan diri dan bertahan.', 30, C.muted]
+      [1.0, 'Tidak ada satu cara yang sempurna.', 34, C.text],
+      [3.2, 'Yang berhasil hari ini belum tentu berhasil di medan lain.', 34, C.text],
+      [5.4, 'Maka kekuatan sesungguhnya bukan pada caranya —', 30, C.muted],
+      [7.0, 'tapi pada kemampuan menyesuaikan diri dan bertahan.', 30, C.muted]
     ];
     lines.forEach(function (l, i) {
-      var a = smooth(seg(tt, l[0], l[0] + 0.9));
+      var a = smooth(seg(tt, l[0], l[0] + 1.2));
       if (a <= 0) return;
       ctx.save();
-      ctx.globalAlpha = a * (1 - smooth(seg(tt, 4.4, 5.0)));
+      ctx.globalAlpha = a * (1 - smooth(seg(tt, 10.2, 11.2)));
       ctx.translate(0, (1 - easeOut(a)) * 14);
       label(ctx, l[1], W / 2, 760 + i * 52, { size: l[2], color: l[3], align: 'center', tracking: 0.3 });
       ctx.restore();
@@ -1337,7 +1587,7 @@
 
     // Kalimat penutup
     var last = DURATION - OUTRO_START;
-    var fa = smooth(seg(tt, 4.9, 6.1)) * (1 - smooth(seg(tt, last - 1.0, last - 0.3)));
+    var fa = smooth(seg(tt, 11.0, 12.4)) * (1 - smooth(seg(tt, last - 1.2, last - 0.4)));
     if (fa > 0) {
       ctx.save();
       ctx.globalAlpha = fa;
@@ -1351,12 +1601,18 @@
       label(ctx, 'Berhasil melewati satu rintangan bukan tanda hebat — hanya tanda bahwa cara itu cocok, kali ini.',
         W / 2, 866, { size: 25, color: C.muted, align: 'center' });
 
+      // Tanda penutup: titik + TKJ 3, ditengahkan
+      ctx.font = font(28, 700);
+      var mark = 'TKJ 3';
+      var mw = ctx.measureText(mark).width + 6 * (mark.length - 1);
+      var mx = W / 2 - (mw + 26) / 2;
       ctx.fillStyle = C.brand;
       ctx.beginPath();
-      ctx.arc(W / 2 - 74, 946, 7, 0, 6.2832);
+      ctx.arc(mx + 7, 946, 7, 0, 6.2832);
       ctx.fill();
-      label(ctx, 'AXTO', W / 2 - 54, 954, { size: 26, weight: 700, color: C.text, tracking: 5.5 });
-      label(ctx, 'axto.us', W / 2 + 74, 954, { size: 20, color: C.faint, tracking: 2.4 });
+      ctx.fillStyle = C.text;
+      ctx.textBaseline = 'alphabetic';
+      tracked(ctx, mark, mx + 26, 955, 6, 'left');
       ctx.restore();
     }
   }
@@ -1368,10 +1624,10 @@
   function render(ctx, time) {
     var t = ((time % DURATION) + DURATION) % DURATION;
 
-    var aIntro = env(t, 0, 5.4, 0.6, 0.8);
-    var aField = env(t, FIELD_START, 21.3, 0.7, 0.9);
-    var aSummit = env(t, SUMMIT_START, DURATION, 1.0, 0.7);
-    var dawn = smooth(seg(t, SUMMIT_START + 2.4, SUMMIT_START + 7.4)) * Math.min(1, aSummit * 1.6);
+    var aIntro = env(t, 0, 8.8, 0.8, 1.0);
+    var aField = env(t, FIELD_START, FIELD_START + FIELD_SPAN + 1.6, 1.0, 1.2);
+    var aSummit = env(t, SUMMIT_START, DURATION, 1.4, 0.8);
+    var dawn = smooth(seg(t, SUMMIT_START + 7, SUMMIT_START + 20)) * Math.min(1, aSummit * 1.6);
 
     ctx.save();
     ctx.clearRect(0, 0, W, H);
@@ -1384,7 +1640,12 @@
     captions(ctx, t);
     sceneOutro(ctx, t);
 
-    var chap = t < 4.9 ? '' : t < 14.2 ? 'BAB 01 · TIGA MEDAN' : t < 21.2 ? 'BAB 02 · RINTANGAN' : t < 26.6 ? 'BAB 03 · SATU PUNCAK' : 'BAB 04 · RENDAH HATI';
+    var chap =
+      t < 8.0 ? '' :
+      t < 28.0 ? 'BAB 01 · TIGA MEDAN' :
+      t < 50.0 ? 'BAB 02 · RINTANGAN' :
+      t < 62.0 ? 'BAB 03 · SATU PUNCAK' :
+      t < 72.0 ? 'BAB 04 · ISTANA SUKAKARYA' : 'BAB 05 · RENDAH HATI';
     chrome(ctx, t, chap, env(t, 0.4, DURATION, 1.2, 0.8) * 0.95);
 
     vignette(ctx);

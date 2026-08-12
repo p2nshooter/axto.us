@@ -104,28 +104,36 @@ sebenarnya tetap pengecekan role admin di server pada setiap route `/admin/*`.
 Admin bisa mengganti email dan password akunnya sendiri kapan saja lewat `/admin/settings`
 (perlu memasukkan password saat ini untuk konfirmasi kedua perubahan tersebut).
 
-## Animasi "Satu Puncak, Banyak Jalan"
+## Animasi "TKJ 3 — Satu Puncak, Banyak Jalan"
 
-Animasi karakter di atas satu `<canvas>`: tiga pejalan menuju puncak yang sama lewat tebing,
-gurun, dan sungai — tujuan sama, cara berbeda, karena medannya berbeda. Bisa dilihat di
-`/animasi` (halaman situs) atau `/animasi/index.html` (pemutar mandiri), dan diunduh sebagai
-MP4 / GIF / WebM / poster PNG.
+Animasi karakter berdurasi ±1,5 menit di atas satu `<canvas>`: Kadus 1, Kadus 2, dan Kadus 3
+menuju **Istana Sukakarya** di puncak yang sama lewat tebing batu, gurun pasir, dan arus
+sungai. Tujuan sama, cara berbeda, karena medannya berbeda; ditutup dengan tiga bendera
+kemenangan dan pesan untuk tetap rendah hati. Bisa dilihat di `/animasi` (halaman situs) atau
+`/animasi/index.html` (pemutar mandiri), dan diunduh sebagai MP4 / GIF / WebM / MP3 / poster.
 
 - `public/animasi/anim.js` — mesin animasinya. `render(ctx, t)` bersifat deterministik: waktu
   `t` yang sama selalu menghasilkan frame yang sama, sehingga hasil di browser dan hasil
   render video persis sama.
-- `public/animasi/satu-puncak-banyak-jalan.{mp4,webm,gif,-poster.png}` — berkas siap unduh.
+- `public/animasi/score.js` — musiknya, disintesis penuh lewat Web Audio (pad, denting,
+  bas, dan tekstur tiap medan). Tidak memakai berkas sampel dan hasilnya juga deterministik.
+- `public/animasi/narasi.js` — naskah narasi + pengucapnya. Di halaman web, narasi dibacakan
+  memakai suara bawaan perangkat (Web Speech API) dan tersinkron dengan animasi; berkas video
+  hanya berisi musik, karena render di CI tidak punya mesin suara.
+- `public/animasi/satu-puncak-banyak-jalan.{mp4,webm,gif}`, `-musik.mp3`, `-poster.png` —
+  berkas siap unduh.
 
-Untuk merender ulang video setelah mengubah animasi:
+Untuk merender ulang setelah mengubah animasi atau musiknya:
 
 ```bash
 npm i -D playwright ffmpeg-static && npx playwright install chromium
-npm run render:animation
+npm run render:animation     # frame → MP4/WebM/GIF + musik + poster
+npm run render:audio         # hanya musiknya (WAV)
 ```
 
 Playwright dan ffmpeg sengaja **tidak** dijadikan dependency aplikasi (hanya dipakai saat
-merender), jadi build/deploy Cloudflare tidak ikut mengunduhnya. Script juga menerima
-`--frames 4,16,25` untuk mengeluarkan cuplikan PNG saja saat menyetel visual.
+merender), jadi build/deploy Cloudflare tidak ikut mengunduhnya. Script render juga menerima
+`--frames 12,40,88` untuk mengeluarkan cuplikan PNG saja saat menyetel visual.
 
 ## Struktur proyek
 
@@ -137,6 +145,6 @@ src/
   content/         # cerita + kategori + penulis (sumber seed)
 migrations/         # schema D1 (drizzle-kit generate)
 seed/               # data konten: kategori, buku, admin (generate:seed) — re-run tiap deploy
-scripts/            # generate-seed.ts, render-animation.mjs (render animasi → MP4/GIF/WebM)
-public/animasi/     # mesin animasi canvas + berkas video hasil render
+scripts/            # generate-seed.ts, render-animation.mjs (→ MP4/GIF/WebM), render-audio.mjs (→ WAV)
+public/animasi/     # mesin animasi canvas + musik + naskah narasi + berkas hasil render
 ```

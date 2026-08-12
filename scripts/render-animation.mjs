@@ -111,31 +111,44 @@ const seq = path.join(tmp, '%05d.png');
 const base = 'satu-puncak-banyak-jalan';
 const vf = scale === 1 ? [] : ['-vf', `scale=${Math.round(meta.W * scale)}:-2:flags=lanczos`];
 
-// MP4 (H.264) — paling universal untuk diunduh & dibagikan
-run(ff, ['-y', '-framerate', String(meta.FPS), '-i', seq, ...vf,
+// Musik latar: dirender dari public/animasi/score.js lewat Web Audio
+const wav = path.join(tmp, 'score.wav');
+process.stdout.write('Merender musik ...\n');
+const { renderAudio } = await import('./render-audio.mjs');
+await renderAudio(wav);
+
+// MP4 (H.264 + AAC) — paling universal untuk diunduh & dibagikan
+run(ff, ['-y', '-framerate', String(meta.FPS), '-i', seq, '-i', wav, ...vf,
   '-c:v', 'libx264', '-preset', 'slow', '-crf', '19', '-pix_fmt', 'yuv420p',
+  '-c:a', 'aac', '-b:a', '192k', '-shortest',
   '-movflags', '+faststart', path.join(OUT, `${base}.mp4`)]);
 
-// WebM (VP9) — alternatif ringan untuk web
-run(ff, ['-y', '-framerate', String(meta.FPS), '-i', seq, ...vf,
+// WebM (VP9 + Opus) — alternatif ringan untuk web
+run(ff, ['-y', '-framerate', String(meta.FPS), '-i', seq, '-i', wav, ...vf,
   '-c:v', 'libvpx-vp9', '-b:v', '0', '-crf', '34', '-row-mt', '1',
+  '-c:a', 'libopus', '-b:a', '128k', '-shortest',
   '-pix_fmt', 'yuv420p', path.join(OUT, `${base}.webm`)]);
+
+// Trek musik terpisah, untuk pemutar canvas di halaman web
+run(ff, ['-y', '-i', wav, '-c:a', 'libmp3lame', '-b:a', '160k',
+  path.join(OUT, `${base}-musik.mp3`)]);
 
 // GIF — untuk chat/dokumen yang tidak bisa memutar video
 const palette = path.join(tmp, 'palette.png');
-const gifFilter = 'fps=10,scale=720:-1:flags=lanczos';
+const gifFilter = 'fps=8,scale=600:-1:flags=lanczos';
 run(ff, ['-y', '-framerate', String(meta.FPS), '-i', seq, '-vf', `${gifFilter},palettegen=max_colors=128:stats_mode=diff`, palette]);
 run(ff, ['-y', '-framerate', String(meta.FPS), '-i', seq, '-i', palette,
   '-lavfi', `${gifFilter}[x];[x][1:v]paletteuse=dither=bayer:bayer_scale=3:diff_mode=rectangle`,
   path.join(OUT, `${base}.gif`)]);
 
 // Poster (dikompres ulang supaya ringan)
-run(ff, ['-y', '-i', path.join(tmp, String(Math.round(31 * meta.FPS)).padStart(5, '0') + '.png'),
+const posterFrame = Math.round(Math.min(88, meta.DURATION - 4) * meta.FPS);
+run(ff, ['-y', '-i', path.join(tmp, String(posterFrame).padStart(5, '0') + '.png'),
   '-compression_level', '100', path.join(OUT, `${base}-poster.png`)]);
 
 fs.rmSync(tmp, { recursive: true, force: true });
 
-for (const f of [`${base}.mp4`, `${base}.webm`, `${base}.gif`, `${base}-poster.png`]) {
+for (const f of [`${base}.mp4`, `${base}.webm`, `${base}.gif`, `${base}-musik.mp3`, `${base}-poster.png`]) {
   const s = fs.statSync(path.join(OUT, f));
   console.log(`${f.padEnd(34)} ${(s.size / 1048576).toFixed(2)} MB`);
 }

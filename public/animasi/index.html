@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AXTO — Satu Puncak, Banyak Jalan</title>
-<meta name="description" content="Animasi karakter: tiga medan berbeda, tiga cara berbeda, satu tujuan yang sama.">
+<title>TKJ 3 — Satu Puncak, Banyak Jalan</title>
+<meta name="description" content="Animasi karakter: Kadus 1, Kadus 2, dan Kadus 3 menuju Istana Sukakarya lewat tiga medan yang berbeda.">
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
@@ -29,25 +29,29 @@
 </style>
 </head>
 <body>
-  <h1>Satu Puncak, Banyak Jalan</h1>
-  <p class="sub">Tujuan yang sama, medan yang berbeda — tidak ada satu cara yang sempurna.
-     Yang menentukan adalah kemampuan menyesuaikan diri dan bertahan.</p>
+  <h1>TKJ 3 — Satu Puncak, Banyak Jalan</h1>
+  <p class="sub">Kadus 1, Kadus 2, dan Kadus 3 menuju Istana Sukakarya lewat tiga medan yang berbeda.
+     Tujuan sama, cara tak pernah sama — tidak ada satu cara yang sempurna.</p>
 
   <div class="stage"><canvas id="c"></canvas></div>
 
   <div class="row">
     <button id="toggle">Jeda</button>
     <button id="restart">Ulang dari awal</button>
+    <button id="sound">Nyalakan musik</button>
+    <button id="narasi">Nyalakan narasi</button>
   </div>
   <div class="row">
-    <a class="btn primary" href="satu-puncak-banyak-jalan.mp4" download>Unduh MP4 (1080p)</a>
+    <a class="btn primary" href="satu-puncak-banyak-jalan.mp4" download>Unduh MP4 (1080p, bermusik)</a>
     <a class="btn" href="satu-puncak-banyak-jalan.gif" download>Unduh GIF</a>
     <a class="btn" href="satu-puncak-banyak-jalan.webm" download>Unduh WebM</a>
+    <a class="btn" href="satu-puncak-banyak-jalan-musik.mp3" download>Unduh musik MP3</a>
     <a class="btn" href="satu-puncak-banyak-jalan-poster.png" download>Unduh poster PNG</a>
   </div>
   <small>Animasi ini digambar langsung di browser — berkas video di atas dirender dari canvas yang sama.</small>
 
 <script src="anim.js"></script>
+<script src="narasi.js"></script>
 <script>
   var canvas = document.getElementById('c');
   canvas.width = AXTOAnim.W;
@@ -57,20 +61,59 @@
   var started = performance.now();
   var pausedAt = 0;
 
+  // Musik opsional; kalau dinyalakan, animasi mengikuti waktu audio agar sinkron.
+  var music = new Audio('satu-puncak-banyak-jalan-musik.mp3');
+  music.loop = true;
+  var withMusic = false;
+
+  function clock(now) {
+    if (withMusic && !music.paused) return music.currentTime;
+    return ((now - started) / 1000) % AXTOAnim.DURATION;
+  }
+
+  var narrator = AXTONarasi.create();
+
   function loop(now) {
-    if (playing) AXTOAnim.render(ctx, (now - started) / 1000);
+    if (playing) {
+      var t = clock(now);
+      AXTOAnim.render(ctx, t);
+      narrator.update(t);
+    }
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
 
   document.getElementById('toggle').addEventListener('click', function () {
     var btn = this;
-    if (playing) { pausedAt = performance.now(); playing = false; btn.textContent = 'Putar'; }
-    else { started += performance.now() - pausedAt; playing = true; btn.textContent = 'Jeda'; }
+    if (playing) {
+      pausedAt = performance.now(); playing = false; btn.textContent = 'Putar';
+      if (withMusic) music.pause();
+    } else {
+      started += performance.now() - pausedAt; playing = true; btn.textContent = 'Jeda';
+      if (withMusic) music.play();
+    }
   });
   document.getElementById('restart').addEventListener('click', function () {
     started = performance.now();
+    narrator.reset();
+    if (withMusic) { music.currentTime = 0; music.play(); }
     if (!playing) { playing = true; document.getElementById('toggle').textContent = 'Jeda'; }
+  });
+  document.getElementById('narasi').addEventListener('click', function () {
+    if (!narrator.supported) { this.textContent = 'Narasi tidak didukung browser ini'; return; }
+    narrator.setEnabled(!narrator.enabled);
+    this.textContent = narrator.enabled ? 'Matikan narasi' : 'Nyalakan narasi';
+  });
+  document.getElementById('sound').addEventListener('click', function () {
+    var btn = this;
+    if (withMusic) {
+      music.pause(); withMusic = false; btn.textContent = 'Nyalakan musik';
+      started = performance.now() - music.currentTime * 1000;
+    } else {
+      withMusic = true; btn.textContent = 'Matikan musik';
+      music.currentTime = ((performance.now() - started) / 1000) % AXTOAnim.DURATION;
+      music.play();
+    }
   });
 </script>
 </body>

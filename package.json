@@ -17,7 +17,8 @@
     "db:seed:local": "wrangler d1 execute axto_db --local --file=./seed/seed.sql",
     "db:seed:remote": "wrangler d1 execute axto_db --remote --file=./seed/seed.sql",
     "generate:seed": "tsx scripts/generate-seed.ts",
-    "render:animation": "node scripts/render-animation.mjs"
+    "render:animation": "node scripts/render-animation.mjs",
+    "render:audio": "node scripts/render-audio.mjs"
   },
   "dependencies": {
     "next": "15.5.20",

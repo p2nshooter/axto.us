@@ -11,25 +11,60 @@ type AnimEngine = {
   render: (ctx: CanvasRenderingContext2D, t: number) => void;
 };
 
+type Narrator = {
+  supported: boolean;
+  enabled: boolean;
+  setEnabled: (on: boolean) => void;
+  reset: () => void;
+  update: (t: number) => void;
+};
+
 declare global {
   interface Window {
     AXTOAnim?: AnimEngine;
+    AXTONarasi?: { create: () => Narrator };
   }
 }
 
-const SCRIPT_SRC = '/animasi/anim.js';
+const SCRIPTS = ['/animasi/anim.js', '/animasi/narasi.js'];
 const BASE = '/animasi/satu-puncak-banyak-jalan';
+
+function loadScript(src: string) {
+  return new Promise<void>((resolve, reject) => {
+    const existing = document.querySelector<HTMLScriptElement>(`script[src="${src}"]`);
+    if (existing) {
+      if (existing.dataset.loaded === '1') resolve();
+      else existing.addEventListener('load', () => resolve(), { once: true });
+      return;
+    }
+    const el = document.createElement('script');
+    el.src = src;
+    el.async = true;
+    el.addEventListener('load', () => {
+      el.dataset.loaded = '1';
+      resolve();
+    }, { once: true });
+    el.addEventListener('error', () => reject(new Error(`gagal memuat ${src}`)), { once: true });
+    document.body.appendChild(el);
+  });
+}
 
 export default function AnimasiContent() {
   const { locale } = useTranslation();
   const isId = locale === 'id';
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const narratorRef = useRef<Narrator | null>(null);
   const playingRef = useRef(true);
+  const musicRef = useRef(false);
   const startRef = useRef(0);
   const pausedAtRef = useRef(0);
+  const durationRef = useRef(92);
   const [ready, setReady] = useState(false);
   const [playing, setPlaying] = useState(true);
+  const [music, setMusic] = useState(false);
+  const [narration, setNarration] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -39,53 +74,52 @@ export default function AnimasiContent() {
       const engine = window.AXTOAnim;
       const canvas = canvasRef.current;
       if (!engine || !canvas || cancelled) return;
+      if (!narratorRef.current && window.AXTONarasi) narratorRef.current = window.AXTONarasi.create();
       canvas.width = engine.W;
       canvas.height = engine.H;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
       setReady(true);
       startRef.current = performance.now();
+      durationRef.current = engine.DURATION;
 
       const loop = (now: number) => {
-        if (playingRef.current) engine.render(ctx, (now - startRef.current) / 1000);
+        if (playingRef.current) {
+          // Saat musik menyala, animasi mengikuti waktu audio supaya sinkron.
+          const audio = audioRef.current;
+          const t =
+            musicRef.current && audio && !audio.paused
+              ? audio.currentTime
+              : ((now - startRef.current) / 1000) % engine.DURATION;
+          engine.render(ctx, t);
+          narratorRef.current?.update(t);
+        }
         frame = requestAnimationFrame(loop);
       };
       frame = requestAnimationFrame(loop);
     }
 
-    if (window.AXTOAnim) {
-      start();
-    } else {
-      const existing = document.querySelector<HTMLScriptElement>(`script[src="${SCRIPT_SRC}"]`);
-      const script = existing ?? document.createElement('script');
-      script.addEventListener('load', start);
-      if (!existing) {
-        script.src = SCRIPT_SRC;
-        script.async = true;
-        document.body.appendChild(script);
-      }
-      return () => {
-        cancelled = true;
-        script.removeEventListener('load', start);
-        cancelAnimationFrame(frame);
-      };
-    }
+    Promise.all(SCRIPTS.map(loadScript)).then(start).catch(() => {});
 
     return () => {
       cancelled = true;
       cancelAnimationFrame(frame);
+      narratorRef.current?.setEnabled(false);
     };
   }, []);
 
   function toggle() {
+    const audio = audioRef.current;
     if (playingRef.current) {
       pausedAtRef.current = performance.now();
       playingRef.current = false;
       setPlaying(false);
+      if (musicRef.current) audio?.pause();
     } else {
       startRef.current += performance.now() - pausedAtRef.current;
       playingRef.current = true;
       setPlaying(true);
+      if (musicRef.current) void audio?.play();
     }
   }
 
@@ -93,13 +127,44 @@ export default function AnimasiContent() {
     startRef.current = performance.now();
     playingRef.current = true;
     setPlaying(true);
+    narratorRef.current?.reset();
+    const audio = audioRef.current;
+    if (audio && musicRef.current) {
+      audio.currentTime = 0;
+      void audio.play();
+    }
+  }
+
+  function toggleNarration() {
+    const n = narratorRef.current;
+    if (!n || !n.supported) return;
+    n.setEnabled(!n.enabled);
+    setNarration(n.enabled);
+  }
+
+  function toggleMusic() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (musicRef.current) {
+      audio.pause();
+      musicRef.current = false;
+      setMusic(false);
+      startRef.current = performance.now() - audio.currentTime * 1000;
+    } else {
+      musicRef.current = true;
+      setMusic(true);
+      audio.currentTime =
+        ((performance.now() - startRef.current) / 1000) % durationRef.current;
+      void audio.play();
+    }
   }
 
   const downloads = [
-    { href: `${BASE}.mp4`, label: 'MP4 · 1920×1080', primary: true },
-    { href: `${BASE}.gif`, label: 'GIF · 720p' },
+    { href: `${BASE}.mp4`, label: isId ? 'MP4 · 1080p + musik' : 'MP4 · 1080p with music', primary: true },
+    { href: `${BASE}.gif`, label: 'GIF' },
     { href: `${BASE}.webm`, label: 'WebM' },
-    { href: `${BASE}-poster.png`, label: isId ? 'Poster PNG' : 'Poster PNG' }
+    { href: `${BASE}-musik.mp3`, label: isId ? 'Musik MP3' : 'Music MP3' },
+    { href: `${BASE}-poster.png`, label: 'Poster PNG' }
   ];
 
   const lessons = isId
@@ -154,12 +219,12 @@ export default function AnimasiContent() {
         {isId ? 'Animasi' : 'Animation'}
       </p>
       <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
-        {isId ? 'Satu Puncak, Banyak Jalan' : 'One Summit, Many Paths'}
+        {isId ? 'TKJ 3 — Satu Puncak, Banyak Jalan' : 'TKJ 3 — One Summit, Many Paths'}
       </h1>
       <p className="mt-4 max-w-3xl text-slate-600 dark:text-slate-300">
         {isId
-          ? 'Tiga pejalan menuju puncak yang sama lewat tebing, gurun, dan sungai. Tujuannya sama, tetapi caranya tidak pernah sama — karena medannya berbeda. Tidak ada cara yang sempurna; yang menentukan adalah kemampuan beradaptasi dan ketangguhan melewati rintangan.'
-          : 'Three travellers head for the same summit across rock, desert, and river. The goal is shared, the method never is — the terrain sees to that. No approach is perfect; what carries you through is adaptability and resilience.'}
+          ? 'Kadus 1, Kadus 2, dan Kadus 3 menuju Istana Sukakarya di puncak yang sama — lewat tebing batu, gurun pasir, dan arus sungai. Tujuannya sama, tetapi caranya tidak pernah sama, karena medannya berbeda. Tidak ada cara yang sempurna; yang menentukan adalah kemampuan beradaptasi dan ketangguhan melewati rintangan.'
+          : 'Kadus 1, Kadus 2, and Kadus 3 head for Istana Sukakarya on the same summit — across rock, desert, and river. The goal is shared, the method never is, because the terrain differs. No approach is perfect; what carries you through is adaptability and resilience.'}
       </p>
 
       <div className="mt-8 overflow-hidden rounded-xl2 border border-slate-200 bg-[#05040f] dark:border-slate-800">
@@ -183,6 +248,25 @@ export default function AnimasiContent() {
         >
           {isId ? 'Ulang dari awal' : 'Restart'}
         </button>
+        <button
+          type="button"
+          onClick={toggleMusic}
+          disabled={!ready}
+          className="rounded-full border border-slate-300 px-4 py-2 text-sm disabled:opacity-50 dark:border-slate-700"
+        >
+          {music ? (isId ? 'Matikan musik' : 'Mute music') : isId ? 'Nyalakan musik' : 'Play music'}
+        </button>
+        <button
+          type="button"
+          onClick={toggleNarration}
+          disabled={!ready}
+          className="rounded-full border border-slate-300 px-4 py-2 text-sm disabled:opacity-50 dark:border-slate-700"
+        >
+          {narration
+            ? isId ? 'Matikan narasi' : 'Stop narration'
+            : isId ? 'Nyalakan narasi' : 'Narrate'}
+        </button>
+        <audio ref={audioRef} src={`${BASE}-musik.mp3`} loop preload="none" />
       </div>
 
       <h2 className="mt-10 text-lg font-semibold">{isId ? 'Unduh' : 'Download'}</h2>

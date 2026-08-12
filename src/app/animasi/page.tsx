@@ -7,13 +7,13 @@ import AnimasiContent from './AnimasiContent';
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-  title: 'Satu Puncak, Banyak Jalan — Animasi AXTO',
+  title: 'TKJ 3 — Satu Puncak, Banyak Jalan',
   description:
-    'Animasi karakter: tiga pejalan, tiga medan, satu tujuan. Tidak ada cara yang sempurna — yang menentukan adalah kemampuan beradaptasi dan ketangguhan. Bisa diunduh sebagai MP4, GIF, atau WebM.',
+    'Animasi karakter: Kadus 1, Kadus 2, dan Kadus 3 menuju Istana Sukakarya lewat tiga medan yang berbeda. Tidak ada cara yang sempurna — yang menentukan adalah kemampuan beradaptasi dan ketangguhan. Bisa diunduh sebagai MP4, GIF, atau WebM.',
   openGraph: {
-    title: 'Satu Puncak, Banyak Jalan — Animasi AXTO',
+    title: 'TKJ 3 — Satu Puncak, Banyak Jalan',
     description:
-      'Tiga pejalan, tiga medan, satu tujuan. Unduh animasinya sebagai MP4, GIF, atau WebM.',
+      'Tiga Kadus, tiga medan, satu tujuan: Istana Sukakarya. Unduh animasinya sebagai MP4, GIF, atau WebM.',
     images: ['/animasi/satu-puncak-banyak-jalan-poster.png']
   }
 };
