@@ -104,6 +104,29 @@ sebenarnya tetap pengecekan role admin di server pada setiap route `/admin/*`.
 Admin bisa mengganti email dan password akunnya sendiri kapan saja lewat `/admin/settings`
 (perlu memasukkan password saat ini untuk konfirmasi kedua perubahan tersebut).
 
+## Animasi "Satu Puncak, Banyak Jalan"
+
+Animasi karakter di atas satu `<canvas>`: tiga pejalan menuju puncak yang sama lewat tebing,
+gurun, dan sungai — tujuan sama, cara berbeda, karena medannya berbeda. Bisa dilihat di
+`/animasi` (halaman situs) atau `/animasi/index.html` (pemutar mandiri), dan diunduh sebagai
+MP4 / GIF / WebM / poster PNG.
+
+- `public/animasi/anim.js` — mesin animasinya. `render(ctx, t)` bersifat deterministik: waktu
+  `t` yang sama selalu menghasilkan frame yang sama, sehingga hasil di browser dan hasil
+  render video persis sama.
+- `public/animasi/satu-puncak-banyak-jalan.{mp4,webm,gif,-poster.png}` — berkas siap unduh.
+
+Untuk merender ulang video setelah mengubah animasi:
+
+```bash
+npm i -D playwright ffmpeg-static && npx playwright install chromium
+npm run render:animation
+```
+
+Playwright dan ffmpeg sengaja **tidak** dijadikan dependency aplikasi (hanya dipakai saat
+merender), jadi build/deploy Cloudflare tidak ikut mengunduhnya. Script juga menerima
+`--frames 4,16,25` untuk mengeluarkan cuplikan PNG saja saat menyetel visual.
+
 ## Struktur proyek
 
 ```
@@ -114,5 +137,6 @@ src/
   content/         # cerita + kategori + penulis (sumber seed)
 migrations/         # schema D1 (drizzle-kit generate)
 seed/               # data konten: kategori, buku, admin (generate:seed) — re-run tiap deploy
-scripts/            # generate-seed.ts
+scripts/            # generate-seed.ts, render-animation.mjs (render animasi → MP4/GIF/WebM)
+public/animasi/     # mesin animasi canvas + berkas video hasil render
 ```

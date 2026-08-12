@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AXTO — Satu Puncak, Banyak Jalan</title>
+<meta name="description" content="Animasi karakter: tiga medan berbeda, tiga cara berbeda, satu tujuan yang sama.">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: #05040f; color: #f3f0ff; min-height: 100vh;
+    font-family: ui-rounded, system-ui, "Liberation Sans", sans-serif;
+    display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 28px 18px 56px;
+  }
+  h1 { font-size: 20px; letter-spacing: .16em; margin: 0; font-weight: 700; text-transform: uppercase; }
+  p.sub { margin: 0; color: #a79ed0; font-size: 15px; text-align: center; max-width: 62ch; line-height: 1.6; }
+  .stage { width: min(100%, 1200px); border-radius: 18px; overflow: hidden; border: 1px solid #ffffff1a; background: #05040f; }
+  canvas { display: block; width: 100%; height: auto; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  button, a.btn {
+    font: inherit; font-size: 14px; padding: 10px 18px; border-radius: 999px; cursor: pointer;
+    border: 1px solid #ffffff26; background: #ffffff0f; color: #f3f0ff; text-decoration: none;
+  }
+  button:hover, a.btn:hover { background: #ffffff1c; }
+  a.primary { background: #7f3dfb; border-color: #7f3dfb; }
+  a.primary:hover { background: #6d1eee; }
+  small { color: #6f68a0; font-size: 12px; }
+</style>
+</head>
+<body>
+  <h1>Satu Puncak, Banyak Jalan</h1>
+  <p class="sub">Tujuan yang sama, medan yang berbeda — tidak ada satu cara yang sempurna.
+     Yang menentukan adalah kemampuan menyesuaikan diri dan bertahan.</p>
+
+  <div class="stage"><canvas id="c"></canvas></div>
+
+  <div class="row">
+    <button id="toggle">Jeda</button>
+    <button id="restart">Ulang dari awal</button>
+  </div>
+  <div class="row">
+    <a class="btn primary" href="satu-puncak-banyak-jalan.mp4" download>Unduh MP4 (1080p)</a>
+    <a class="btn" href="satu-puncak-banyak-jalan.gif" download>Unduh GIF</a>
+    <a class="btn" href="satu-puncak-banyak-jalan.webm" download>Unduh WebM</a>
+    <a class="btn" href="satu-puncak-banyak-jalan-poster.png" download>Unduh poster PNG</a>
+  </div>
+  <small>Animasi ini digambar langsung di browser — berkas video di atas dirender dari canvas yang sama.</small>
+
+<script src="anim.js"></script>
+<script>
+  var canvas = document.getElementById('c');
+  canvas.width = AXTOAnim.W;
+  canvas.height = AXTOAnim.H;
+  var ctx = canvas.getContext('2d');
+  var playing = true;
+  var started = performance.now();
+  var pausedAt = 0;
+
+  function loop(now) {
+    if (playing) AXTOAnim.render(ctx, (now - started) / 1000);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  document.getElementById('toggle').addEventListener('click', function () {
+    var btn = this;
+    if (playing) { pausedAt = performance.now(); playing = false; btn.textContent = 'Putar'; }
+    else { started += performance.now() - pausedAt; playing = true; btn.textContent = 'Jeda'; }
+  });
+  document.getElementById('restart').addEventListener('click', function () {
+    started = performance.now();
+    if (!playing) { playing = true; document.getElementById('toggle').textContent = 'Jeda'; }
+  });
+</script>
+</body>
+</html>
