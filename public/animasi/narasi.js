@@ -26,8 +26,8 @@
     { t: 64.6, text: 'Tiga bendera kemenangan ditancapkan berdampingan.' },
     { t: 73.6, text: 'Tidak ada satu cara yang sempurna.' },
     { t: 76.2, text: 'Yang berhasil hari ini belum tentu berhasil di medan lain.' },
-    { t: 79.2, text: 'Maka kekuatan sesungguhnya bukan pada caranya, tetapi pada kemampuan menyesuaikan diri dan bertahan.' },
-    { t: 84.5, text: 'Tetap tangguh. Tetap belajar. Tetap rendah hati.' }
+    { t: 80.0, text: 'Maka kekuatan sesungguhnya bukan pada caranya, tetapi pada kemampuan menyesuaikan diri dan bertahan.' },
+    { t: 86.0, text: 'Tetap tangguh. Tetap belajar. Tetap rendah hati.' }
   ];
 
   /**

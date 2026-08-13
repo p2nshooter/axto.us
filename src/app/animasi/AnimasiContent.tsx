@@ -11,22 +11,13 @@ type AnimEngine = {
   render: (ctx: CanvasRenderingContext2D, t: number) => void;
 };
 
-type Narrator = {
-  supported: boolean;
-  enabled: boolean;
-  setEnabled: (on: boolean) => void;
-  reset: () => void;
-  update: (t: number) => void;
-};
-
 declare global {
   interface Window {
     AXTOAnim?: AnimEngine;
-    AXTONarasi?: { create: () => Narrator };
   }
 }
 
-const SCRIPTS = ['/animasi/anim.js', '/animasi/narasi.js'];
+const SCRIPTS = ['/animasi/anim.js'];
 const BASE = '/animasi/satu-puncak-banyak-jalan';
 
 function loadScript(src: string) {
@@ -55,7 +46,6 @@ export default function AnimasiContent() {
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const narratorRef = useRef<Narrator | null>(null);
   const playingRef = useRef(true);
   const musicRef = useRef(false);
   const startRef = useRef(0);
@@ -64,7 +54,6 @@ export default function AnimasiContent() {
   const [ready, setReady] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [music, setMusic] = useState(false);
-  const [narration, setNarration] = useState(false);
 
   useEffect(() => {
     let frame = 0;
@@ -74,7 +63,6 @@ export default function AnimasiContent() {
       const engine = window.AXTOAnim;
       const canvas = canvasRef.current;
       if (!engine || !canvas || cancelled) return;
-      if (!narratorRef.current && window.AXTONarasi) narratorRef.current = window.AXTONarasi.create();
       canvas.width = engine.W;
       canvas.height = engine.H;
       const ctx = canvas.getContext('2d');
@@ -92,7 +80,6 @@ export default function AnimasiContent() {
               ? audio.currentTime
               : ((now - startRef.current) / 1000) % engine.DURATION;
           engine.render(ctx, t);
-          narratorRef.current?.update(t);
         }
         frame = requestAnimationFrame(loop);
       };
@@ -104,7 +91,6 @@ export default function AnimasiContent() {
     return () => {
       cancelled = true;
       cancelAnimationFrame(frame);
-      narratorRef.current?.setEnabled(false);
     };
   }, []);
 
@@ -127,19 +113,11 @@ export default function AnimasiContent() {
     startRef.current = performance.now();
     playingRef.current = true;
     setPlaying(true);
-    narratorRef.current?.reset();
     const audio = audioRef.current;
     if (audio && musicRef.current) {
       audio.currentTime = 0;
       void audio.play();
     }
-  }
-
-  function toggleNarration() {
-    const n = narratorRef.current;
-    if (!n || !n.supported) return;
-    n.setEnabled(!n.enabled);
-    setNarration(n.enabled);
   }
 
   function toggleMusic() {
@@ -160,10 +138,12 @@ export default function AnimasiContent() {
   }
 
   const downloads = [
-    { href: `${BASE}.mp4`, label: isId ? 'MP4 · 1080p + musik' : 'MP4 · 1080p with music', primary: true },
+    { href: `${BASE}.mp4`, label: isId ? 'MP4 · 1080p + suara' : 'MP4 · 1080p with sound', primary: true },
     { href: `${BASE}.gif`, label: 'GIF' },
     { href: `${BASE}.webm`, label: 'WebM' },
-    { href: `${BASE}-musik.mp3`, label: isId ? 'Musik MP3' : 'Music MP3' },
+    { href: `${BASE}-audio.mp3`, label: isId ? 'Audio MP3 (musik + narasi)' : 'Audio MP3 (music + narration)' },
+    { href: `${BASE}-narasi.mp3`, label: isId ? 'Narasi saja' : 'Narration only' },
+    { href: `${BASE}-musik.mp3`, label: isId ? 'Musik saja' : 'Music only' },
     { href: `${BASE}-poster.png`, label: 'Poster PNG' }
   ];
 
@@ -254,19 +234,11 @@ export default function AnimasiContent() {
           disabled={!ready}
           className="rounded-full border border-slate-300 px-4 py-2 text-sm disabled:opacity-50 dark:border-slate-700"
         >
-          {music ? (isId ? 'Matikan musik' : 'Mute music') : isId ? 'Nyalakan musik' : 'Play music'}
+          {music
+            ? isId ? 'Matikan suara' : 'Mute sound'
+            : isId ? 'Nyalakan suara (musik + narasi)' : 'Play sound (music + narration)'}
         </button>
-        <button
-          type="button"
-          onClick={toggleNarration}
-          disabled={!ready}
-          className="rounded-full border border-slate-300 px-4 py-2 text-sm disabled:opacity-50 dark:border-slate-700"
-        >
-          {narration
-            ? isId ? 'Matikan narasi' : 'Stop narration'
-            : isId ? 'Nyalakan narasi' : 'Narrate'}
-        </button>
-        <audio ref={audioRef} src={`${BASE}-musik.mp3`} loop preload="none" />
+        <audio ref={audioRef} src={`${BASE}-audio.mp3`} loop preload="none" />
       </div>
 
       <h2 className="mt-10 text-lg font-semibold">{isId ? 'Unduh' : 'Download'}</h2>

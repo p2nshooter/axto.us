@@ -112,10 +112,36 @@ const base = 'satu-puncak-banyak-jalan';
 const vf = scale === 1 ? [] : ['-vf', `scale=${Math.round(meta.W * scale)}:-2:flags=lanczos`];
 
 // Musik latar: dirender dari public/animasi/score.js lewat Web Audio
-const wav = path.join(tmp, 'score.wav');
+const music = path.join(tmp, 'score.wav');
 process.stdout.write('Merender musik ...\n');
 const { renderAudio } = await import('./render-audio.mjs');
-await renderAudio(wav);
+await renderAudio(music);
+
+/* Narasi: butuh espeak-ng + python(onnxruntime) + model Piper. Bila salah satu
+ * tidak tersedia, videonya tetap dibuat dengan musik saja. */
+let wav = music;
+try {
+  process.stdout.write('Merender narasi ...\n');
+  const { renderNarration } = await import('./render-narration.mjs');
+  const voice = path.join(tmp, 'narasi.wav');
+  await renderNarration(voice);
+  run(ff, ['-y', '-i', voice, '-c:a', 'libmp3lame', '-b:a', '160k',
+    path.join(OUT, `${base}-narasi.mp3`)]);
+
+  // Campur: musik diturunkan otomatis saat narasi berbunyi (ducking)
+  const mixed = path.join(tmp, 'mix.wav');
+  run(ff, ['-y', '-i', music, '-i', voice, '-filter_complex',
+    '[1:a]aformat=channel_layouts=stereo,volume=1.2,asplit=2[v1][v2];' +
+    '[0:a]volume=0.8[bed];' +
+    '[bed][v1]sidechaincompress=threshold=0.03:ratio=8:attack=25:release=700:makeup=1[ducked];' +
+    '[ducked][v2]amix=inputs=2:duration=longest:normalize=0,alimiter=limit=0.89[mix]',
+    '-map', '[mix]', mixed]);
+  wav = mixed;
+  run(ff, ['-y', '-i', mixed, '-c:a', 'libmp3lame', '-b:a', '176k',
+    path.join(OUT, `${base}-audio.mp3`)]);
+} catch (err) {
+  process.stdout.write(`  narasi dilewati: ${err.message}\n`);
+}
 
 // MP4 (H.264 + AAC) — paling universal untuk diunduh & dibagikan
 run(ff, ['-y', '-framerate', String(meta.FPS), '-i', seq, '-i', wav, ...vf,

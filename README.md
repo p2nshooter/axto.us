@@ -117,19 +117,36 @@ kemenangan dan pesan untuk tetap rendah hati. Bisa dilihat di `/animasi` (halama
   render video persis sama.
 - `public/animasi/score.js` — musiknya, disintesis penuh lewat Web Audio (pad, denting,
   bas, dan tekstur tiap medan). Tidak memakai berkas sampel dan hasilnya juga deterministik.
-- `public/animasi/narasi.js` — naskah narasi + pengucapnya. Di halaman web, narasi dibacakan
-  memakai suara bawaan perangkat (Web Speech API) dan tersinkron dengan animasi; berkas video
-  hanya berisi musik, karena render di CI tidak punya mesin suara.
-- `public/animasi/satu-puncak-banyak-jalan.{mp4,webm,gif}`, `-musik.mp3`, `-poster.png` —
-  berkas siap unduh.
+- `public/animasi/narasi.js` — naskah narasi beserta detik kemunculan tiap kalimat. Berkas ini
+  yang dibaca saat merender suara narasi.
+- `public/animasi/satu-puncak-banyak-jalan.{mp4,webm,gif}`, `-audio.mp3` (musik + narasi),
+  `-narasi.mp3`, `-musik.mp3`, `-poster.png` — berkas siap unduh.
 
-Untuk merender ulang setelah mengubah animasi atau musiknya:
+Untuk merender ulang setelah mengubah animasi, musik, atau naskah narasinya:
 
 ```bash
 npm i -D playwright ffmpeg-static && npx playwright install chromium
-npm run render:animation     # frame → MP4/WebM/GIF + musik + poster
+npm run render:animation     # frame → MP4/WebM/GIF + musik + narasi + poster
 npm run render:audio         # hanya musiknya (WAV)
+npm run render:narration     # hanya narasinya (WAV)
 ```
+
+### Suara narasi
+
+Narasi disuarakan sepenuhnya secara lokal, tanpa layanan berbayar:
+
+1. `espeak-ng` mengubah kalimat Indonesia menjadi fonem IPA (pengucapannya benar),
+2. fonem itu disuarakan oleh model neural VITS (Piper). Piper belum punya suara Indonesia,
+   tetapi peta fonemnya memakai IPA penuh, jadi urutan fonem Indonesia bisa dipakai apa adanya
+   dan yang diambil dari model hanyalah warna suara serta iramanya,
+3. hasilnya dicampur dengan musik memakai *ducking* — musik otomatis menurun saat narator
+   berbicara.
+
+Kebutuhan render narasi: `apt-get install espeak-ng`, `pip install onnxruntime numpy`, dan model
+suara Piper yang otomatis diunduh sekali (atur lewat `PIPER_VOICE_URL` / `PIPER_VOICE_DIR`).
+Bila salah satunya tidak ada, `render:animation` tetap jalan dan videonya berisi musik saja.
+Untuk mengganti warna suara, arahkan `PIPER_VOICE_URL` ke model Piper lain — lihat daftar rilis
+`k2-fsa/sherpa-onnx` bertag `tts-models`.
 
 Playwright dan ffmpeg sengaja **tidak** dijadikan dependency aplikasi (hanya dipakai saat
 merender), jadi build/deploy Cloudflare tidak ikut mengunduhnya. Script render juga menerima

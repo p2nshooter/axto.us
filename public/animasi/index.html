@@ -38,20 +38,21 @@
   <div class="row">
     <button id="toggle">Jeda</button>
     <button id="restart">Ulang dari awal</button>
-    <button id="sound">Nyalakan musik</button>
-    <button id="narasi">Nyalakan narasi</button>
+    <button id="sound">Nyalakan suara</button>
   </div>
   <div class="row">
-    <a class="btn primary" href="satu-puncak-banyak-jalan.mp4" download>Unduh MP4 (1080p, bermusik)</a>
+    <a class="btn primary" href="satu-puncak-banyak-jalan.mp4" download>Unduh MP4 (1080p, bersuara)</a>
     <a class="btn" href="satu-puncak-banyak-jalan.gif" download>Unduh GIF</a>
     <a class="btn" href="satu-puncak-banyak-jalan.webm" download>Unduh WebM</a>
-    <a class="btn" href="satu-puncak-banyak-jalan-musik.mp3" download>Unduh musik MP3</a>
+    <a class="btn" href="satu-puncak-banyak-jalan-audio.mp3" download>Unduh audio MP3 (musik + narasi)</a>
+    <a class="btn" href="satu-puncak-banyak-jalan-narasi.mp3" download>Unduh narasi saja</a>
+    <a class="btn" href="satu-puncak-banyak-jalan-musik.mp3" download>Unduh musik saja</a>
     <a class="btn" href="satu-puncak-banyak-jalan-poster.png" download>Unduh poster PNG</a>
   </div>
-  <small>Animasi ini digambar langsung di browser — berkas video di atas dirender dari canvas yang sama.</small>
+  <small>Animasi digambar langsung di browser; berkas video di atas dirender dari canvas yang sama,
+     dengan musik sintetis dan narasi suara yang ikut dibuat sendiri.</small>
 
 <script src="anim.js"></script>
-<script src="narasi.js"></script>
 <script>
   var canvas = document.getElementById('c');
   canvas.width = AXTOAnim.W;
@@ -61,8 +62,9 @@
   var started = performance.now();
   var pausedAt = 0;
 
-  // Musik opsional; kalau dinyalakan, animasi mengikuti waktu audio agar sinkron.
-  var music = new Audio('satu-puncak-banyak-jalan-musik.mp3');
+  // Suara (musik + narasi) opsional; bila dinyalakan, animasi mengikuti waktu
+  // audio supaya keduanya tetap sejalan.
+  var music = new Audio('satu-puncak-banyak-jalan-audio.mp3');
   music.loop = true;
   var withMusic = false;
 
@@ -71,14 +73,8 @@
     return ((now - started) / 1000) % AXTOAnim.DURATION;
   }
 
-  var narrator = AXTONarasi.create();
-
   function loop(now) {
-    if (playing) {
-      var t = clock(now);
-      AXTOAnim.render(ctx, t);
-      narrator.update(t);
-    }
+    if (playing) AXTOAnim.render(ctx, clock(now));
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
@@ -95,22 +91,16 @@
   });
   document.getElementById('restart').addEventListener('click', function () {
     started = performance.now();
-    narrator.reset();
     if (withMusic) { music.currentTime = 0; music.play(); }
     if (!playing) { playing = true; document.getElementById('toggle').textContent = 'Jeda'; }
-  });
-  document.getElementById('narasi').addEventListener('click', function () {
-    if (!narrator.supported) { this.textContent = 'Narasi tidak didukung browser ini'; return; }
-    narrator.setEnabled(!narrator.enabled);
-    this.textContent = narrator.enabled ? 'Matikan narasi' : 'Nyalakan narasi';
   });
   document.getElementById('sound').addEventListener('click', function () {
     var btn = this;
     if (withMusic) {
-      music.pause(); withMusic = false; btn.textContent = 'Nyalakan musik';
+      music.pause(); withMusic = false; btn.textContent = 'Nyalakan suara';
       started = performance.now() - music.currentTime * 1000;
     } else {
-      withMusic = true; btn.textContent = 'Matikan musik';
+      withMusic = true; btn.textContent = 'Matikan suara';
       music.currentTime = ((performance.now() - started) / 1000) % AXTOAnim.DURATION;
       music.play();
     }
