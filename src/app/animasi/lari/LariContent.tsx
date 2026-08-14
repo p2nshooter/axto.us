@@ -125,7 +125,7 @@ export default function LariContent() {
   const downloads = [
     { href: `${BASE}.mp4`, label: isId ? 'MP4 · 1080p + suara' : 'MP4 · 1080p with sound', primary: true },
     { href: `${BASE}.webm`, label: 'WebM' },
-    { href: `${BASE}.gif`, label: 'GIF' },
+    { href: `${BASE}.gif`, label: isId ? 'GIF cuplikan akhir' : 'GIF (final stretch)' },
     { href: `${BASE}-audio.mp3`, label: isId ? 'Audio MP3 (musik + narasi)' : 'Audio MP3 (music + narration)' },
     { href: `${BASE}-narasi.mp3`, label: isId ? 'Narasi saja' : 'Narration only' },
     { href: `${BASE}-musik.mp3`, label: isId ? 'Musik saja' : 'Music only' },

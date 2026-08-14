@@ -144,7 +144,8 @@ npm run render:animation -- --dir public/animasi/lari --base garis-akhir --poste
 
 `--workers` membagi frame ke beberapa halaman Chromium sekaligus (tiap halaman jalan di proses
 render sendiri), jadi render 3 menit selesai dalam hitungan belasan menit, bukan sejam.
-Halamannya ada di `/animasi/lari`.
+Halamannya ada di `/animasi/lari`. GIF-nya sengaja hanya memuat cuplikan 26 detik terakhir —
+GIF sepanjang tiga menit ukurannya lebih dari 25 MB, sementara cuplikannya cukup 4 MB.
 
 ### Suara narasi
 
