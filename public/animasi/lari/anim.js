@@ -115,11 +115,11 @@
   var BAR = 118;             // tinggi bilah sinematik atas/bawah
   var STAND_TOP = 296;       // batas atas tribun
   var STAND_BOT = 470;       // batas bawah tribun
-  var RUNNER_SCALE = 2.0;    // ukuran dasar pelari pada zoom 1
+  var RUNNER_SCALE = 1.9;    // ukuran dasar pelari pada zoom 1
   var NAME_A = 'NO NAME';
   var NAME_B = 'JOFA';
-  var LANE_A = { dy: -92, s: 0.88 };  // lajur jauh (NO NAME)
-  var LANE_B = { dy: 74, s: 1.06 };   // lajur dekat (JOFA)
+  var LANE_A = { dy: -84, s: 0.88 };  // lajur jauh (NO NAME)
+  var LANE_B = { dy: 52, s: 1.06 };   // lajur dekat (JOFA)
   var TRACK_TOP = 586;                // tepi atas lintasan
 
   var GUN = 23.0;
@@ -129,12 +129,12 @@
   var TRACK_A = [
     [0, 0], [FALSE_START, 0], [23, 120], [30, 620], [45, 1500], [60, 2100],
     [78, 2620], [95, 3000], [110, 3260], [125, 3430], [130, 3480], [137, 3540],
-    [140, 3640], [150.5, 4000], [178, 4600]
+    [140, 3640], [150.5, 4000], [156, 4130], [164, 4190], [178, 4215]
   ];
   var TRACK_B = [
     [0, 0], [GUN, 0], [30, 200], [45, 900], [60, 1560], [78, 2180],
     [95, 2680], [110, 3060], [125, 3350], [130, 3450], [137, 3570],
-    [140, 3760], [145, 4000], [155, 4260], [178, 4700]
+    [140, 3760], [145, 4000], [151, 4160], [159, 4235], [178, 4265]
   ];
 
   function posAt(keys, t) {
@@ -216,8 +216,8 @@
       cam.zoom = lerp(1.28, 1.02, smooth(seg(t, 141, 147)));
       cam.x = lerp((a + b) / 2 + 40, RACE_LEN + 60, smooth(seg(t, 141, 147)));
     } else {
-      cam.zoom = lerp(1.02, 0.94, smooth(seg(t, 152, 178)));
-      cam.x = lerp(RACE_LEN + 60, RACE_LEN + 140, smooth(seg(t, 152, 178)));
+      cam.zoom = lerp(1.02, 0.98, smooth(seg(t, 152, 178)));
+      cam.x = b - 60;
     }
 
     // Guncangan: tembakan start, saat menyalip, dan saat menyentuh garis
@@ -256,6 +256,22 @@
     return { mid: m, end: e };
   }
 
+  /** 0 = berdiri santai, 1 = posisi siap di balok start. */
+  function poseSet(k) {
+    return {
+      legs: [
+        [lerp(0.10, 0.92, k), lerp(0.05, 0.06, k)],    // kaki depan: lutut menekuk
+        [lerp(-0.10, -0.40, k), lerp(-0.05, -0.16, k)] // kaki belakang: menahan di balok
+      ],
+      arms: [
+        [lerp(0.14, 0.30, k), lerp(0.18, 0.06, k)],    // tangan menumpu ke lintasan
+        [lerp(-0.12, 0.16, k), lerp(-0.16, 0.02, k)]
+      ],
+      lean: lerp(0.03, 1.12, k),
+      bob: lerp(0, 12, k)
+    };
+  }
+
   /**
    * Satu pelari. `phase` digerakkan oleh jarak tempuh sehingga kaki tidak
    * pernah "menggeser" di tanah. `tired` menurunkan angkatan lutut, ayunan
@@ -270,16 +286,35 @@
 
     // Paha mengayun; lutut menekuk paling dalam saat kaki menarik ke belakang
     // (tumit mendekat ke pinggul), lalu lurus lagi saat menapak di depan.
-    var thighF = 0.95 * amp * Math.sin(p);
-    var thighB = 0.95 * amp * Math.sin(p + Math.PI);
-    var bendF = (1.9 * amp) * (0.5 - 0.5 * Math.cos(p));
-    var bendB = (1.9 * amp) * (0.5 - 0.5 * Math.cos(p + Math.PI));
-    var kneeF = thighF - bendF;
-    var kneeB = thighB - bendB;
-    var armF = 0.62 * amp * Math.sin(p + Math.PI);
-    var armB = 0.62 * amp * Math.sin(p);
-    var bob = -7 * amp * Math.max(0, Math.cos(2 * p)) + tired * 3;
-    var lean = lerp(0.30, 0.13, tired) + (o.leanExtra || 0);
+    var thighF, thighB, kneeF, kneeB, armF, armB, bob, lean;
+    if (o.pose) {
+      // Sikap diam (berdiri / siap di balok start / selebrasi)
+      thighF = o.pose.legs[0][0]; kneeF = o.pose.legs[0][1];
+      thighB = o.pose.legs[1][0]; kneeB = o.pose.legs[1][1];
+      armF = o.pose.arms[0][0]; armB = o.pose.arms[1][0];
+      bob = o.pose.bob || 0;
+      lean = (o.pose.lean || 0) + (o.leanExtra || 0);
+    } else {
+      thighF = 0.95 * amp * Math.sin(p);
+      thighB = 0.95 * amp * Math.sin(p + Math.PI);
+      var bendF = (1.9 * amp) * (0.5 - 0.5 * Math.cos(p));
+      var bendB = (1.9 * amp) * (0.5 - 0.5 * Math.cos(p + Math.PI));
+      kneeF = thighF - bendF;
+      kneeB = thighB - bendB;
+      armF = 0.62 * amp * Math.sin(p + Math.PI);
+      armB = 0.62 * amp * Math.sin(p);
+      bob = -7 * amp * Math.max(0, Math.cos(2 * p)) + tired * 3;
+      lean = lerp(0.30, 0.13, tired) + (o.leanExtra || 0);
+    }
+
+    var foreF = o.pose ? o.pose.arms[0][1] : armF - 1.45;
+    var foreB = o.pose ? o.pose.arms[1][1] : armB - 1.45;
+    if (o.armsUp) {
+      armF = lerp(armF, Math.PI * 0.86, o.armsUp);
+      foreF = lerp(foreF, Math.PI * 0.98, o.armsUp);
+      armB = lerp(armB, Math.PI * 0.80, o.armsUp);
+      foreB = lerp(foreB, Math.PI * 0.94, o.armsUp);
+    }
 
     ctx.save();
     ctx.translate(o.x, o.y + bob * s);
@@ -288,14 +323,14 @@
     if (o.glow) { ctx.shadowColor = rgba(col, 0.4); ctx.shadowBlur = 13; }
 
     var hip = [0, 0];
-    var torsoAng = Math.PI + lean;
+    var torsoAng = Math.PI - lean;   // condong ke arah lari
     var sh = tip(hip[0], hip[1], torsoAng, 46);
     var headC = tip(sh[0], sh[1], torsoAng - 0.12 + tired * 0.3, 19);
 
     // Tungkai & lengan belakang
     ctx.strokeStyle = rgba(col, 0.45);
     limb(ctx, hip[0], hip[1], thighB, 36, kneeB, 36, 12);
-    limb(ctx, sh[0], sh[1], armB, 26, armB - 1.45, 24, 10);
+    limb(ctx, sh[0], sh[1], armB, 26, foreB, 24, 10);
 
     // Badan
     ctx.strokeStyle = col;
@@ -323,7 +358,7 @@
     // Tungkai & lengan depan
     ctx.strokeStyle = col;
     var legF = limb(ctx, hip[0], hip[1], thighF, 36, kneeF, 36, 12);
-    limb(ctx, sh[0], sh[1], armF, 26, armF - 1.45, 24, 10);
+    limb(ctx, sh[0], sh[1], armF, 26, foreF, 24, 10);
 
     // Telapak kaki depan
     ctx.lineWidth = 8;
@@ -795,7 +830,7 @@
    * ------------------------------------------------------------------ */
 
   function titleCard(ctx, t) {
-    var a = env(t, 1.2, 13.4, 1.4, 1.6);
+    var a = env(t, 1.2, 13.0, 1.4, 1.6);
     if (a <= 0) return;
     ctx.save();
     ctx.globalAlpha = a;
@@ -806,8 +841,8 @@
     ctx.font = font(96, 700);
     ctx.fillStyle = tg;
     ctx.textBaseline = 'alphabetic';
-    tracked(ctx, 'GARIS AKHIR', W / 2, 468, 10, 'center');
-    label(ctx, 'Yang memulai lebih dulu belum tentu tiba lebih dulu.', W / 2, 528, {
+    tracked(ctx, 'GARIS AKHIR', W / 2, 252, 10, 'center');
+    label(ctx, 'Yang memulai lebih dulu belum tentu tiba lebih dulu.', W / 2, 306, {
       size: 30, color: C.muted, align: 'center', alpha: smooth(seg(t, 3.4, 5.2))
     });
     ctx.restore();
@@ -949,9 +984,16 @@
     var tiredB = smooth(seg(t, 120, 150)) * 0.25;
     var glance = env(t, 105.5, 112, 0.8, 1.2);   // menoleh ke belakang
 
+    // Sebelum aba-aba keduanya diam: berdiri, lalu bersiap di balok start
+    var ready = smooth(seg(t, 14.5, 19.6));
+    var stance = poseSet(ready);
+
     var runners = [
-      { x: a, v: va, color: C.one, tired: tiredA, tail: false, lean: -glance * 0.16, lane: LANE_A, name: NAME_A },
-      { x: b, v: vb, color: C.two, tired: tiredB, tail: true, lean: 0, lane: LANE_B, name: NAME_B }
+      { x: a, v: va, color: C.one, tired: tiredA, tail: false, lean: -glance * 0.16,
+        lane: LANE_A, name: NAME_A, pose: t < FALSE_START ? stance : null, armsUp: 0 },
+      { x: b, v: vb, color: C.two, tired: tiredB, tail: true, lean: 0,
+        lane: LANE_B, name: NAME_B, pose: t < GUN ? stance : null,
+        armsUp: env(t, 146.2, DURATION, 1.6, 0) }   // JOFA merayakan setelah finis
     ];
 
     runners.forEach(function (r) {
@@ -963,6 +1005,7 @@
 
       var trail = clamp(r.v / 34, 0, 1);
       for (var k = 3; k >= 1; k--) {
+        if (r.pose) break;   // tidak ada jejak gerak saat masih diam
         athlete(ctx, {
           x: sx - k * 13 * trail * cam.zoom, y: gy, s: scale, phase: phase - k * 0.16,
           color: r.color, tired: r.tired, alpha: 0.085 * trail * (4 - k) / 3, tail: r.tail
@@ -970,7 +1013,8 @@
       }
       athlete(ctx, {
         x: sx, y: gy, s: scale, phase: phase, color: r.color,
-        tired: r.tired, tail: r.tail, glow: true, leanExtra: r.lean
+        tired: r.tired, tail: r.tail, glow: true, leanExtra: r.lean,
+        pose: r.pose, armsUp: r.armsUp
       });
 
       nameTag(ctx, sx, gy - 196 * scale / RUNNER_SCALE, r.name, r.color, compact ? 0 : 0.92);
