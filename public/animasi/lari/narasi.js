@@ -12,11 +12,11 @@
   var LINES = [
     { t: 2.4, text: 'Selamat datang di final seribu meter!' },
     { t: 5.6, text: 'Stadion penuh malam ini, dan dua pelari sudah masuk ke lintasan.' },
-    { t: 11.0, text: 'Di lajur dalam, NO NAME. Di lajur luar, JOFA.' },
-    { t: 15.6, text: 'Keduanya masuk balok start. Suasana hening.' },
+    { t: 11.0, text: 'Di lajur dalam NO NAME, di lajur luar JOFA.' },
+    { t: 15.6, text: 'Keduanya masuk balok start.' },
     { t: 19.4, text: 'Bersedia… siap…' },
     { t: 21.4, text: 'Astaga! NO NAME lari sebelum aba-aba!' },
-    { t: 24.4, text: 'Ia mencuri start! Pistol baru berbunyi sekarang, dan JOFA baru berangkat!' },
+    { t: 25.4, text: 'Ia mencuri start! JOFA baru berangkat sekarang!' },
     { t: 30.6, text: 'NO NAME sudah puluhan meter di depan. Ini keunggulan yang besar sekali.' },
     { t: 37.0, text: 'JOFA tertinggal jauh. Penonton mulai berdiri.' },
     { t: 42.0, text: 'Seratus meter berlalu, dan jaraknya justru semakin lebar.' },
@@ -32,7 +32,7 @@
     { t: 101.0, text: 'Delapan ratus meter. JOFA terus mendekat!' },
     { t: 106.0, text: 'NO NAME menoleh ke belakang! Ia terkejut!' },
     { t: 111.0, text: 'Ia mencoba mempercepat langkah, tetapi tenaganya sudah habis!' },
-    { t: 117.0, text: 'JOFA tidak menoleh sedikit pun. Matanya lurus ke depan!' },
+    { t: 117.0, text: 'JOFA tidak menoleh sedikit pun!' },
     { t: 122.4, text: 'Sembilan ratus meter! Mereka hampir berdampingan!' },
     { t: 127.4, text: 'Ini duel! Bahu bertemu bahu!' },
     { t: 131.4, text: 'JOFA menyalip! JOFA memimpin!' },
@@ -41,7 +41,7 @@
     { t: 144.0, text: 'Luar biasa! Pelari yang tadi paling belakang keluar sebagai pemenang!' },
     { t: 150.6, text: 'Stadion bergemuruh untuk JOFA!' },
     { t: 154.4, text: 'Dan inilah pelajarannya: kemenangan bukan milik yang memulai lebih cepat,' },
-    { t: 159.6, text: 'melainkan milik yang terus bergerak sampai akhir.' },
+    { t: 160.0, text: 'melainkan milik yang terus bergerak sampai akhir.' },
     { t: 164.4, text: 'Jangan bandingkan bab pertama hidupmu dengan bab terakhir hidup orang lain.' },
     { t: 170.4, text: 'Selama garis akhir belum kaulewati, perlombaanmu belum selesai.' }
   ];

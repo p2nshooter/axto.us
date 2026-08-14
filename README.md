@@ -149,20 +149,33 @@ GIF sepanjang tiga menit ukurannya lebih dari 25 MB, sementara cuplikannya cukup
 
 ### Suara narasi
 
-Narasi disuarakan sepenuhnya secara lokal, tanpa layanan berbayar:
+Narasi dibacakan **model VITS yang dilatih dengan rekaman penutur asli bahasa Indonesia**
+(rilis `Wikidepia/indonesian-tts` v1.2), jadi vokal dan lafalnya Indonesia sepenuhnya. Penutur
+bawaannya `SU-08703` (perempuan) — dipilih lewat uji: tiap kandidat suara membacakan kalimat
+yang sama, hasilnya ditranskripsi ulang oleh Whisper, lalu dibandingkan dengan naskah aslinya.
 
-1. `espeak-ng` mengubah kalimat Indonesia menjadi fonem IPA (pengucapannya benar),
-2. fonem itu disuarakan oleh model neural VITS (Piper). Piper belum punya suara Indonesia,
-   tetapi peta fonemnya memakai IPA penuh, jadi urutan fonem Indonesia bisa dipakai apa adanya
-   dan yang diambil dari model hanyalah warna suara serta iramanya,
-3. hasilnya dicampur dengan musik memakai *ducking* — musik otomatis menurun saat narator
-   berbicara.
+| Suara | Kemiripan transkripsi |
+|---|---|
+| Model Indonesia asli, penutur SU-08703 | **63,7%** |
+| Model Swahili + fonem espeak-ng | 36,9% |
+| Model Malayalam + fonem espeak-ng | 35,3% |
+| Model Spanyol + fonem espeak-ng | 8,9% |
 
-Kebutuhan render narasi: `apt-get install espeak-ng`, `pip install onnxruntime numpy`, dan model
-suara Piper yang otomatis diunduh sekali (atur lewat `PIPER_VOICE_URL` / `PIPER_VOICE_DIR`).
-Bila salah satunya tidak ada, `render:animation` tetap jalan dan videonya berisi musik saja.
-Untuk mengganti warna suara, arahkan `PIPER_VOICE_URL` ke model Piper lain — lihat daftar rilis
-`k2-fsa/sherpa-onnx` bertag `tts-models`.
+Hasilnya dicampur dengan musik memakai *ducking* — musik otomatis menurun saat narator bicara.
+
+```bash
+pip install coqui-tts torchcodec        # sekali saja
+npm run render:narration -- keluaran.wav public/animasi/lari
+```
+
+Setelan lewat variabel lingkungan: `ID_TTS_SPEAKER` (ganti penutur), `ID_TTS_DIR` (letak model),
+`NARRATION_LENGTH_SCALE` (kecepatan bicara), dan `NARRATION_ENGINE=piper` untuk kembali ke cara
+lama (fonem espeak + model bahasa lain) bila coqui-tts tidak tersedia.
+
+> **Lisensi model suara.** Pembuat `Wikidepia/indonesian-tts` menyatakan modelnya *tidak untuk
+> keperluan komersial*. Untuk pemakaian komersial, ganti sumber suaranya — misalnya rekaman
+> suara sendiri, atau layanan TTS berbayar (slot `ELEVENLABS_API_KEY` / `AZURE_TTS_KEY` sudah
+> tersedia di proyek ini).
 
 Playwright dan ffmpeg sengaja **tidak** dijadikan dependency aplikasi (hanya dipakai saat
 merender), jadi build/deploy Cloudflare tidak ikut mengunduhnya. Script render juga menerima

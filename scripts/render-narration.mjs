@@ -2,19 +2,24 @@
 /*
  * Merender narasi suara untuk animasi.
  *
- * Cara kerjanya: naskah di public/animasi/narasi.js diubah menjadi fonem IPA
- * bahasa Indonesia oleh espeak-ng, lalu fonem itu disuarakan oleh model neural
- * VITS (Piper). Model Piper belum punya suara Indonesia, tetapi peta fonemnya
- * memakai IPA penuh — jadi urutan fonem Indonesia bisa dipakai apa adanya dan
- * pengucapannya tetap benar, dengan warna suara dari model yang dipilih.
+ * Ada dua mesin suara:
  *
- *   node scripts/render-narration.mjs [keluaran.wav]
+ *   coqui-id  (bawaan) — model VITS yang dilatih dengan rekaman penutur asli
+ *                        bahasa Indonesia, jadi vokal dan lafalnya Indonesia
+ *                        sepenuhnya. Model diunduh sekali dari rilis GitHub
+ *                        Wikidepia/indonesian-tts.
+ *                        CATATAN LISENSI: model itu dinyatakan "tidak untuk
+ *                        keperluan komersial" oleh pembuatnya.
+ *
+ *   piper     — cadangan tanpa model Indonesia: espeak-ng mengubah kalimat
+ *               menjadi fonem IPA, lalu model Piper bahasa lain menyuarakannya.
+ *               Lafalnya benar tetapi warna suaranya bukan orang Indonesia.
+ *
+ *   node scripts/render-narration.mjs [keluaran.wav] [direktori-proyek]
  *
  * Kebutuhan (hanya saat merender, bukan dependency aplikasi):
- *   - espeak-ng               → fonemisasi (apt-get install espeak-ng)
- *   - python3 + onnxruntime   → menjalankan model (pip install onnxruntime numpy)
- *   - model suara Piper       → lihat VOICE_URL di bawah; diunduh sekali lalu
- *                               disimpan di direktori cache
+ *   coqui-id : python3 + coqui-tts + torch    (pip install coqui-tts torchcodec)
+ *   piper    : espeak-ng + python3 + onnxruntime
  */
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -26,10 +31,20 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'public', 'animasi');
 
-/* Suara narator: model perempuan (F0 ± 184 Hz), kualitas "high".
- * Pengucapan Indonesianya datang dari fonem espeak-ng, bukan dari model. */
-const VOICE_PACK = process.env.PIPER_VOICE_PACK || 'vits-piper-es_MX-claude-high';
-const VOICE_NAME = process.env.PIPER_VOICE_NAME || 'es_MX-claude-high';
+const ENGINE = process.env.NARRATION_ENGINE || 'coqui-id';
+
+/* --- Mesin 1: model bahasa Indonesia asli ---------------------------- */
+
+const ID_RELEASE = 'https://github.com/Wikidepia/indonesian-tts/releases/download/v1.2';
+const ID_FILES = ['checkpoint_1260000-inference.pth', 'config.json', 'speakers.pth'];
+const ID_DIR = process.env.ID_TTS_DIR || path.join(os.tmpdir(), 'axto-id-tts');
+// Penutur perempuan yang paling jelas menurut uji transkripsi ulang.
+const ID_SPEAKER = process.env.ID_TTS_SPEAKER || 'SU-08703';
+
+/* --- Mesin 2: fonem espeak + model Piper bahasa lain ------------------ */
+
+const VOICE_PACK = process.env.PIPER_VOICE_PACK || 'vits-piper-sw_CD-lanfrica-medium';
+const VOICE_NAME = process.env.PIPER_VOICE_NAME || 'sw_CD-lanfrica-medium';
 const VOICE_URL = process.env.PIPER_VOICE_URL ||
   `https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/${VOICE_PACK}.tar.bz2`;
 const VOICE_DIR = process.env.PIPER_VOICE_DIR ||
@@ -37,23 +52,32 @@ const VOICE_DIR = process.env.PIPER_VOICE_DIR ||
 
 function run(cmd, args, opts = {}) {
   const r = spawnSync(cmd, args, { encoding: 'utf8', ...opts });
-  if (r.status !== 0) {
-    throw new Error(`${cmd} gagal (${r.status}): ${r.stderr || ''}`);
-  }
+  if (r.status !== 0) throw new Error(`${cmd} gagal (${r.status}): ${r.stderr || ''}`);
   return r.stdout;
 }
 
-function ensureVoice() {
+function ensureIndonesianModel() {
+  fs.mkdirSync(ID_DIR, { recursive: true });
+  for (const f of ID_FILES) {
+    const dest = path.join(ID_DIR, f);
+    if (fs.existsSync(dest)) continue;
+    process.stdout.write(`Mengunduh model suara Indonesia: ${f} ...\n`);
+    run('curl', ['-sSL', '-o', dest, `${ID_RELEASE}/${f}`]);
+  }
+  return ID_DIR;
+}
+
+function ensurePiperVoice() {
   const onnx = path.join(VOICE_DIR, `${VOICE_NAME}.onnx`);
   if (fs.existsSync(onnx)) return { onnx, config: `${onnx}.json` };
   const parent = path.dirname(VOICE_DIR);
   fs.mkdirSync(parent, { recursive: true });
   const tar = path.join(parent, 'voice.tar.bz2');
-  process.stdout.write('Mengunduh model suara ...\n');
+  process.stdout.write('Mengunduh model suara Piper ...\n');
   run('curl', ['-sSL', '-o', tar, VOICE_URL]);
   run('tar', ['xjf', tar, '-C', parent]);
   fs.rmSync(tar, { force: true });
-  if (!fs.existsSync(onnx)) throw new Error(`model tidak ditemukan setelah diekstrak: ${onnx}`);
+  if (!fs.existsSync(onnx)) throw new Error(`model tidak ditemukan: ${onnx}`);
   return { onnx, config: `${onnx}.json` };
 }
 
@@ -79,29 +103,84 @@ function loadScript(dir) {
   return sandbox.AXTONarasi.LINES;
 }
 
-/**
- * Fonemisasi satu kalimat. Tanda baca dilepas dari teks lalu ditempelkan lagi
- * sebagai fonem tersendiri supaya jeda dan intonasinya terjaga.
- */
+/** Fonemisasi untuk mesin piper: tanda baca dipertahankan sebagai jeda. */
 function phonemize(text) {
   const out = [];
-  const parts = text.split(/([,.:;!?])/).filter((s) => s.trim() !== '');
-  for (const part of parts) {
-    if (/^[,.:;!?]$/.test(part)) {
-      out.push(part);
-      continue;
+  for (const part of text.split(/([,.:;!?])/).filter((s) => s.trim() !== '')) {
+    if (/^[,.:;!?]$/.test(part)) { out.push(part); continue; }
+    for (const ch of Array.from(run('espeak-ng', ['-q', '--ipa', '-v', 'id', part.trim()]).trim())) {
+      out.push(ch);
     }
-    const ipa = run('espeak-ng', ['-q', '--ipa', '-v', 'id', part.trim()]).trim();
-    for (const ch of Array.from(ipa)) out.push(ch);
     out.push(' ');
   }
   return out;
 }
 
-const PY = `
-import json, sys, math
+/* Skrip Python: menyuarakan tiap kalimat lalu menempatkannya di garis waktu. */
+
+const PY_COMMON = `
+def write_wav(path, track, rate):
+    import struct
+    import numpy as np
+    pcm = (np.clip(track, -1, 1) * 32767).astype('<i2')
+    data = pcm.tobytes()
+    with open(path, 'wb') as f:
+        f.write(b'RIFF' + struct.pack('<I', 36 + len(data)) + b'WAVEfmt ')
+        f.write(struct.pack('<IHHIIHH', 16, 1, 1, rate, rate * 2, 2, 16))
+        f.write(b'data' + struct.pack('<I', len(data)))
+        f.write(data)
+
+def place(track, audio, start_sample, gain=0.92):
+    import numpy as np
+    end = min(len(track), start_sample + len(audio))
+    if end <= start_sample:
+        return
+    fade = max(1, int(0.02 * 22050))
+    env = np.ones(len(audio), dtype='float32')
+    env[:fade] = np.linspace(0, 1, fade)
+    env[-fade:] = np.linspace(1, 0, fade)
+    track[start_sample:end] += (audio * env)[: end - start_sample] * gain
+`;
+
+const PY_COQUI = `
+import json, math, sys
+import numpy as np
+${PY_COMMON}
+from TTS.utils.synthesizer import Synthesizer
+
+model_dir, speaker, plan_path, out_path = sys.argv[1:5]
+plan = json.load(open(plan_path))
+
+syn = Synthesizer(
+    tts_checkpoint=f'{model_dir}/checkpoint_1260000-inference.pth',
+    tts_config_path=f'{model_dir}/config.json',
+    tts_speakers_file=f'{model_dir}/speakers.pth',
+    use_cuda=False)
+rate = syn.output_sample_rate
+if hasattr(syn.tts_model, 'length_scale'):
+    syn.tts_model.length_scale = plan.get('length_scale', 1.0)
+
+total = int(math.ceil(plan['duration'] * rate)) + rate
+track = np.zeros(total, dtype=np.float32)
+report = []
+for item in plan['lines']:
+    wav = np.array(syn.tts(item['text'], speaker_name=speaker), dtype=np.float32)
+    wav = wav / max(1e-6, float(np.max(np.abs(wav))))
+    place(track, wav, int(item['t'] * rate))
+    report.append({'t': item['t'], 'seconds': round(len(wav) / rate, 2)})
+
+peak = float(np.max(np.abs(track)))
+if peak > 1.0:
+    track /= peak
+write_wav(out_path, track, rate)
+print(json.dumps({'rate': rate, 'peak': round(peak, 3), 'lines': report}))
+`;
+
+const PY_PIPER = `
+import json, math, sys
 import numpy as np
 import onnxruntime
+${PY_COMMON}
 
 model, config, plan_path, out_path = sys.argv[1:5]
 cfg = json.load(open(config))
@@ -110,7 +189,6 @@ rate = cfg['audio']['sample_rate']
 inf = cfg.get('inference', {})
 plan = json.load(open(plan_path))
 
-# Fonem yang tidak ada di model diganti yang terdekat bunyinya.
 FALLBACK = {'ɡ': 'g', 'g': 'ɡ', 'ʤ': 'ʒ', 'ʧ': 'ʃ', 'ɾ': 'r', 'ʔ': '.', 'ɦ': 'h'}
 
 def ids_for(phonemes):
@@ -128,60 +206,56 @@ sess = onnxruntime.InferenceSession(model, providers=['CPUExecutionProvider'])
 total = int(math.ceil(plan['duration'] * rate)) + rate
 track = np.zeros(total, dtype=np.float32)
 report = []
-
 for item in plan['lines']:
     ids = np.array([ids_for(item['phonemes'])], dtype=np.int64)
-    scales = np.array([
-        inf.get('noise_scale', 0.667),
-        plan.get('length_scale', 1.0),
-        inf.get('noise_w', 0.8)
-    ], dtype=np.float32)
-    feeds = {'input': ids, 'input_lengths': np.array([ids.shape[1]], dtype=np.int64), 'scales': scales}
+    scales = np.array([inf.get('noise_scale', 0.667), plan.get('length_scale', 1.0),
+                       inf.get('noise_w', 0.8)], dtype=np.float32)
+    feeds = {'input': ids, 'input_lengths': np.array([ids.shape[1]], dtype=np.int64),
+             'scales': scales}
     if 'sid' in [i.name for i in sess.get_inputs()]:
         feeds['sid'] = np.array([0], dtype=np.int64)
     audio = sess.run(None, feeds)[0].squeeze()
-    audio = audio / max(1e-6, np.max(np.abs(audio)))   # normalkan tiap kalimat
-    start = int(item['t'] * rate)
-    end = min(total, start + len(audio))
-    fade = int(0.02 * rate)
-    env = np.ones(len(audio), dtype=np.float32)
-    env[:fade] = np.linspace(0, 1, fade)
-    env[-fade:] = np.linspace(1, 0, fade)
-    track[start:end] += (audio * env)[: end - start] * 0.9
+    audio = audio / max(1e-6, float(np.max(np.abs(audio))))
+    place(track, audio, int(item['t'] * rate))
     report.append({'t': item['t'], 'seconds': round(len(audio) / rate, 2)})
 
 peak = float(np.max(np.abs(track)))
 if peak > 1.0:
     track /= peak
-pcm = (np.clip(track, -1, 1) * 32767).astype('<i2')
-
-import struct
-with open(out_path, 'wb') as f:
-    data = pcm.tobytes()
-    f.write(b'RIFF' + struct.pack('<I', 36 + len(data)) + b'WAVEfmt ')
-    f.write(struct.pack('<IHHIIHH', 16, 1, 1, rate, rate * 2, 2, 16))
-    f.write(b'data' + struct.pack('<I', len(data)))
-    f.write(data)
-
+write_wav(out_path, track, rate)
 print(json.dumps({'rate': rate, 'peak': round(peak, 3), 'lines': report}))
 `;
 
 export async function renderNarration(outFile, dir) {
-  const voice = ensureVoice();
   const lines = loadScript(dir);
-  const plan = {
-    duration: Number(process.env.NARRATION_DURATION || projectDuration(dir)),
-    length_scale: Number(process.env.NARRATION_LENGTH_SCALE || 1.08), // sedikit lebih lambat = lebih tenang
-    lines: lines.map((l) => ({ t: l.t, phonemes: phonemize(l.text) }))
-  };
+  const duration = Number(process.env.NARRATION_DURATION || projectDuration(dir));
+  const lengthScale = Number(process.env.NARRATION_LENGTH_SCALE || 1.0);
 
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'axto-narasi-'));
   const planFile = path.join(tmp, 'plan.json');
   const script = path.join(tmp, 'synth.py');
-  fs.writeFileSync(planFile, JSON.stringify(plan));
-  fs.writeFileSync(script, PY);
+  let stdout;
 
-  const stdout = run('python3', [script, voice.onnx, voice.config, planFile, outFile]);
+  if (ENGINE === 'coqui-id') {
+    const modelDir = ensureIndonesianModel();
+    fs.writeFileSync(planFile, JSON.stringify({
+      duration, length_scale: lengthScale,
+      lines: lines.map((l) => ({ t: l.t, text: l.text }))
+    }));
+    fs.writeFileSync(script, PY_COQUI);
+    // config.json menyebut speakers.pth secara relatif, jadi dijalankan dari
+    // dalam direktori modelnya.
+    stdout = run('python3', [script, modelDir, ID_SPEAKER, planFile, outFile], { cwd: modelDir });
+  } else {
+    const voice = ensurePiperVoice();
+    fs.writeFileSync(planFile, JSON.stringify({
+      duration, length_scale: lengthScale,
+      lines: lines.map((l) => ({ t: l.t, phonemes: phonemize(l.text) }))
+    }));
+    fs.writeFileSync(script, PY_PIPER);
+    stdout = run('python3', [script, voice.onnx, voice.config, planFile, outFile]);
+  }
+
   fs.rmSync(tmp, { recursive: true, force: true });
   return JSON.parse(stdout.trim().split('\n').pop());
 }
@@ -189,6 +263,6 @@ export async function renderNarration(outFile, dir) {
 if (import.meta.url === `file://${process.argv[1]}`) {
   const out = process.argv[2] || path.join(OUT, 'satu-puncak-banyak-jalan-narasi.wav');
   const info = await renderNarration(out, process.argv[3] ? path.resolve(process.argv[3]) : undefined);
-  console.log(`${path.basename(out)}  ${(fs.statSync(out).size / 1048576).toFixed(2)} MB  puncak=${info.peak}`);
-  for (const l of info.lines) console.log(`  detik ${String(l.t).padStart(5)} → ${l.seconds}s`);
+  console.log(`${path.basename(out)}  ${(fs.statSync(out).size / 1048576).toFixed(2)} MB  puncak=${info.peak}  mesin=${ENGINE}`);
+  for (const l of info.lines) console.log(`  detik ${String(l.t).padStart(6)} → ${l.seconds}s`);
 }
