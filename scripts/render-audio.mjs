@@ -60,14 +60,15 @@ function wavFromChannels(left, right, sampleRate) {
   return buf;
 }
 
-export async function renderAudio(outFile) {
+export async function renderAudio(outFile, dir) {
   const chromium = await loadChromium();
   const browser = await chromium.launch();
   const page = await browser.newPage();
 
+  const projectDir = dir || OUT;
   const html = `<!doctype html><meta charset="utf-8">
-<script>${fs.readFileSync(path.join(OUT, 'anim.js'), 'utf8')}</script>
-<script>${fs.readFileSync(path.join(OUT, 'score.js'), 'utf8')}</script>`;
+<script>${fs.readFileSync(path.join(projectDir, 'anim.js'), 'utf8')}</script>
+<script>${fs.readFileSync(path.join(projectDir, 'score.js'), 'utf8')}</script>`;
   await page.setContent(html, { waitUntil: 'load' });
 
   const { channels, sampleRate } = await page.evaluate(async () => {
@@ -93,7 +94,7 @@ export async function renderAudio(outFile) {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const out = process.argv[2] || path.join(OUT, 'satu-puncak-banyak-jalan.wav');
-  await renderAudio(out);
+  await renderAudio(out, process.argv[3] ? path.resolve(process.argv[3]) : undefined);
   const s = fs.statSync(out);
   console.log(`${path.basename(out)}  ${(s.size / 1048576).toFixed(2)} MB`);
 }

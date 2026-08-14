@@ -131,6 +131,21 @@ npm run render:audio         # hanya musiknya (WAV)
 npm run render:narration     # hanya narasinya (WAV)
 ```
 
+### Animasi kedua: "Garis Akhir"
+
+`public/animasi/lari/` berisi animasi sinematik berdurasi ±3 menit tentang dua pelari:
+**NO NAME** mencuri start dan unggul jauh, **JOFA** tertinggal tetapi menjaga ritmenya lalu
+menyalip di meter-meter terakhir dan menang. Narasinya dibawakan bergaya komentator lomba. Susunan berkasnya sama (`anim.js`, `score.js`, `narasi.js`) sehingga
+perintah rendernya tinggal diarahkan ke direktori itu:
+
+```bash
+npm run render:animation -- --dir public/animasi/lari --base garis-akhir --poster 146 --workers 3
+```
+
+`--workers` membagi frame ke beberapa halaman Chromium sekaligus (tiap halaman jalan di proses
+render sendiri), jadi render 3 menit selesai dalam hitungan belasan menit, bukan sejam.
+Halamannya ada di `/animasi/lari`.
+
 ### Suara narasi
 
 Narasi disuarakan sepenuhnya secara lokal, tanpa layanan berbayar:

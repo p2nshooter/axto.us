@@ -16,8 +16,14 @@ import { createRequire } from 'node:module';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
-const OUT = path.join(ROOT, 'public', 'animasi');
+const argvRaw = process.argv.slice(2);
+function argOf(name, fallback) {
+  const i = argvRaw.indexOf(name);
+  return i >= 0 ? argvRaw[i + 1] : fallback;
+}
+const OUT = path.resolve(ROOT, argOf('--dir', 'public/animasi'));
 const ENGINE = path.join(OUT, 'anim.js');
+const base = argOf('--base', 'satu-puncak-banyak-jalan');
 
 const require = createRequire(import.meta.url);
 
@@ -59,6 +65,9 @@ function run(bin, args) {
 const argv = process.argv.slice(2);
 const framesArg = argv.includes('--frames') ? argv[argv.indexOf('--frames') + 1] : null;
 const scale = Number(argv.includes('--scale') ? argv[argv.indexOf('--scale') + 1] : 1);
+// Beberapa halaman merender potongan frame masing-masing; Chromium menaruh tiap
+// halaman di proses render sendiri, jadi inti CPU terpakai semua.
+const workers = Math.max(1, Number(argOf('--workers', 3)));
 
 const html = `<!doctype html><meta charset="utf-8">
 <style>html,body{margin:0;background:#000}canvas{display:block}</style>
@@ -68,20 +77,29 @@ const html = `<!doctype html><meta charset="utf-8">
   const c = document.getElementById('c');
   c.width = AXTOAnim.W; c.height = AXTOAnim.H;
   const ctx = c.getContext('2d');
-  window.frameAt = (t) => { AXTOAnim.render(ctx, t); return c.toDataURL('image/png'); };
+  window.frameAt = (t, jpeg) => {
+    AXTOAnim.render(ctx, t);
+    return jpeg ? c.toDataURL('image/jpeg', 0.94) : c.toDataURL('image/png');
+  };
 </script>`;
 
 const chromium = await loadChromium();
 const browser = await chromium.launch({ args: ['--force-color-profile=srgb', '--font-render-hinting=none'] });
-const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
-await page.setContent(html, { waitUntil: 'load' });
-await page.evaluate(() => document.fonts.ready);
 
+async function newRenderPage() {
+  const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
+  await page.setContent(html, { waitUntil: 'load' });
+  await page.evaluate(() => document.fonts.ready);
+  return page;
+}
+
+const page = await newRenderPage();
 const meta = await page.evaluate(() => ({ W: AXTOAnim.W, H: AXTOAnim.H, FPS: AXTOAnim.FPS, DURATION: AXTOAnim.DURATION }));
 
-async function shoot(t, file) {
-  const dataUrl = await page.evaluate((tt) => window.frameAt(tt), t);
-  fs.writeFileSync(file, Buffer.from(dataUrl.slice('data:image/png;base64,'.length), 'base64'));
+async function shoot(target, t, file, jpeg) {
+  const dataUrl = await target.evaluate(([tt, j]) => window.frameAt(tt, j), [t, !!jpeg]);
+  const prefix = jpeg ? 'data:image/jpeg;base64,' : 'data:image/png;base64,';
+  fs.writeFileSync(file, Buffer.from(dataUrl.slice(prefix.length), 'base64'));
 }
 
 if (framesArg) {
@@ -89,7 +107,7 @@ if (framesArg) {
   fs.mkdirSync(dir, { recursive: true });
   for (const t of framesArg.split(',').map(Number)) {
     const f = path.join(dir, `t${String(t).replace('.', '_')}.png`);
-    await shoot(t, f);
+    await shoot(page, t, f, false);
     console.log(f);
   }
   await browser.close();
@@ -98,24 +116,34 @@ if (framesArg) {
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'axto-anim-'));
 const total = Math.round(meta.DURATION * meta.FPS);
-process.stdout.write(`Merender ${total} frame @ ${meta.W}x${meta.H} ...\n`);
-for (let i = 0; i < total; i++) {
-  await shoot(i / meta.FPS, path.join(tmp, String(i).padStart(5, '0') + '.png'));
-  if (i % 30 === 0) process.stdout.write(`  frame ${i}/${total}\r`);
-}
+process.stdout.write(`Merender ${total} frame @ ${meta.W}x${meta.H} (${workers} pekerja) ...\n`);
+
+let done = 0;
+const chunk = Math.ceil(total / workers);
+const pages = [page];
+for (let k = 1; k < workers; k++) pages.push(await newRenderPage());
+
+await Promise.all(pages.map(async (p, k) => {
+  const from = k * chunk;
+  const to = Math.min(total, from + chunk);
+  for (let i = from; i < to; i++) {
+    await shoot(p, i / meta.FPS, path.join(tmp, String(i).padStart(5, '0') + '.jpg'), true);
+    done++;
+    if (done % 60 === 0) process.stdout.write(`  frame ${done}/${total}\r`);
+  }
+}));
 await browser.close();
 process.stdout.write(`  frame ${total}/${total}\n`);
 
 const ff = ffmpegPath();
-const seq = path.join(tmp, '%05d.png');
-const base = 'satu-puncak-banyak-jalan';
+const seq = path.join(tmp, '%05d.jpg');
 const vf = scale === 1 ? [] : ['-vf', `scale=${Math.round(meta.W * scale)}:-2:flags=lanczos`];
 
 // Musik latar: dirender dari public/animasi/score.js lewat Web Audio
 const music = path.join(tmp, 'score.wav');
 process.stdout.write('Merender musik ...\n');
 const { renderAudio } = await import('./render-audio.mjs');
-await renderAudio(music);
+await renderAudio(music, OUT);
 
 /* Narasi: butuh espeak-ng + python(onnxruntime) + model Piper. Bila salah satu
  * tidak tersedia, videonya tetap dibuat dengan musik saja. */
@@ -124,7 +152,7 @@ try {
   process.stdout.write('Merender narasi ...\n');
   const { renderNarration } = await import('./render-narration.mjs');
   const voice = path.join(tmp, 'narasi.wav');
-  await renderNarration(voice);
+  await renderNarration(voice, OUT);
   run(ff, ['-y', '-i', voice, '-c:a', 'libmp3lame', '-b:a', '160k',
     path.join(OUT, `${base}-narasi.mp3`)]);
 
@@ -168,8 +196,9 @@ run(ff, ['-y', '-framerate', String(meta.FPS), '-i', seq, '-i', palette,
   path.join(OUT, `${base}.gif`)]);
 
 // Poster (dikompres ulang supaya ringan)
-const posterFrame = Math.round(Math.min(88, meta.DURATION - 4) * meta.FPS);
-run(ff, ['-y', '-i', path.join(tmp, String(posterFrame).padStart(5, '0') + '.png'),
+const posterAt = Number(argOf('--poster', Math.min(88, meta.DURATION - 4)));
+const posterFrame = Math.round(posterAt * meta.FPS);
+run(ff, ['-y', '-i', path.join(tmp, String(posterFrame).padStart(5, '0') + '.jpg'),
   '-compression_level', '100', path.join(OUT, `${base}-poster.png`)]);
 
 fs.rmSync(tmp, { recursive: true, force: true });

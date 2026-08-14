@@ -26,12 +26,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const OUT = path.join(ROOT, 'public', 'animasi');
 
-const VOICE_URL =
-  process.env.PIPER_VOICE_URL ||
-  'https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/vits-piper-es_ES-davefx-medium.tar.bz2';
+/* Suara narator: model perempuan (F0 ± 184 Hz), kualitas "high".
+ * Pengucapan Indonesianya datang dari fonem espeak-ng, bukan dari model. */
+const VOICE_PACK = process.env.PIPER_VOICE_PACK || 'vits-piper-es_MX-claude-high';
+const VOICE_NAME = process.env.PIPER_VOICE_NAME || 'es_MX-claude-high';
+const VOICE_URL = process.env.PIPER_VOICE_URL ||
+  `https://github.com/k2-fsa/sherpa-onnx/releases/download/tts-models/${VOICE_PACK}.tar.bz2`;
 const VOICE_DIR = process.env.PIPER_VOICE_DIR ||
-  path.join(os.tmpdir(), 'axto-piper-voice', 'vits-piper-es_ES-davefx-medium');
-const VOICE_NAME = 'es_ES-davefx-medium';
+  path.join(os.tmpdir(), 'axto-piper-voice', VOICE_PACK);
 
 function run(cmd, args, opts = {}) {
   const r = spawnSync(cmd, args, { encoding: 'utf8', ...opts });
@@ -55,9 +57,21 @@ function ensureVoice() {
   return { onnx, config: `${onnx}.json` };
 }
 
+/** Durasi animasi proyek, supaya panjang trek narasi otomatis pas. */
+function projectDuration(dir) {
+  try {
+    const src = fs.readFileSync(path.join(dir || OUT, 'anim.js'), 'utf8');
+    const sandbox = {};
+    // eslint-disable-next-line no-new-func
+    new Function('globalThis', 'window', src)(sandbox, sandbox);
+    if (sandbox.AXTOAnim && sandbox.AXTOAnim.DURATION) return sandbox.AXTOAnim.DURATION;
+  } catch { /* pakai nilai bawaan */ }
+  return 92;
+}
+
 /** Naskah + detik kemunculannya, dibaca langsung dari berkas yang dipakai web. */
-function loadScript() {
-  const src = fs.readFileSync(path.join(OUT, 'narasi.js'), 'utf8');
+function loadScript(dir) {
+  const src = fs.readFileSync(path.join(dir || OUT, 'narasi.js'), 'utf8');
   const sandbox = {};
   // eslint-disable-next-line no-new-func
   new Function('globalThis', 'window', src)(sandbox, sandbox);
@@ -152,11 +166,11 @@ with open(out_path, 'wb') as f:
 print(json.dumps({'rate': rate, 'peak': round(peak, 3), 'lines': report}))
 `;
 
-export async function renderNarration(outFile) {
+export async function renderNarration(outFile, dir) {
   const voice = ensureVoice();
-  const lines = loadScript();
+  const lines = loadScript(dir);
   const plan = {
-    duration: Number(process.env.NARRATION_DURATION || 92),
+    duration: Number(process.env.NARRATION_DURATION || projectDuration(dir)),
     length_scale: Number(process.env.NARRATION_LENGTH_SCALE || 1.08), // sedikit lebih lambat = lebih tenang
     lines: lines.map((l) => ({ t: l.t, phonemes: phonemize(l.text) }))
   };
@@ -174,7 +188,7 @@ export async function renderNarration(outFile) {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const out = process.argv[2] || path.join(OUT, 'satu-puncak-banyak-jalan-narasi.wav');
-  const info = await renderNarration(out);
+  const info = await renderNarration(out, process.argv[3] ? path.resolve(process.argv[3]) : undefined);
   console.log(`${path.basename(out)}  ${(fs.statSync(out).size / 1048576).toFixed(2)} MB  puncak=${info.peak}`);
   for (const l of info.lines) console.log(`  detik ${String(l.t).padStart(5)} → ${l.seconds}s`);
 }

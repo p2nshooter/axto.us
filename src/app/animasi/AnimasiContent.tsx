@@ -264,6 +264,21 @@ export default function AnimasiContent() {
         ))}
       </div>
 
+      <a
+        href="/animasi/lari"
+        className="mt-10 flex flex-wrap items-center gap-3 rounded-xl2 border border-slate-200 p-5 hover:bg-slate-50 dark:border-slate-800 dark:hover:bg-slate-900"
+      >
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-brand-500">
+          {isId ? 'Animasi lain' : 'Another animation'}
+        </span>
+        <span className="font-semibold">{isId ? 'Garis Akhir' : 'The Finish Line'}</span>
+        <span className="text-sm text-slate-600 dark:text-slate-300">
+          {isId
+            ? 'NO NAME mencuri start, tetapi JOFA yang menyentuh garis akhir lebih dulu.'
+            : 'NO NAME steals the start, but JOFA touches the line first.'}
+        </span>
+      </a>
+
       <h2 className="mt-12 text-lg font-semibold">{isId ? 'Yang ingin disampaikan' : 'What it teaches'}</h2>
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
         {lessons.map((l) => (
