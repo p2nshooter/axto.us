@@ -4,7 +4,6 @@ import './globals.css';
 import { getServerLocale } from '@/lib/i18n/server';
 import { LOCALE_META } from '@/lib/i18n/locales';
 import { LocaleProvider } from '@/lib/i18n/LocaleProvider';
-import { AdSlot } from '@/components/AdSlot';
 
 export const metadata: Metadata = {
   title: 'AXTO — Adventures eXplore Together, Unlimited Stories',
@@ -21,11 +20,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <head>
-        {/* Google AdSense — loader + account meta on every page. */}
-        <meta name="google-adsense-account" content="ca-pub-6371903555702163" />
+        {/* Google AdSense — verification: loader + account meta on every page.
+            After approval, Auto ads in the AdSense dashboard place the ads. */}
+        <meta name="google-adsense-account" content="ca-pub-6908951782430508" />
         <script
           async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6371903555702163"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6908951782430508"
           crossOrigin="anonymous"
         />
       </head>
@@ -33,10 +33,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <SiteBeacon />
         <LocaleProvider initialLocale={locale}>
           {children}
-          {/* One tasteful, centrally-controlled ad above the page bottom. */}
-          <div className="mx-auto max-w-4xl px-4">
-            <AdSlot placement="footer" />
-          </div>
         </LocaleProvider>
       </body>
     </html>
