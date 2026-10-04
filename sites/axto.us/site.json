@@ -1,0 +1,37 @@
+{
+  "domain": "axto.us",
+  "name": "AXTO",
+  "expansion": "Adventures eXplore TOgether",
+  "tagline": "Reading and literacy for families and teachers, from first board books to confident readers",
+  "description": "AXTO is an independent guide to raising and teaching readers: early literacy, phonics, reading routines at home, choosing the right books, helping struggling readers and making reading work in the classroom.",
+  "lang": "en",
+  "locale": "en-US",
+  "ogLocale": "en_US",
+  "adsense": "ca-pub-6908951782430508",
+  "trackId": "axto-us",
+  "worker": "axto-us",
+  "themeColor": "#10295e",
+  "email": "hello@axto.us",
+  "author": "AXTO Editorial Team",
+  "fonts": "https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap",
+  "paths": { "article": "/guides/", "category": "/topics/" },
+  "categories": [
+    { "slug": "early-literacy", "name": "Early Literacy (0–4)", "icon": "cradle", "description": "Reading, talking and singing with babies and toddlers: the foundations every later reading skill is built on." },
+    { "slug": "learning-to-read", "name": "Learning to Read", "icon": "abc", "description": "Phonics, letter sounds, decodable books, fluency and comprehension for children aged four to eight." },
+    { "slug": "reading-at-home", "name": "Reading at Home", "icon": "lamp", "description": "Routines, home libraries, read-alouds, audiobooks and screens: how reading families make it stick." },
+    { "slug": "choosing-books", "name": "Choosing Books", "icon": "shelf", "description": "Picture books, chapter books, graphic novels, nonfiction and reading levels, explained by age and interest." },
+    { "slug": "struggling-readers", "name": "Struggling Readers", "icon": "compass", "description": "Warning signs, dyslexia, motivation, school support and the checks to do first when reading is hard." },
+    { "slug": "classroom-and-school", "name": "Classroom & School", "icon": "quill", "description": "Read-alouds, classroom libraries, independent reading, book clubs and the science of reading for teachers." }
+  ],
+  "menu": [
+    { "label": "About", "href": "/about/" },
+    { "label": "Editorial policy", "href": "/editorial-policy/" },
+    { "label": "Contact", "href": "/contact/" }
+  ],
+  "legal": [
+    { "label": "Privacy policy", "href": "/privacy-policy/" },
+    { "label": "Cookie policy", "href": "/cookie-policy/" },
+    { "label": "Terms of use", "href": "/terms/" },
+    { "label": "Disclaimer", "href": "/disclaimer/" }
+  ]
+}

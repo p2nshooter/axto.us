@@ -1,0 +1,11 @@
+# The old app's public URLs, kept alive for anyone who bookmarked them.
+/blog /guides/ 301
+/blog/* /guides/ 301
+/library / 301
+/read/* / 301
+/for-schools /topics/classroom-and-school/ 301
+/privacy /privacy-policy/ 301
+/login / 302
+/register / 302
+/app / 302
+/app/* / 302

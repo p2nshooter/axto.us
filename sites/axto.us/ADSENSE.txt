@@ -1,0 +1,13 @@
+AdSense axto.us — the three snippets from Google, written by hand (do not change without new codes from Google).
+The engine builds all three from "adsense" in site.json; check.mjs refuses to
+deploy if the built site differs from this file by a single character.
+
+AdSense snippet (in the <head> of every page)
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6908951782430508"
+     crossorigin="anonymous"></script>
+
+ads.txt snippet (https://axto.us/ads.txt)
+google.com, pub-6908951782430508, DIRECT, f08c47fec0942fa0
+
+Meta tag (in the <head> of every page)
+<meta name="google-adsense-account" content="ca-pub-6908951782430508">
