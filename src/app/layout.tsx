@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { SiteBeacon } from "@/components/SiteBeacon";
 import './globals.css';
+import './copa2026.css';
+import { Copa2026 } from '@/components/Copa2026';
 import { getServerLocale } from '@/lib/i18n/server';
 import { LOCALE_META } from '@/lib/i18n/locales';
 import { LocaleProvider } from '@/lib/i18n/LocaleProvider';
@@ -31,6 +33,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body>
         <SiteBeacon />
+        <Copa2026 lang={locale} />
         <LocaleProvider initialLocale={locale}>
           {children}
         </LocaleProvider>
