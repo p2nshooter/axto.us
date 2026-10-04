@@ -1,5 +1,10 @@
 name: Deploy to Cloudflare
 
+# axto.us is a static site: the engine in sites/_engine turns the Markdown in
+# sites/axto.us into plain HTML, the quality gate checks it, and Wrangler
+# uploads the result as Workers Static Assets to the existing "axto-us" Worker
+# (which keeps the axto.us custom domain). No database, no secrets in the site.
+
 on:
   push:
     branches: [main]
@@ -14,168 +19,32 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          # One commit of history, so the D1 steps can tell whether this push
-          # changed the schema or the seed (see "D1 quota" below).
-          fetch-depth: 2
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: npm
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Type check
-        run: npm run typecheck
-
-      - name: Build for Cloudflare
-        run: npm run cf:build
-
-      # D1 quota: the free plan's daily row-read limit is shared by every site
-      # on this Cloudflare account, and when another site spends it (code 7500)
-      # every D1 call fails until midnight UTC. A push that changes neither the
-      # schema nor the seed does not need D1, so the deploy goes on with a
-      # warning instead of leaving the site on old code for the rest of the
-      # day. A push that DOES change them still fails: the code may depend on
-      # the new schema.
-      - name: Apply D1 migrations
-        run: |
-          set -o pipefail
-          if npx wrangler d1 migrations apply axto_db --remote 2>&1 | tee /tmp/d1.log; then exit 0; fi
-          if grep -q "code: 7500" /tmp/d1.log && git diff --quiet HEAD~1 HEAD -- migrations; then
-            echo "::warning::D1 daily read quota is spent (7500) and this push changes no migration — deploying without touching D1."
-            exit 0
-          fi
-          exit 1
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      # Runs as a plain SQL execute (not a tracked migration) so every deploy
-      # re-applies it — new categories/stories in seed/seed.sql go live on the
-      # next push instead of only ever running once. INSERT OR IGNORE makes
-      # re-running safe.
-      - name: Seed content data
-        run: |
-          set -o pipefail
-          if npx wrangler d1 execute axto_db --remote --file=./seed/seed.sql 2>&1 | tee /tmp/seed.log; then exit 0; fi
-          if grep -q "code: 7500" /tmp/seed.log && git diff --quiet HEAD~1 HEAD -- seed; then
-            echo "::warning::D1 daily read quota is spent (7500) and this push changes no seed data — skipping the re-seed."
-            exit 0
-          fi
-          exit 1
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      # Creates the one primary admin account from GitHub secrets — the
-      # plaintext password never touches the repo, only its PBKDF2 hash goes
-      # into D1. INSERT OR IGNORE is keyed on a fixed row id, so this only
-      # ever fires once: if the admin later changes their own email/password
-      # from /admin/settings, later deploys won't overwrite it. Skipped
-      # entirely if the two secrets aren't set.
-      - name: Bootstrap primary admin account
-        continue-on-error: true
-        run: |
-          set -e
-          if [ -z "$ADMIN_EMAIL" ] || [ -z "$ADMIN_PASSWORD" ]; then
-            echo "ADMIN_BOOTSTRAP_EMAIL/ADMIN_BOOTSTRAP_PASSWORD not set, skipping."
-            exit 0
-          fi
-          cat <<'NODE_EOF' > /tmp/bootstrap-admin.js
-          const crypto = require('crypto');
-          const fs = require('fs');
-          const email = process.env.ADMIN_EMAIL.trim().toLowerCase().replace(/'/g, "''");
-          // Must match src/lib/auth/password.ts — Cloudflare Workers caps PBKDF2
-          // at 100000 iterations, so a hash made with more can never be verified
-          // in the Worker.
-          const iterations = 100000;
-          const salt = crypto.randomBytes(16);
-          const hash = crypto.pbkdf2Sync(process.env.ADMIN_PASSWORD, salt, iterations, 32, 'sha256');
-          const passwordHash = `pbkdf2$${iterations}$${salt.toString('base64')}$${hash.toString('base64')}`;
-          const now = Date.now();
-          // Surgically drop only a previously-seeded admin row whose hash uses an
-          // unsupported iteration count (the old 120000 bug) so the corrected
-          // hash below replaces it exactly once. If the admin has since changed
-          // their own password (hash no longer starts with pbkdf2$120000$) this
-          // DELETE matches nothing and INSERT OR IGNORE leaves their row intact.
-          const sql = [
-            "DELETE FROM users WHERE id='usr_admin_primary' AND password_hash LIKE 'pbkdf2$120000$%';",
-            `INSERT OR IGNORE INTO users (id, name, email, password_hash, role, locale, avatar_seed, plan, created_at, updated_at) VALUES ('usr_admin_primary', 'AXTO Admin', '${email}', '${passwordHash}', 'admin', 'id', 'admin-primary', 'lifetime', ${now}, ${now});`
-          ].join('\n');
-          fs.writeFileSync('/tmp/admin-bootstrap.sql', sql);
-          NODE_EOF
-          node /tmp/bootstrap-admin.js
-          npx wrangler d1 execute axto_db --remote --file=/tmp/admin-bootstrap.sql
-          rm -f /tmp/bootstrap-admin.js /tmp/admin-bootstrap.sql
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          ADMIN_EMAIL: ${{ secrets.ADMIN_BOOTSTRAP_EMAIL }}
-          ADMIN_PASSWORD: ${{ secrets.ADMIN_BOOTSTRAP_PASSWORD }}
-
-      # Wrangler refuses to publish without either a registered workers.dev
-      # subdomain or explicit routes. Registers one automatically (idempotent —
-      # skipped if the account already has one) so first deploy doesn't need a
-      # manual dashboard click.
-      - name: Ensure workers.dev subdomain is registered
-        run: |
-          set -e
-          current=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-            "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain")
-          existing=$(node -e "try{const d=JSON.parse(process.argv[1]);process.stdout.write(d.result&&d.result.subdomain?d.result.subdomain:'')}catch(e){}" "$current")
-          if [ -n "$existing" ]; then
-            echo "workers.dev subdomain already registered: $existing"
-          else
-            echo "Registering workers.dev subdomain 'axto'..."
-            resp=$(curl -s -X PUT -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
-              -d '{"subdomain":"axto"}' \
-              "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/subdomain")
-            echo "$resp"
-          fi
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Build and check the site (AdSense readiness gate)
+        run: node sites/_engine/check.mjs axto.us
 
       - name: Deploy to Cloudflare Workers
-        run: npx opennextjs-cloudflare deploy
+        run: npx --yes wrangler@4 deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      # Best-effort: attaches axto.us / www.axto.us straight to this Worker via
-      # the Cloudflare API when CLOUDFLARE_ZONE_ID is set. Cloudflare refuses to
-      # attach a Custom Domain over a hostname that still has its own A/AAAA/
-      # CNAME record (e.g. the old registrar parking page), so those specific
-      # record types are deleted first — MX/TXT/_dmarc records are left alone
-      # so email keeps working. Non-fatal if the token lacks the needed scope —
-      # falls back to the one manual dashboard click (Workers & Pages → axto-us
-      # → Settings → Domains & Routes → Add).
+      # Best effort: (re)attaches axto.us and www.axto.us to this Worker when
+      # CLOUDFLARE_ZONE_ID is set. Normally a no-op because the domains are
+      # already attached; it matters when the site moves to another account.
       - name: Attach axto.us custom domain (best effort)
         continue-on-error: true
         run: |
           if [ -z "$CLOUDFLARE_ZONE_ID" ]; then
-            echo "CLOUDFLARE_ZONE_ID not set, skipping — attach the domain manually from the dashboard."
+            echo "CLOUDFLARE_ZONE_ID not set, skipping."
             exit 0
           fi
           for host in axto.us www.axto.us; do
-            for type in A AAAA CNAME; do
-              ids=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-                "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records?type=$type&name=$host" \
-                | node -e "try{const d=JSON.parse(require('fs').readFileSync(0,'utf8'));(d.result||[]).forEach(r=>console.log(r.id))}catch(e){}")
-              for id in $ids; do
-                echo "Deleting conflicting $type record for $host ($id)..."
-                curl -s -X DELETE -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" \
-                  "https://api.cloudflare.com/client/v4/zones/$CLOUDFLARE_ZONE_ID/dns_records/$id"
-                echo
-              done
-            done
-            echo "Attaching $host ..."
             curl -s -X PUT -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" \
               -d "{\"hostname\":\"$host\",\"zone_id\":\"$CLOUDFLARE_ZONE_ID\",\"service\":\"axto-us\",\"environment\":\"production\"}" \
               "https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/workers/domains"
@@ -186,44 +55,10 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_ZONE_ID: ${{ secrets.CLOUDFLARE_ZONE_ID }}
 
-      # Pushes app secrets (auth, email, payments) from GitHub Actions secrets into
-      # the deployed Worker. Add each one under Settings → Secrets and variables →
-      # Actions in this repo; any left unset here are simply skipped (feature stays
-      # disabled/degraded until configured — see README "Secrets" section).
-      - name: Sync Worker secrets
+      - name: Smoke test the live site
         run: |
-          set -e
-          put_secret() {
-            name="$1"
-            value="$2"
-            if [ -n "$value" ]; then
-              printf '%s' "$value" | npx wrangler secret put "$name"
-            fi
-          }
-          put_secret RESEND_API_KEY "${{ secrets.RESEND_API_KEY }}"
-          put_secret RESEND_FROM_EMAIL "${{ secrets.RESEND_FROM_EMAIL }}"
-
-          # Prefer explicit LIVE/SANDBOX PayPal secrets if present; otherwise
-          # fall back to plain PAYPAL_CLIENT_ID/SECRET + PAYPAL_MODE.
-          if [ -n "${{ secrets.PAYPAL_LIVE_CLIENT_ID }}" ]; then
-            put_secret PAYPAL_CLIENT_ID "${{ secrets.PAYPAL_LIVE_CLIENT_ID }}"
-            put_secret PAYPAL_CLIENT_SECRET "${{ secrets.PAYPAL_LIVE_SECRET }}"
-            put_secret PAYPAL_MODE "live"
-          elif [ -n "${{ secrets.PAYPAL_SANDBOX_CLIENT_ID }}" ]; then
-            put_secret PAYPAL_CLIENT_ID "${{ secrets.PAYPAL_SANDBOX_CLIENT_ID }}"
-            put_secret PAYPAL_CLIENT_SECRET "${{ secrets.PAYPAL_SANDBOX_SECRET }}"
-            put_secret PAYPAL_MODE "sandbox"
-          else
-            put_secret PAYPAL_CLIENT_ID "${{ secrets.PAYPAL_CLIENT_ID }}"
-            put_secret PAYPAL_CLIENT_SECRET "${{ secrets.PAYPAL_CLIENT_SECRET }}"
-            put_secret PAYPAL_MODE "${{ secrets.PAYPAL_MODE }}"
-          fi
-
-          put_secret MIDTRANS_SERVER_KEY "${{ secrets.MIDTRANS_SERVER_KEY }}"
-          put_secret MIDTRANS_CLIENT_KEY "${{ secrets.MIDTRANS_CLIENT_KEY }}"
-          put_secret MIDTRANS_IS_PRODUCTION "${{ secrets.MIDTRANS_IS_PRODUCTION }}"
-          put_secret NOWPAYMENTS_API_KEY "${{ secrets.NOWPAYMENTS_API_KEY }}"
-          put_secret NOWPAYMENTS_IPN_SECRET "${{ secrets.NOWPAYMENTS_IPN_SECRET }}"
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          sleep 20
+          code=$(curl -s -o /tmp/home.html -w '%{http_code}' https://axto.us/)
+          echo "axto.us -> HTTP $code"
+          grep -q 'ca-pub-6908951782430508' /tmp/home.html && echo "AdSense meta/loader present" || echo "::warning::AdSense code not seen on the live home page yet (cache?)"
+          curl -s https://axto.us/ads.txt

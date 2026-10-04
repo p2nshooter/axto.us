@@ -1,16 +1,7 @@
 node_modules
-.next
-.vercel
-.open-next
-out
 dist
 .wrangler
 .env
 .env*.local
 *.log
 .DS_Store
-.turbo
-next-env.d.ts
-*.tsbuildinfo
-storycheck.ts
-bcheck.ts

@@ -1,1 +1,0 @@
-ALTER TABLE `sessions` ADD `login_source` text DEFAULT 'client' NOT NULL;

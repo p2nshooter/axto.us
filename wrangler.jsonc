@@ -1,54 +1,13 @@
+// axto.us — a static site served by Cloudflare Workers Static Assets.
+// There is no Worker script and no database: every page is plain HTML built
+// from sites/axto.us by sites/_engine/build.mjs. The custom domain axto.us is
+// already attached to this Worker ("axto-us"), so deploying keeps it.
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "main": ".open-next/worker.js",
   "name": "axto-us",
-  "compatibility_date": "2025-06-01",
-  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "compatibility_date": "2026-09-01",
   "assets": {
-    "directory": ".open-next/assets",
-    "binding": "ASSETS"
-  },
-  "services": [
-    {
-      // Self-reference service binding, required by OpenNext for ISR/caching.
-      "binding": "WORKER_SELF_REFERENCE",
-      "service": "axto-us"
-    }
-  ],
-  // --- D1 Database ---
-  // Create with: wrangler d1 create axto_db
-  // Then paste the returned database_id below (and as a GitHub Actions secret D1_DATABASE_ID if you template it).
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "axto_db",
-      "database_id": "eea18df3-0e83-4db5-abea-4c13a2dcc6c8"
-    }
-  ],
-  // R2 bucket "axto-assets" exists but isn't bound here: the CLOUDFLARE_API_TOKEN
-  // used by CI lacks R2 permissions, and no code currently reads/writes it (covers
-  // are emoji+gradient placeholders). Add the binding back once the token has R2
-  // edit permission and an upload feature actually needs it.
-  // --- KV Namespace (sessions cache, rate limiting) ---
-  // Create with: wrangler kv namespace create AXTO_KV
-  "kv_namespaces": [
-    {
-      "binding": "AXTO_KV",
-      "id": "ff60831a96b24e0ea0ccd6e65c585817"
-    }
-  ],
-  "images": {
-    "binding": "IMAGES"
-  },
-  // NOTE: axto.us is attached as a custom domain from the Cloudflare dashboard
-  // (Workers & Pages → axto-us → Settings → Domains & Routes → Add → Custom
-  // domain), which needs no API-token changes and auto-creates the DNS record.
-  // Binding it here instead would require Zone:DNS Edit on the API token.
-  "vars": {
-    "APP_URL": "https://axto.us",
-    "DEFAULT_LOCALE": "id"
+    "directory": "./sites/axto.us/dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
   }
-  // Secrets (never put these here) — set via: wrangler secret put <NAME>
-  // RESEND_API_KEY, PAYPAL_CLIENT_ID, PAYPAL_CLIENT_SECRET,
-  // MIDTRANS_SERVER_KEY, MIDTRANS_CLIENT_KEY, NOWPAYMENTS_API_KEY, NOWPAYMENTS_IPN_SECRET
 }
