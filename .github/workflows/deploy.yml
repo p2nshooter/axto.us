@@ -60,5 +60,5 @@ jobs:
           sleep 20
           code=$(curl -s -o /tmp/home.html -w '%{http_code}' https://axto.us/)
           echo "axto.us -> HTTP $code"
-          grep -q 'ca-pub-6908951782430508' /tmp/home.html && echo "AdSense meta/loader present" || echo "::warning::AdSense code not seen on the live home page yet (cache?)"
+          grep -q 'ca-pub-5693981744147503' /tmp/home.html && echo "AdSense meta/loader present" || echo "::warning::AdSense code not seen on the live home page yet (cache?)"
           curl -s https://axto.us/ads.txt
