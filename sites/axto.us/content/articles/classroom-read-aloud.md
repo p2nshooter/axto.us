@@ -178,6 +178,14 @@ Sometimes. Projecting the text or giving copies can support fluency and print aw
 
 Typically 10 to 20 minutes in elementary grades, adjusted to students' attention and the text.
 
+### How do I choose read-aloud books for a mixed-ability class?
+
+Choose books slightly above most students' independent level, with strong characters and plots that invite discussion. Read-alouds let every student, including struggling readers, enjoy complex stories and vocabulary they could not yet read alone.
+
+### How can I keep restless students engaged during a read-aloud?
+
+Read with expression and varied pace, pause at cliffhangers, ask a quick turn-and-talk question every few pages, and let fidgety students sketch quietly or hold a fidget tool. A predictable daily slot also helps students settle more quickly.
+
 ## In summary
 
 The classroom read-aloud gives every student access to complex, engaging text, builds vocabulary and knowledge, models fluent reading and thinking, and creates community. Choose rich, varied texts above students' independent level, plan stopping points and discussion, teach vocabulary in context and protect daily read-aloud time at every grade level.

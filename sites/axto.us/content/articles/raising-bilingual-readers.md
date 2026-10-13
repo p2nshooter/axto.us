@@ -138,6 +138,14 @@ This is common. Keep speaking your language warmly, create situations where the 
 
 Children who learn English early typically develop native-like pronunciation regardless of the home language.
 
+### Where can I find books in our home language?
+
+Public libraries often hold collections in community languages, and cultural centers, embassies and online bookshops in your home country are useful sources. Swapping books with other families who speak your language also works well.
+
+### Is it confusing to learn to read in two scripts?
+
+Generally not. Many children learn two writing systems successfully. Keeping each language's reading practice clearly separate, with consistent routines, helps.
+
 ## In summary
 
 Children can learn to read in two languages, and many skills transfer between them. Speak and read with your child in the language you know best, discuss books in any language, connect with community, find books in both languages and celebrate bilingualism. Biliteracy is a gift that keeps families connected and opens doors for life.

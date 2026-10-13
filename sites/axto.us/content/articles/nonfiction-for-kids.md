@@ -155,6 +155,18 @@ Check the publication date, the author's background, sources listed in the back 
 
 Yes. They build vocabulary and curiosity, and they often motivate reluctant readers.
 
+### How should I read a nonfiction book aloud?
+
+Nonfiction does not have to be read from cover to cover. Let your child choose a page or question that interests them, look at the pictures and captions together, and read the sections that answer what they want to know. Stop to point out features such as headings, labeled diagrams, maps and the glossary, and talk about how they help. Following curiosity in this way teaches children how real readers use nonfiction to find information.
+
+### Which nonfiction books work for very young children?
+
+Board books with real photographs of animals, vehicles and everyday objects, simple concept books about colors, shapes and seasons, and picture books that explain how things work are excellent for toddlers and preschoolers.
+
+### Do nonfiction books help with schoolwork?
+
+They do. Reading about science, history and the wider world builds background knowledge and vocabulary, which in turn make classroom texts easier to understand across every subject.
+
 ## In summary
 
 Nonfiction builds the background knowledge and academic vocabulary that power reading comprehension, teaches children to navigate different text structures and satisfies natural curiosity. Choose accurate, engaging books on topics your child loves, read them flexibly, use text features, connect books to experiences and balance fiction with nonfiction. For many children, facts are the doorway to a lifelong love of reading.

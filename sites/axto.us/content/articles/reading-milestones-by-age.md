@@ -129,6 +129,14 @@ Ask what specifically the teacher is seeing, what the plan is, and when you will
 
 Yes. Children start formal reading instruction at different ages in different countries. These milestones reflect typical expectations in US schools.
 
+### How should I use milestone lists?
+
+As a rough guide, not a checklist to worry over. Children reach milestones across a wide age range. Look for steady progress over time, and talk to the teacher if your child is clearly behind on several skills.
+
+### Do boys and girls reach reading milestones at different ages?
+
+On average there are small differences, but individual variation is far larger than any gap between groups. Judge your child by their own steady progress rather than by comparisons with siblings or classmates.
+
 ## In summary
 
 Kindergarten builds sound awareness and letter knowledge; first grade is the big decoding year; second grade builds fluency and independence; third grade shifts toward reading to learn. Expect variation, celebrate progress and talk to the teacher early if your child is not moving forward. Your daily read-alouds and conversations support every stage.

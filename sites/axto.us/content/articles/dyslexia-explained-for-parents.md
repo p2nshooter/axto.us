@@ -155,6 +155,18 @@ Dyslexia is lifelong, but effective instruction helps people with dyslexia becom
 
 Many experts recommend explaining it honestly and positively, so the child understands their difficulties are not their fault.
 
+### Will my child grow out of dyslexia?
+
+No. Dyslexia is a lifelong difference in how the brain processes the sounds and letters of written language, not a phase or a delay that ends on its own. What changes is how well a child can read and how much reading costs them. With early, structured, explicit teaching, many children become accurate readers; reading may stay slower and more tiring than it is for their classmates, which is exactly why accommodations such as extra time remain useful well into secondary school and beyond.
+
+### What should I ask for at a school meeting?
+
+Bring a short written summary of what you have seen at home, examples of your child's reading and spelling, and any outside reports. Useful questions are: Which specific skills will be taught, and with which program? How many minutes a week, in what group size, and by whom? How and how often will progress be measured, and when will we look at the results together? Which accommodations will apply in class and on tests? Ask for the answers in writing and agree on a date to review them. A plan with named skills, times and checkpoints is far more likely to be carried out than a general promise of "extra support."
+
+### Do children with dyslexia need special books at home?
+
+Not special books, but the right mix: decodable texts for practice that match what is being taught, plus rich books read aloud or listened to as audiobooks so that vocabulary and love of stories keep growing while decoding catches up.
+
 ## In summary
 
 Dyslexia is a common, lifelong, neurobiological difference that makes connecting letters and sounds difficult, affecting decoding, fluency and spelling. It is not about intelligence, effort or seeing letters backwards. Watch for early signs, seek evaluation, ask for structured literacy instruction and appropriate accommodations, keep reading aloud and protect your child's confidence. With the right help, children with dyslexia learn to read and thrive.

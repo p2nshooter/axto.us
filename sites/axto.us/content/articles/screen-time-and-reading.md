@@ -139,6 +139,14 @@ Listening to an audiobook is a different activity from watching videos. Many fam
 
 For an older child reading real books on a tablet, not necessarily. Check that reading is not interrupted by notifications and games, and offer print books too.
 
+### How can screens support reading instead of replacing it?
+
+Use them for library e-books and audiobooks, look up facts that come up while reading, and watch film adaptations after finishing a book to compare. Turn off autoplay so one episode does not become five.
+
+### Should reading on a tablet count toward screen time limits?
+
+Many families treat e-books and audiobooks differently from games and videos, because they build the same skills as print. If your child reads on a tablet, use a reading mode without notifications so the book gets their full attention.
+
 ## In summary
 
 Follow pediatric guidance on screen time by age, protect specific times for books, prefer print or simple e-books for young children, choose apps carefully and model balance yourself. Screens and reading can coexist when families make deliberate choices about when, how and why screens are used.

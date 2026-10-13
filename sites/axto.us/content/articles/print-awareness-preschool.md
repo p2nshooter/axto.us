@@ -138,6 +138,14 @@ Yes. Pretend reading of memorized books is an important stage. It shows your chi
 
 Print awareness can develop with digital books too, but features like animations and games can distract from the text. Reading together and talking about the words matters most.
 
+### What everyday activities build print awareness?
+
+Look for print everywhere you go: point to the word STOP on a sign, read cereal boxes and shop names aloud, write shopping lists together and let your child tick items off, and label a few toy boxes with words and pictures. Let your child "write" cards and notes in scribbles or letter-like shapes and ask them to read them to you. These moments teach that print carries meaning, is read from left to right, and is made of letters and words, all without any formal lessons.
+
+### When should I start pointing out letters?
+
+Whenever your child shows interest, often around age three. Keep it light: name a letter in their name or on a sign, and move on if they lose interest.
+
 ## In summary
 
 Print awareness is the understanding of what print is and how it works: that it carries meaning, has a direction and is made of words and letters. Build it by talking about books, pointing out words and letters occasionally, noticing print in daily life and encouraging early writing. These small moments prepare children to make sense of formal reading instruction when it begins.

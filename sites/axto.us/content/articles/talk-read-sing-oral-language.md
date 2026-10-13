@@ -130,6 +130,18 @@ Not for young children. Live interaction with a responsive adult is far more eff
 
 Many children are quiet in some settings and talkative in others. What matters is their understanding and steady progress. If you're unsure, ask your pediatrician.
 
+### What are good everyday moments for talk?
+
+The best moments are the ordinary ones that already happen every day: meals, bath time, getting dressed, waiting at the doctor, walking to the shop and cooking together. Describe what you are doing, ask open questions such as "What should we put in next?", and wait for an answer. Car journeys are especially good for older children, who often talk more freely when they are side by side rather than face to face.
+
+### How do I talk with a child who is learning two languages?
+
+Speak the language you are most comfortable and expressive in. Rich conversation in any language builds the vocabulary and thinking skills that later support reading.
+
+### How much screen time is too much for language development?
+
+For very young children, live conversation teaches far more than screens. Keep screens limited, watch together when possible, and talk about what you saw so the experience becomes a conversation.
+
 ## In summary
 
 Before children can read words, they need words to read. Talk with your child throughout the day, read books together and talk about them, and sing songs and rhymes. Every conversation builds the vocabulary, knowledge and sound awareness that will turn decoding into real reading later on.

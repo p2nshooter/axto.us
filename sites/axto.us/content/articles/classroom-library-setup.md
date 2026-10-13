@@ -174,6 +174,10 @@ Many teachers allow it with a simple checkout system. Access at home increases r
 
 Expect some loss and avoid punishing students in ways that discourage borrowing. Clear routines minimize losses.
 
+### How can I build a classroom library with little money?
+
+Start with what is free: school and public library block loans, book donations from families who have outgrown titles, publisher or literacy-charity giveaways, and books earned through school book-fair credits. Ask the school librarian which titles are being weeded; many are still in good condition. Prioritize breadth over quantity: a range of genres, reading levels, formats and authors, including graphic novels and nonfiction, does more for students than shelves of similar books. Add a few new titles each term rather than spending everything at once, and let students vote on some purchases so the library reflects what they actually want to read.
+
 ## In summary
 
 A classroom library students actually use is varied, inclusive and organized by topic and genre with covers facing out, built around student interests and refreshed regularly. Involve students in organizing and recommending, keep checkout simple, stock it through loans, sales and donations, and make daily time to browse and read.

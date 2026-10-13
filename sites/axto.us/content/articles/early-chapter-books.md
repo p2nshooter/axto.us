@@ -160,6 +160,14 @@ Yes. Easy books build fluency and enjoyment. Offer a mix with slightly more chal
 
 No. Picture books remain valuable for vocabulary, art and complex ideas.
 
+### How long should a first chapter book be?
+
+Early chapter books for newly independent readers usually run between about 1,500 and 10,000 words, split into short chapters of a few pages each, with an illustration every few pages. That size matters: a child can finish a chapter in one sitting and the whole book within a week or two, which builds the feeling of "I read a real book." If your child is enthusiastic but tires quickly, alternate pages, or read the first chapter aloud together so they enter the story with momentum before continuing alone.
+
+### What if my child abandons chapter books halfway?
+
+Abandoning a book is a normal part of becoming a reader, and adults do it too. Ask what put them off. If the story was slow or confusing, choose a book with more action and shorter chapters; if the words were too hard, step back to a slightly easier series for a few weeks. A child who finishes three easier books is building more stamina and confidence than one who struggles through a single book that feels like a chore.
+
 ## In summary
 
 Early chapter books bridge early readers and novels with short chapters, illustrations and engaging, often series-based stories. Children are ready when decoding is fluent and they can follow longer stories. Support the transition by reading first chapters together, taking turns, recapping and celebrating milestones, and keep picture books, graphic novels and read-alouds in the mix.

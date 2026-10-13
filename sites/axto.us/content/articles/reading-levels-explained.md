@@ -158,6 +158,10 @@ Not necessarily. Many schools now emphasize phonics, decodable texts and grade-l
 
 Library books of all kinds are usually a better investment, chosen by interest and checked with the five-finger rule.
 
+### Do levels matter for read-aloud books?
+
+No. Read-aloud books can and should be above your child's own reading level.
+
 ## In summary
 
 Reading levels like Lexile measures and guided reading levels estimate text difficulty and reader ability, and they can help teachers match books to readers. But they have real limits: they don't capture content, maturity or interest, and they can restrict choice and label children. Use levels as a rough guide, keep the focus on growth and enjoyment, and let your child read widely.

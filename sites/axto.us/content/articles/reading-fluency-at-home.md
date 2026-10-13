@@ -142,6 +142,18 @@ Slow down and talk about the text. Ask your child to retell what they read, and 
 
 Listening while following the text can model expression and support enjoyment, but your child also needs to practice reading aloud.
 
+### What does a five-minute fluency routine look like?
+
+Choose a short passage your child can read with few errors. First, read it aloud yourself with good expression while your child follows. Then read it together. Then your child reads it alone, perhaps twice, while you listen and praise smooth phrasing. On the next day, your child reads the same passage once more before you move on. This model-together-alone pattern is one of the simplest and best supported ways to build fluency at home.
+
+### Should I time my child's reading?
+
+Occasional, low-key timing can show progress, but frequent timing can turn reading into a race and make children rush. If you time, focus on accuracy and expression as much as speed.
+
+### My child reads smoothly at home but freezes at school. Why?
+
+Reading aloud in front of classmates adds pressure that can make a fluent reader stumble. Practicing a passage at home before it is read in class, and telling the teacher about the anxiety, often helps more than extra drills.
+
 ## In summary
 
 Fluency means reading accurately, at a comfortable pace and with expression, and it frees attention for understanding. Build it with repeated reading, echo and choral reading, paired reading, readers' theater and poetry, using texts your child can read with high accuracy. Keep sessions short and positive, and seek advice if progress stalls.

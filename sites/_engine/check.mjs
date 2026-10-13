@@ -13,8 +13,10 @@ import { build } from "./build.mjs";
 
 const SITES = join(dirname(fileURLToPath(import.meta.url)), "..");
 const MIN_ARTICLES = 40;
-const MIN_WORDS = 1200; // every article
-const MIN_AVG_WORDS = 1400; // the library as a whole
+// Owner, 13 Oct 2026: "Semua artikel yg kurang dr 1500 kata tambahkan" —
+// every article at least 1,500 words, and so the library average too.
+const MIN_WORDS = 1500; // every article
+const MIN_AVG_WORDS = 1500; // the library as a whole
 const BANNED = /adsterra|highperformanceformat|effectivecpmnetwork|effectivegatecpm|profitableratecpm|popads|propellerads|lorem ipsum/i;
 
 /** Pages every site must have, by language. Each entry: any one of these slugs. */

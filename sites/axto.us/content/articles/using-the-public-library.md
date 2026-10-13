@@ -177,6 +177,14 @@ Limits vary but are often generous. Ask your library.
 
 Ask about requesting a purchase or borrowing it through interlibrary loan.
 
+### Do libraries offer story times?
+
+Most do, often free and weekly, for babies, toddlers and preschoolers.
+
+### Do children need their own library card?
+
+Many libraries offer free cards for children. Ask at the desk; having their own card is often a proud moment.
+
 ## In summary
 
 The public library offers books, e-books, audiobooks, story times, summer reading programs, homework help and expert librarians, all free. Get library cards for everyone, visit regularly, let children choose freely, attend programs, ask librarians for help and use digital collections at home. A library habit is one of the best gifts you can give a growing reader.

@@ -145,6 +145,18 @@ Find books on their passions, try graphic novels or audiobooks, read aloud more,
 
 Some children enjoy tracking their reading. For others, logs turn reading into a chore. Use them only if they motivate your child.
 
+### How much reading over the summer is enough?
+
+There is no magic number, but research on the summer slide consistently points to regular reading of books children choose and can read with reasonable ease. Many teachers suggest around twenty minutes a day, or a handful of books over the holidays. Consistency matters more than totals: a short read most days keeps skills ticking over better than a burst in the last week before school.
+
+### Do comics, magazines and audiobooks count over the summer?
+
+Yes. Anything that keeps children reading and enjoying stories or information counts. Mixing formats is a good way to keep reluctant readers going, especially when it connects with their summer interests, such as sports, trips or new hobbies.
+
+### What can families do if the local library is far away?
+
+Many libraries offer free e-book and audiobook apps with a library card that can be used from home. Book swaps with neighbors, classroom libraries lent over the holidays and secondhand shops are good low-cost options too.
+
 ## In summary
 
 Whether or not summer causes a large decline in reading, children who keep reading over the break do better. Make books accessible, let children choose, join the library's summer program, read aloud, use audiobooks on trips and keep reading enjoyable. A summer full of stories is the best protection against any slide.

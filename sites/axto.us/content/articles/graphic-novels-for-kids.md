@@ -141,6 +141,18 @@ There is no evidence of this. Many children read both. Graphic novels can build 
 
 Some are written for children, others for older audiences. Check age ratings and reviews.
 
+### How do I find graphic novels at the right level?
+
+Start with your child's age and interests rather than a reading level, then check two things on a few sample pages: the amount of text per panel and the complexity of the story. Early graphic novels have short speech bubbles, clear panel order and simple plots; middle-grade titles carry more dialogue, flashbacks and subplots. Children's librarians are excellent guides here, and many libraries shelve graphic novels by age group. Reading the first chapter yourself also tells you a lot about themes and content.
+
+### My teenager prefers webcomics on a phone. Is that still reading?
+
+Often, yes. Long-scroll webcomics combine images and text much like printed graphic novels, and many are well written. The questions worth asking are the same as for any reading: is the content suitable, is your teenager following a story with real characters and ideas, and is there still time for other kinds of reading? Talking about what they are reading, without judging the format, keeps the door open to recommendations across formats.
+
+### Should graphic novels count as "real" books in a reading challenge?
+
+Yes. They require decoding, inference and sustained attention, and counting them keeps reluctant readers motivated. Mixing in other formats can be encouraged without excluding the books a child genuinely enjoys.
+
 ## In summary
 
 Graphic novels are real reading. They require decoding, inference, integration of words and images, and visual literacy, and they offer rich vocabulary and complex stories. They motivate reluctant readers, support struggling readers and those learning English, and challenge strong readers too. Choose them by age and interest, read them together, offer variety, and encourage children to create their own comics.

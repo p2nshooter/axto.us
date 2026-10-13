@@ -142,6 +142,14 @@ Occasionally, yes. Audiobooks offer stories and vocabulary, though they do not r
 
 No. Many experts encourage parents to keep reading aloud well into the school years. Your child may also enjoy reading independently in bed before lights out.
 
+### What if bedtime stories make my child more awake?
+
+Choose calmer books in the evening and keep exciting adventures for daytime. Dim the lights and lower your voice toward the end of the story.
+
+### What if we miss a night?
+
+That is fine. A routine is about the overall habit, not perfection. Pick it up again the next evening without guilt.
+
 ## In summary
 
 A bedtime story routine combines reading, connection and a calm transition to sleep. Keep it consistent, set clear limits, choose calming books, adapt to your child's age and keep it pleasurable. On tired nights, a short story is enough. Night after night, these small moments add up to one of the most powerful reading habits a child can have.

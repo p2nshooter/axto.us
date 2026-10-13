@@ -136,6 +136,14 @@ Let them lead for a while, naming one thing on each page as it flies by. Over ti
 
 Gently model the right word without saying "no": "That one's a horse. It looks a bit like a dog, doesn't it?"
 
+### What kinds of books suit toddlers best?
+
+Sturdy board books with clear, bright pictures, lift-the-flap and touch-and-feel books, books with repeated phrases your toddler can join in with, and simple stories about everyday routines such as bath time, meals and bedtime. Books with photographs of real faces are especially engaging. Keep a few within your toddler's reach so they can choose and explore on their own.
+
+### Is it okay to skip words or change the story?
+
+Yes. With toddlers, talking about the pictures and following their interest matters more than reading every word. Shorten long pages, name what they point at, and let them turn the pages.
+
 ## In summary
 
 Reading with toddlers is lively, short and repetitive, and that is exactly what makes it effective. Let them move, choose sturdy interactive books, turn reading into a conversation and embrace the fortieth reading of the same story. You are not failing at story time; you are doing it the way toddlers learn best.

@@ -147,6 +147,14 @@ Yes. Screenings can miss some issues, especially farsightedness and near-vision 
 
 Most children with occasional ear infections develop normally. Frequent or prolonged episodes with hearing loss deserve medical attention and monitoring of speech and language.
 
+### How often should vision and hearing be checked?
+
+Follow your pediatrician's schedule, and ask for a check whenever you notice squinting, headaches or trouble hearing in noisy rooms.
+
+### Who should I contact first if I am worried?
+
+Start with your pediatrician or family doctor, who can refer you to an eye or hearing specialist.
+
 ## In summary
 
 Before or alongside a reading evaluation, check your child's hearing and vision. Hearing problems can affect sound awareness and phonics; vision problems can make reading uncomfortable. Watch for warning signs, ensure regular screenings and seek full evaluations when concerned. Treat any problems found, but remember that dyslexia is a language-based difficulty that needs evidence-based reading instruction, not vision therapy.

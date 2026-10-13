@@ -135,6 +135,14 @@ Occasionally, if they enjoy it. Generally, read-alouds are most valuable with bo
 
 Audiobooks offer many of the same benefits, especially for vocabulary and enjoyment. Listening together and talking about the book adds the connection.
 
+### What if my older child says they're too old for read-alouds?
+
+Respect it, but keep the door open. Offer to read the first chapter of a new book, share an article on a topic they love, or listen to an audiobook together on a trip. Many preteens rediscover read-alouds when the book is good.
+
+### Which books work well for reading aloud to older children?
+
+Gripping middle-grade and young-adult novels, adventure series, funny books, short story collections, and narrative nonfiction about real events or explorers. Books slightly above their reading level keep both of you interested.
+
 ## In summary
 
 Keep reading aloud to older children. It builds vocabulary, knowledge and comprehension beyond what they can read alone, models fluent reading, introduces new books and ideas, and creates lasting connection. Choose engaging books slightly above their reading level, keep sessions short and regular, talk naturally about the story and let your child help choose. A chapter a night can shape a reader for life.
