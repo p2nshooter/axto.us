@@ -134,6 +134,14 @@ Some children work out letter-sound patterns on their own. It is still worth mak
 
 English has many irregularities, but most words follow predictable patterns, and even irregular words are usually regular in most of their letters. Phonics gives children tools for the large majority of words.
 
+### How can I tell whether my child's school teaches phonics systematically?
+
+Ask to see the scope and sequence: the planned order in which letter-sound patterns are taught across the year. Systematic phonics follows such a sequence, teaches each pattern explicitly, gives children time to blend and spell words with it, and provides decodable texts for practice. Signs of a less structured approach are teaching children to guess words from pictures or the first letter, or relying mainly on memorizing whole words. A brief, friendly conversation with the teacher usually makes the approach clear.
+
+### What can I do at home without confusing what school teaches?
+
+Ask which letter sounds and patterns your child is learning this week and practice exactly those: reading the decodable books sent home, playing quick sound-blending games, and writing a few words together. When reading other books aloud, simply enjoy the story; there is no need to turn every bedtime book into a lesson.
+
 ## In summary
 
 Phonics teaches children how letters represent sounds so they can decode and spell words. Systematic, explicit phonics, taught in a planned sequence with plenty of practice, is one of the best-supported elements of early reading instruction. Support it at home with short games, decodable books and plenty of read-alouds, and talk to the school early if your child is struggling.

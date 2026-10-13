@@ -177,6 +177,18 @@ Easy books build fluency and confidence. Keep reading harder books aloud and gen
 
 Ask your librarian, look for books by authors from your community, and seek out bilingual and translated books.
 
+### How do I choose books for a child who reads far above their age?
+
+Advanced young readers can decode difficult text long before they are ready for its themes. Look for books with rich language and complex plots but age-appropriate content: classic children's novels, high-quality nonfiction, poetry and books by authors who write for the older end of the middle-grade range. Reading a few chapters yourself, or checking reviews from librarians and parents, helps you spot mature content before your child meets it alone.
+
+### What about books that are too hard but my child really wants them?
+
+Read them aloud together. Listening lets children enjoy stories above their independent level, builds vocabulary and keeps their enthusiasm, while their own reading practice continues with books they can manage.
+
+### Are age ranges on book covers reliable?
+
+They are a rough guide, not a rule. Publishers set them broadly, and individual children differ. Use them as a starting point, then check the first few pages for difficulty and content, and let your child's interests decide.
+
 ## In summary
 
 Choose books that match both your child's interests and the purpose: board books and rhymes for babies, interactive books for toddlers, picture books for preschoolers, decodable books plus read-alouds for early readers, series and graphic novels for developing readers and a wide range of novels and nonfiction for middle-grade readers. Use the five-finger rule as a rough guide, balance easy and challenging books and let your child choose.

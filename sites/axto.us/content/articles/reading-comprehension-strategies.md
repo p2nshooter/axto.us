@@ -127,6 +127,18 @@ For independent reading, books should be mostly comfortable. Harder books are ex
 
 Some can, but conversations about books your child cares about are usually more engaging and effective.
 
+### What can I ask after reading without it feeling like a quiz?
+
+Swap test questions for conversation starters you would use with a friend: "What surprised you?", "Who would you most like to meet from this book?", "What do you think happens after the last page?", or "Did anything remind you of something in your own life?" Share your own answer too. These questions invite children to retell, infer and connect, which are the core of comprehension, without turning the story into homework.
+
+### Does reading on a screen affect comprehension?
+
+Studies suggest that for longer and more demanding texts, many readers understand and remember a little less on screens than on paper, partly because they skim more. For important reading, print or a distraction-free reading mode, and a brief chat afterward, help children read more carefully.
+
+### At what age should comprehension strategies be taught?
+
+From the start. Talking about stories, predicting and retelling begin with picture books read aloud long before children can read independently, and grow with them.
+
 ## In summary
 
 Reading comprehension depends on fluent decoding, rich vocabulary, broad background knowledge and active thinking. Build knowledge through wide reading and conversation, teach a few strategies such as predicting, questioning, visualizing, monitoring and summarizing, and weave them into natural talk about books. The goal is a child who reads not just words, but meaning.

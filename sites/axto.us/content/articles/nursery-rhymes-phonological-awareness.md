@@ -139,6 +139,18 @@ Some can offer extra practice, but games played with a responsive adult give imm
 
 Knowing letter names and hearing sounds are different skills. Keep playing rhyme and sound games; most children develop rhyming with practice.
 
+### What if my child never seems interested in rhymes?
+
+Some children prefer songs, clapping games, jump-rope chants or silly made-up words to traditional nursery rhymes, and all of these build the same sound awareness. Follow your child's interests: make up rhyming names for toys, play "I spy something that starts with mmm," or sing along to songs in the car. Keep it short and playful; two or three minutes of noticing sounds several times a day is more effective than a long session.
+
+### Do children learning two languages need rhymes in both?
+
+It helps. Sound awareness transfers between languages, but each language has its own rhythms and sounds. Sharing rhymes and songs in each language the family speaks gives children rich practice in both and connects them with the culture behind the words.
+
+### How can I tell if my child is making progress?
+
+Watch for small signs: noticing that two words sound alike, finishing a rhyming line in a familiar book, clapping syllables in their name, or telling you the first sound of a word. These usually appear gradually between ages three and five.
+
 ## In summary
 
 Phonological awareness is the ability to hear the sounds inside words, and it lays the groundwork for phonics and reading. Nursery rhymes, songs and word games build it naturally, from rhymes and syllables to individual sounds. Keep it playful, use sounds rather than letter names and watch for children who need extra support. The rhymes you sing today are reading lessons in disguise.

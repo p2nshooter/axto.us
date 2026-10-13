@@ -144,6 +144,18 @@ With effective instruction, many children make excellent progress. Underlying di
 
 Schools can evaluate through the special education process. Private evaluations by educational psychologists, neuropsychologists or other qualified specialists are also available.
 
+### Should I wait a year to see whether my child catches up?
+
+Waiting is the most common and most costly mistake. Reading difficulties are far easier to address in kindergarten and first grade than in fourth grade, when children have fallen further behind and often lost confidence. If you notice persistent signs, ask the school for a screening now and start supportive reading at home at the same time. If the screening shows no concern, nothing is lost; if it does, valuable months are gained.
+
+### What should I write down before talking to the school?
+
+Note the specific behaviors you have seen, with dates and examples: words your child guesses, letters they mix up, how long homework reading takes, and how your child feels about reading. Concrete examples help teachers and specialists far more than a general sense that something is wrong.
+
+### Does reading difficulty mean my child is less intelligent?
+
+No. Reading difficulties occur in children of every ability level. Many bright, curious children struggle to decode words, and with the right teaching they can become capable readers.
+
 ## In summary
 
 Warning signs of reading difficulty include persistent problems with rhyming and letter sounds in preschool, trouble decoding and guessing in early grades, and slow, effortful reading and poor spelling later. Distinguish steady progress from stalled progress, act early, rule out vision and hearing issues, talk to the teacher, ask about support and evaluation and keep reading aloud at home. Early help changes trajectories.

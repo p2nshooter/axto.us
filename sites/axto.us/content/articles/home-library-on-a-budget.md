@@ -153,6 +153,18 @@ Check the library first. Buy only books your child will reread or that are hard 
 
 A single basket rotated regularly, combined with frequent library visits, can be enough.
 
+### How many books does a home library need?
+
+There is no required number. A small, well-chosen collection that a child can see and reach, refreshed regularly with library loans, does more than a large shelf of books nobody notices. Even ten or twenty favorites, displayed with their covers facing out and rotated every few weeks, make reading feel like part of everyday life. What matters most is that the books match your child's interests and that adults read with them.
+
+### Where can families find free books?
+
+Public libraries, little free libraries in the neighborhood, school book swaps, community book giveaways, and early-childhood programs that mail free books to young children are all worth checking.
+
+### How should we care for secondhand books?
+
+Wipe covers with a slightly damp cloth, repair loose pages with book tape, and let slightly musty books air out before shelving them. Most secondhand children's books have years of reading left in them.
+
 ## In summary
 
 A home library is about access and variety, not expense. Use the library, free book programs, swaps, sales and second-hand sources; include picture books, chapter books, nonfiction, poetry, comics and books in your home languages; keep books low, visible and rotated; and let your child choose. A modest, well-used collection can make your home a place where reading happens every day.

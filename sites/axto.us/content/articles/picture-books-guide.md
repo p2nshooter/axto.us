@@ -147,6 +147,18 @@ Rereading builds language and comprehension. Offer new books alongside the favor
 
 Yes. Illustrations support understanding, and the language is rich and repeatable.
 
+### How can I tell whether a picture book is good before buying it?
+
+Read it aloud in the shop or library, all the way through. Great picture books reveal themselves when spoken: the rhythm works, the page turns create small surprises, and you find yourself noticing details in the pictures that the words do not mention. If you stumble over clumsy sentences, the text explains everything the pictures already show, or you feel bored by the third page, your child is likely to feel the same by the tenth reading. Award lists, recommendations from children's librarians and books your child keeps asking to borrow again are reliable shortcuts.
+
+### Are e-book versions of picture books as good as print?
+
+They can be, if the app simply shows the pages. Many enhanced e-books add animations, sound effects and games that pull attention away from the story and the conversation around it. For shared reading with young children, print or a plain digital version that you read together usually works better than an app that does the reading and entertaining for you.
+
+### When do children stop needing picture books?
+
+There is no age at which picture books stop being useful. Sophisticated picture books on history, science and difficult themes are written for readers of eight, twelve and older, and they remain an excellent way to start conversations.
+
 ## In summary
 
 Great picture books combine rich language with illustrations that expand and sometimes contradict the words, building vocabulary, inference and visual literacy. Choose books with stories worth rereading, language that sounds good aloud and art with depth. Read them with expression and conversation, try wordless books, and keep picture books in your child's life long after they start reading chapter books.

@@ -128,6 +128,18 @@ They provide access to content and support vocabulary and comprehension. They sh
 
 Short audio stories can be enjoyed from the preschool years. Longer audiobooks suit children who can follow extended stories, often from around five or six.
 
+### How do I keep audiobook listening from replacing reading practice?
+
+Think of audiobooks and reading practice as two different jobs. Practice builds decoding and fluency and needs the child's eyes on print, usually in short daily sessions with books at the right level. Audiobooks build vocabulary, background knowledge and a love of stories, and they can happily run alongside. A simple rule many families use is "both, not either": a short practice read each day, plus audiobooks in the car, at bedtime or during quiet time. If a child who is learning to read starts refusing all print in favor of listening, keep the audiobooks but make the daily practice read non-negotiable and as pleasant as possible.
+
+### Is it fine for my child to listen at faster speed?
+
+For older children who are comfortable listeners, a slightly faster speed is not harmful and some find it keeps their attention. For younger children and for anyone listening to an unfamiliar or demanding book, normal speed is better: they need time to picture the scene, follow the plot and take in new words. If you notice your child can no longer retell what happened, slow it down.
+
+### Are free audiobooks from the library as good as paid ones?
+
+Usually, yes. Library apps carry many of the same professionally narrated recordings as paid services; the main difference is waiting lists for popular titles. Placing holds early and keeping a short list of backups solves most of that.
+
 ## In summary
 
 Audiobooks "count" for building vocabulary, background knowledge, comprehension and a love of stories, and they are invaluable for struggling readers and busy families. They do not build decoding, so children learning to read still need practice with print. Use them actively, pair them with print when you can, and enjoy the stories together.

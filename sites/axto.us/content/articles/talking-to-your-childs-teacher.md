@@ -187,6 +187,10 @@ Ask for evidence and a plan, involve the school's reading specialist or principa
 
 Yes. Many schools have reading specialists or interventionists who can provide more detailed information.
 
+### How often should I check in?
+
+Once or twice a term is usually enough, unless there is a concern.
+
 ## In summary
 
 Reach out early, prepare specific observations and questions, ask about skills, assessment, instruction and support, and agree on a clear plan with follow-up dates. Approach the teacher as a partner, keep communication going, know your right to request an evaluation and keep supporting your child's reading and confidence at home.

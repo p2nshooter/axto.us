@@ -160,6 +160,18 @@ Help them find books that match their interests and level, and talk about what t
 
 Yes, with books they can read successfully and teacher support. Struggling readers also need targeted instruction.
 
+### How can teachers check that independent reading is really happening?
+
+Short, regular conferences work better than reading logs. Sit with a student for two or three minutes, ask them to read a passage aloud and tell you about the book, and note their choice, fluency and understanding. Over a few weeks this gives a clear picture of each reader, shows who needs help choosing books, and signals to students that their reading time matters.
+
+### How long should independent reading sessions be?
+
+Start with what students can sustain, perhaps ten minutes for young or less experienced readers, and lengthen gradually as stamina grows. Consistent daily time matters more than long sessions.
+
+### Can independent reading happen at home too?
+
+Absolutely. Fifteen or twenty quiet minutes with a book of their choice, ideally while adults read nearby, builds the same stamina and habits at home as it does in class.
+
 ## In summary
 
 Independent reading builds volume, stamina and motivation when it is structured: appealing books, choice with guidance, regular time, teacher conferences and light accountability. Build stamina gradually, adapt for beginning readers and keep it complementary to explicit instruction. When students lose themselves in books they chose, independent reading is working.

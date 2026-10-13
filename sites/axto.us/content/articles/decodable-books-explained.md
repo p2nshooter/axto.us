@@ -124,6 +124,18 @@ Yes. Write short sentences using the patterns your child knows and let them illu
 
 Not necessarily, but at the very beginning, books that can be read mainly by guessing do not give useful decoding practice. Ask your child's teacher how books are matched to their phonics skills.
 
+### How many decodable books does a beginning reader need?
+
+More than most families expect, but they do not need to be bought. Children typically read several decodable texts for each new set of letter-sound patterns, rereading favorites until they are smooth. Many schools send decodable books home, public libraries often keep sets in the early-reader section, and several reputable phonics programs publish free printable decodable texts online. Rereading the same book on two or three days is valuable practice, not wasted time: the first read is for working out the words, later reads build fluency and expression.
+
+### What does "decodable" mean if my child already knows sight words?
+
+A decodable book mostly uses words your child can sound out with the patterns already taught, plus a few common high-frequency words practiced separately. As your child learns more patterns, the books get richer. The aim is that children practice reading by looking at every letter, not by guessing from pictures or first letters.
+
+### Should older struggling readers use decodable books too?
+
+Yes, if they still need to practice decoding, but choose texts written for older readers. Several publishers make decodable chapter books with age-appropriate topics, so the practice does not feel babyish.
+
 ## In summary
 
 Decodable books use words your child can sound out with the phonics they have learned, so they practice real decoding instead of guessing. They are most useful in the early stages of learning to read and for children who need extra support. Let your child do the decoding, reread for fluency, talk about the story and keep reading rich books aloud. When decoding becomes quick and accurate, it is time to widen the shelf.

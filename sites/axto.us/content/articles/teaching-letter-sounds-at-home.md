@@ -143,6 +143,14 @@ Teach one main sound first, usually the short vowel sound or the most common con
 
 Some can offer extra practice, but many teach letter names more than sounds or reward fast tapping over learning. Playful practice with you is more effective.
 
+### How long should letter-sound practice take each day?
+
+Five to ten playful minutes is enough for young children. Short, regular practice works better than long sessions.
+
+### Should I teach upper-case or lower-case letters first?
+
+Most programs focus on lower-case letters for reading, because they make up nearly all of the text children see in books.
+
 ## In summary
 
 Focus on letter sounds, not just names, and say them cleanly without an extra "uh." Start with a small set like s, a, t, p, i, n so your child can read real words quickly. Keep practice short, playful and frequent, link sounds to writing and talk to the school if progress is slow. A few minutes of games a day can turn letters into reading.

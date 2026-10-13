@@ -150,6 +150,18 @@ Let them enjoy the series. When it ends, help them find similar books.
 
 Reasonable limits help, but pair them with appealing books rather than making reading the punishment for losing screen time.
 
+### How long does it take for a reluctant reader to change?
+
+Often longer than parents hope, and change tends to come in small steps: a child who agrees to read one comic, then asks for the next in the series, then reads in the car without being asked. Months of patient, low-pressure encouragement are normal. Track small wins rather than total minutes, and avoid the temptation to raise expectations sharply the moment a child shows interest; that is the fastest way to lose the progress.
+
+### Could reluctance be a sign of a reading difficulty?
+
+Sometimes. Children who find reading hard often avoid it. If reluctance comes with slow, effortful reading, frequent guessing or tiredness after short passages, ask the school about a reading screening.
+
+### Should I let my reluctant reader choose any book at all?
+
+Within reason, yes. Choice is one of the strongest motivators. Guide gently on content suitability, but let your child pick topics, formats and series, even ones you would not choose yourself.
+
 ## In summary
 
 Reluctant readers usually have a reason: difficulty, the wrong books, pressure or competition. Rule out reading difficulties first, then let your child choose, follow their passions, try graphic novels, series and hi-lo books, read aloud, use audiobooks, remove pressure, make reading social and model reading yourself. Small, positive experiences can turn "I hate reading" into "Can I read one more chapter?"

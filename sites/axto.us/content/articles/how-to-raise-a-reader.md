@@ -120,6 +120,14 @@ No. Adults abandon books they don't enjoy; children should be allowed to as well
 
 Some can support skills, but they don't replace real books, read-alouds and conversations.
 
+### What is the single most important thing parents can do?
+
+Read with your child every day, from infancy onward, and make it warm and enjoyable. That habit builds everything else.
+
+### Does it help if my child sees me reading?
+
+Yes. Children copy what adults do. Let them see you enjoy books, newspapers or e-books, and talk about what you read.
+
 ## In summary
 
 Families raise readers by reading aloud, modeling reading, filling the home with accessible books, visiting the library, giving choice, talking about books, protecting reading time, keeping pressure low, connecting books to life, using all formats and celebrating the joy of reading. Small, consistent habits build children who read not because they must, but because they want to.

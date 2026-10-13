@@ -127,6 +127,14 @@ Model the answer yourself and try again later. Some children need to hear the pa
 
 The principles of conversation, open questions and expanding answers help at any age, though the specific CROWD structure is designed for preschoolers.
 
+### How often should we use dialogic reading?
+
+A few sessions a week of about ten minutes is plenty. Use it with familiar books your child has heard before, so they can concentrate on talking rather than following a new plot, and keep other read-alouds simply for enjoyment.
+
+### What does a short dialogic reading exchange sound like?
+
+Parent: "What is the bear doing?" (prompt). Child: "Sleeping." Parent: "Yes, the bear is sleeping in a cave" (evaluate and expand). "Can you say that?" (repeat). Child: "The bear is sleeping in a cave." Each turn adds a little language to what the child already said, which is the heart of the method.
+
 ## In summary
 
 Dialogic reading turns story time into a conversation. Use the PEER loop to prompt, evaluate kindly, expand and repeat, and vary your prompts with CROWD. Choose picture-rich books, keep sessions short and playful and let your child do more and more of the talking. It is one of the simplest, best-supported ways to grow a young child's language through books.
