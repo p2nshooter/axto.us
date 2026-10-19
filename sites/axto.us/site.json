@@ -23,6 +23,7 @@
     { "slug": "struggling-readers", "name": "Struggling Readers", "icon": "compass", "description": "Warning signs, dyslexia, motivation, school support and the checks to do first when reading is hard." },
     { "slug": "classroom-and-school", "name": "Classroom & School", "icon": "quill", "description": "Read-alouds, classroom libraries, independent reading, book clubs and the science of reading for teachers." }
   ],
+  "promo": { "slug": "classroom-tools", "label": "✦ Classroom tools" },
   "menu": [
     { "label": "About", "href": "/about/" },
     { "label": "Editorial policy", "href": "/editorial-policy/" },
