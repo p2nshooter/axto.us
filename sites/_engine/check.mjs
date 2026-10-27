@@ -10,6 +10,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { build } from "./build.mjs";
+import { auditSite } from "./seo.mjs";
 
 const SITES = join(dirname(fileURLToPath(import.meta.url)), "..");
 const MIN_ARTICLES = 40;
@@ -164,6 +165,16 @@ export async function check(domain) {
   ok(banned.length === 0, "no other ad network and no placeholder text anywhere", banned.slice(0, 5).join(", "));
   ok(langWrong.length === 0, `every page declares lang="${site.lang}"`, langWrong.slice(0, 5).join(", "));
   ok(brokenLinks.size === 0, "no internal link points at a missing page", [...brokenLinks].slice(0, 8).join(", "));
+
+  // SEO (owner, 27 Oct 2026: "perbaiki dulu seluruh SEO websitenya … link xml sitemap dan file2
+  // lain yg d butuhkan … backlink yg tidak melanggar adsense"): seo.mjs reads the built files the
+  // way a search engine does — titles, snippets, canonicals, structured data, sitemap, robots,
+  // manifest, llms.txt, security.txt and every link to the owner's other sites.
+  const seo = auditSite(domain);
+  const seoFails = seo.issues.filter((i) => i.level === "fail");
+  const seoNotes = seo.issues.filter((i) => i.level === "warn");
+  ok(seoFails.length === 0, `SEO: ${seo.pages} pages pass (titles ≤ 60, snippets ≤ 160, unique, canonical, JSON-LD, sitemap, machine files)`, seoFails.slice(0, 6).map((i) => `${i.where} — ${i.what}`).join("; "));
+  for (const i of seoNotes.slice(0, 5)) console.log(`  note  SEO ${i.where} — ${i.what}`);
 
   return failed;
 }
