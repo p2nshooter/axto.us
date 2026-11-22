@@ -60,5 +60,9 @@ jobs:
           sleep 20
           code=$(curl -s -o /tmp/home.html -w '%{http_code}' https://axto.us/)
           echo "axto.us -> HTTP $code"
-          grep -q 'ca-pub-2990015102981265' /tmp/home.html && echo "AdSense meta/loader present" || echo "::warning::AdSense code not seen on the live home page yet (cache?)"
+          # 22 Nov 2026 (pemilik): hanya 4 akun AdSense — loader akun utama, 4 tag meta, 4 baris ads.txt, tanpa akun lama
+          grep -q 'adsbygoogle.js?client=ca-pub-6560360898389273' /tmp/home.html && echo "AdSense loader present" || echo "::warning::AdSense loader not seen on the live home page yet (cache?)"
+          for p in 6560360898389273 4906992051458194 5928074389292014 6701063918838796; do grep -q "content=\"ca-pub-$p\"" /tmp/home.html || echo "::warning::meta ca-pub-$p not seen yet"; done
+          old=$(grep -oE 'ca-pub-[0-9]{16}' /tmp/home.html | sort -u | grep -vE '6560360898389273|4906992051458194|5928074389292014|6701063918838796' || true)
+          [ -z "$old" ] || echo "::error::old AdSense account(s) still on the page: $old"
           curl -s https://axto.us/ads.txt
