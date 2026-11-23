@@ -21,6 +21,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { countWords, esc, parseFrontmatter, renderMarkdown, slugify } from "./lib/markdown.mjs";
 import { adsenseFor, adsTxt, loaderTag, metaTag } from "./adsense.mjs";
+import { ecoBand, withEcoBand } from "./lib/eco.mjs";
 
 const ENGINE = dirname(fileURLToPath(import.meta.url));
 const SITES = resolve(ENGINE, "..");
@@ -116,6 +117,12 @@ export async function build(domain, { quiet = false } = {}) {
         /* a directory */
       }
     }
+  }
+  // The network band's files (lib/eco.mjs: axto.io exclusive works + luaja.com), the same on every article site.
+  for (const f of ["engine-eco.js", "engine-luaja.svg"]) {
+    mkdirSync(join(out, "assets"), { recursive: true });
+    cpSync(join(ENGINE, "assets", f), join(out, "assets", f));
+    assetVersion[f] = createHash("sha256").update(readFileSync(join(ENGINE, "assets", f))).digest("hex").slice(0, 10);
   }
   const publicDir = join(dir, "public");
   if (existsSync(publicDir)) cpSync(publicDir, out, { recursive: true });
@@ -257,10 +264,12 @@ export async function build(domain, { quiet = false } = {}) {
     files.push(path);
   };
 
-  emit("/", theme.home(ctx));
-  for (const c of categories) emit(c.url, theme.category(ctx, c));
-  for (const a of articles) emit(a.url, theme.article(ctx, a));
-  for (const p of pages) emit(p.url, theme.page(ctx, p));
+  // Every page carries the network band above its footer (lib/eco.mjs).
+  const band = ecoBand(site.lang, asset);
+  emit("/", withEcoBand(theme.home(ctx), band));
+  for (const c of categories) emit(c.url, withEcoBand(theme.category(ctx, c), band));
+  for (const a of articles) emit(a.url, withEcoBand(theme.article(ctx, a), band));
+  for (const p of pages) emit(p.url, withEcoBand(theme.page(ctx, p), band));
   writeFileSync(join(out, "404.html"), theme.notFound(ctx));
   const extras = theme.extraFiles?.(ctx) ?? [];
   for (const extra of extras) emit(extra.path, extra.content);
